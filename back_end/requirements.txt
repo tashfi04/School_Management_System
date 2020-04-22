@@ -1,4 +1,5 @@
-﻿astroid==2.3.2
+asgiref==3.2.7
+astroid==2.3.2
 autopep8==1.4.4
 colorama==0.4.1
 Django==2.2.10
@@ -6,10 +7,10 @@ isort==4.3.21
 lazy-object-proxy==1.4.2
 mccabe==0.6.1
 mpmath==1.1.0
-mysqlclient==1.4.4
 pbr==5.4.3
 Pillow==7.0.0
-psycopg2==2.8.4
+psycopg2==2.8.5
+psycopg2-binary==2.8.5
 pycodestyle==2.5.0
 pylint==2.4.3
 pylint-django==2.0.11
