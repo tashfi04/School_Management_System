@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import {Form,Button,Carousel} from 'react-bootstrap'
+import {Link, Redirect} from 'react-router-dom'
+import Home from '../navbar_items/Home'
 import './Login.css'
 
 const axios = require('axios')
@@ -11,7 +13,8 @@ export default class Login extends Component {
     
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            logged_in: false
         }
     }
 
@@ -30,7 +33,6 @@ export default class Login extends Component {
         e.preventDefault();
         let endpoint = "http://127.0.0.1:8000/token-auth/";
         let body = JSON.stringify(data);
-        console.log(body)
         let config = {
           headers: {
             "Content-Type" : "application/json"
@@ -38,11 +40,13 @@ export default class Login extends Component {
         };
         axios.post(endpoint, body, config)
         .then(json => {
-          console.log(json.data)
           localStorage.setItem('token', json.data.token);
+          localStorage.setItem('username', json.data.user.username);
           this.setState({
             username: json.data.user.username,
+            logged_in: true
           });
+          window.location.reload(false)
         })
         .catch(err => {
           console.log(err)
@@ -50,23 +54,27 @@ export default class Login extends Component {
       };
 
     render() {
-        return (
-                <div className="Cont">
-                    <Form onSubmit={e=> this.handle_login(e, this.state)}>
-                        <Form.Group controlId="formBasicEmail">
-                            <Form.Label>User Id</Form.Label>
-                            <Form.Control type="text" placeholder="Enter User Id" name="username" onChange={this.handle_change} />
-                        </Form.Group>
+        if(this.state.logged_in)
+            return <Redirect to = {{ pathname: "/" }} />
+        else {
+            return (
+                    <div className="Cont">
+                        <Form onSubmit={e=> this.handle_login(e, this.state)}>
+                            <Form.Group controlId="formBasicEmail">
+                                <Form.Label>User Id</Form.Label>
+                                <Form.Control type="text" placeholder="Enter User Id" name="username" onChange={this.handle_change} />
+                            </Form.Group>
 
-                        <Form.Group controlId="formBasicPassword">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" placeholder="Password" name="password" onChange={this.handle_change} />
-                        </Form.Group>
-                        <Button variant="primary" type="submit">
-                            Submit
-                        </Button>
-                    </Form>
-            </div>
-        )
+                            <Form.Group controlId="formBasicPassword">
+                                <Form.Label>Password</Form.Label>
+                                <Form.Control type="password" placeholder="Password" name="password" onChange={this.handle_change} />
+                            </Form.Group>
+                            <Button variant="primary" type="submit">
+                                Submit
+                            </Button>
+                        </Form>
+                </div>
+            )
+        }
     }
 }

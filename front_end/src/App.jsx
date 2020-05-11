@@ -38,12 +38,12 @@ function App() {
     .catch(err => {
       console.log(err)
     })
-  },[])
+  },[username])
 
   return (
     <Router>
       <div>
-        <CustomNavbar />
+        <CustomNavbar username={username} />
         <Route exact path="/" component={Home} />
         <Route path="/about" component={About}></Route>
         <Route path="/administration" component={Administration} />
