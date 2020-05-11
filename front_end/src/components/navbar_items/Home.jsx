@@ -23,7 +23,7 @@ export default class Home extends Component {
                 <Carousel.Item>
                     <img  style={{'height':"500px"}} className="d-block w-100" src="assets/home.jpg" fluid alt="School-Front"/>
                 <Carousel.Caption>
-                    <h3>School From Front</h3>
+                    <p>School From Front</p>
                 </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item >
