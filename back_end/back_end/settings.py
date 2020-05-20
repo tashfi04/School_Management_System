@@ -28,6 +28,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'authentication.apps.AuthenticationConfig',
+    'students.apps.StudentsConfig',
+    'teachers.apps.TeachersConfig',
 ]
 
 MIDDLEWARE = [
