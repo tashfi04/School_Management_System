@@ -18,6 +18,7 @@ function UnauthNav() {
                 </Nav>
                 <Nav>
                     <Nav.Link href="#">{localStorage.getItem('username')}</Nav.Link>
+                    <Nav.Link href="/logout"> <img src="assets/login.png" width="25px" float="right" /> </Nav.Link>
                 </Nav>     
             </Navbar.Collapse>
         </Navbar>
