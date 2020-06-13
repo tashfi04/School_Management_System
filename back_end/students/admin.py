@@ -10,7 +10,7 @@ class StudentAdmin(admin.ModelAdmin):
 
     fieldsets = (
         ('Account credentials', {
-            'fields': (('user_name', 'password'))
+            'fields': (('username', 'password'))
         }),
         ('Basic information', {
             'fields': ('name', ('gender', 'date_of_birth', 'place_of_birth'), 'mother_name', 'father_name',
@@ -23,7 +23,7 @@ class StudentAdmin(admin.ModelAdmin):
     )
 
     readonly_fields = (
-        'user_name', 'password'
+        'username', 'password'
     )
 
 admin.site.register(Student, StudentAdmin)

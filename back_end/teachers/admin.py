@@ -12,7 +12,7 @@ class TeacherAdmin(admin.ModelAdmin):
 
     fieldsets = (
         ('Account credentials', {
-            'fields': (('user_name', 'password'))
+            'fields': (('username', 'password'))
         }),
         ('Basic information', {
             'fields': ('name', 'NID_no', 'designation', 'present_address')
@@ -29,7 +29,7 @@ class TeacherAdmin(admin.ModelAdmin):
     )
     
     readonly_fields = (
-        'user_name', 'password'
+        'username', 'password'
     )
 
     inlines = [

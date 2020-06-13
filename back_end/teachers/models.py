@@ -1,5 +1,7 @@
 from django.db import models
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
+from django.conf import settings
 from django.db.models import F
 from django.core.validators import MaxValueValidator, MinValueValidator
 
@@ -9,7 +11,8 @@ class Teacher(models.Model):
         ('UM', 'Unmarried'),
     ]
 
-    user_name = models.CharField(primary_key=True, max_length=50, blank=True)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    username = models.CharField(primary_key=True, max_length=50, blank=True)
     password = models.CharField(max_length=20)
     duplicate_name_count = models.IntegerField(null=True, blank=True)
 
@@ -30,21 +33,40 @@ class Teacher(models.Model):
     highest_educational_qualification = models.CharField(max_length=50)
     photo = models.ImageField(upload_to='photos/%Y/%m/%d/')
 
+    """
+    Keeping a copy of the original password so that we don't have to do another DB lookup
+    to check if the password was changed
+    """
+    originalPassword = None
+
+    def __init__(self, *args, **kwargs):
+        super(Teacher, self).__init__(*args, **kwargs)
+        self.originalPassword = self.password
+
     def save(self, *args, **kwargs):
-        first_name = self.name.split(' ', 1)[0]
+        if self._state.adding:
+            first_name = self.name.split(' ', 1)[0]
 
-        if Teacher.objects.filter(user_name=first_name).exists():
-            existing_user = Teacher.objects.get(user_name=first_name)
-            user_name = first_name + str(existing_user.duplicate_name_count)
-            self.user_name = user_name
+            if get_user_model().objects.filter(username=first_name).exists():
+                existing_user = Teacher.objects.get(username=first_name)
+                username = first_name + str(existing_user.duplicate_name_count)
+                self.username = username
 
-            Teacher.objects.filter(user_name=first_name).update(duplicate_name_count=F('duplicate_name_count') + 1)
+                Teacher.objects.filter(username=first_name).update(duplicate_name_count=F('duplicate_name_count') + 1)
+            else:
+                self.username = first_name
+                self.duplicate_name_count = 1
+
+            self.password = get_user_model().objects.make_random_password(
+            length=10, allowed_chars='abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789')
+
+            #experimental
+            user = get_user_model().objects.create_user(self.username, self.email, self.password, is_teacher=True)
+            self.user = user
+
         else:
-            self.user_name = first_name
-            self.duplicate_name_count = 1
-
-        self.password = User.objects.make_random_password(
-        length=10, allowed_chars='abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789')
+            if (self.password) != self.originalPassword:
+                get_user_model().objects.filter(pk=self.user_id).update(password=self.password)
 
         super().save(*args, **kwargs)
 
@@ -58,3 +80,5 @@ class Qualifications(models.Model):
     institute = models.CharField(max_length=70)
     board = models.CharField(max_length=50)
     result = models.CharField(max_length=10)
+    
+
