@@ -10,3 +10,11 @@
 footer{
     position: absolute;
 }
+
+#collasible-nav-dropdown {
+    background-color: deeppink !important;
+}
+
+.dropdown-item {
+    background-color: deeppink !important;
+}

@@ -12,6 +12,7 @@ import CustomFooter from './components/navbar_items/CustomFooter'
 import Login from './components/user_authentication/Login'
 import Registration from './components/user_authentication/Registration';
 import Logout from './components/user_authentication/Logout';
+import Profile from './components/navbar_items/Profile';
 
 const axios = require('axios')
 
@@ -52,6 +53,7 @@ function App() {
         <Route path="/facilities" component={Facilities}></Route>
         <Route path="/notice" component={Notice}></Route>
         <Route path="/login" component={Login}></Route>
+        <Route path="/profile" component={Profile}></Route>
         <Route path="/logout" component={Logout}></Route>
         <Route path="/registration" component={Registration}></Route>
         <CustomFooter />
