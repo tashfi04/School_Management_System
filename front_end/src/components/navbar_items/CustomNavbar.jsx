@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import {Navbar, Nav, NavDropdown } from 'react-bootstrap'
 import './CustomNavbar.css'
 import UnauthNav from './UnauthNav'
 import AuthNav from './AuthNav'

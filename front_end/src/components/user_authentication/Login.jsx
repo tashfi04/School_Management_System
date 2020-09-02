@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import {Form,Button,Carousel} from 'react-bootstrap'
-import {Link, Redirect} from 'react-router-dom'
-import Home from '../navbar_items/Home'
+import {Form,Button} from 'react-bootstrap'
+import { Redirect} from 'react-router-dom'
 import './Login.css'
 
 const axios = require('axios')

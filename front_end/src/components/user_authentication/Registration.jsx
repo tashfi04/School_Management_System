@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Form,Button,Carousel} from 'react-bootstrap'
+import {Form,Button} from 'react-bootstrap'
 import './Login.css'
 
 const axios = require('axios')

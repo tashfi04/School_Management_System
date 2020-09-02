@@ -11,10 +11,17 @@ footer{
     position: absolute;
 }
 
-#collasible-nav-dropdown {
-    background-color: deeppink !important;
+.dropdown-item {
+    color: rgb(142, 185, 214);
+    background-color: #343a40 !important;
+
 }
 
-.dropdown-item {
-    background-color: deeppink !important;
+.dropdown-menu {
+    background-color: #343a40 !important;
+    float: left;
+}
+
+#dropdown-divider {
+    float: down;
 }
