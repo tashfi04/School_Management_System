@@ -1,10 +1,33 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, Group
+
+#permission_list = [ca]
+
+#group, created = Group.objects.get_or_create(name='Headmaster')   
+#if created:
+#    group.permissions.add(can_read_campaign)
+#    logger.info('read_only_user Group created')
 
 class User(AbstractUser):
-    is_teacher = models.BooleanField(default=False)
-    is_student = models.BooleanField(default=False)
-    is_guardian = models.BooleanField(default=False)
+
+    Administrator = 0
+    Teacher = 1
+    Classteacher = 2
+    Headmaster = 3
+    Student = 4
+    
+
+    ROLE_CHOICES = [
+        (Administrator, 'Administrator'),
+        (Teacher, 'Teacher'),
+        (Classteacher, 'Class teacher'),
+        (Headmaster, 'Headmaster'),
+        (Student, 'Student')
+    ]
+
+    role = models.IntegerField(choices=ROLE_CHOICES, null=True, blank=False)
+
+    duplicate_name_count = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.username

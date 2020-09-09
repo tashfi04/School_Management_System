@@ -15,7 +15,7 @@ class TeacherAdmin(admin.ModelAdmin):
             'fields': (('username', 'password'))
         }),
         ('Basic information', {
-            'fields': ('name', 'NID_no', 'designation', 'present_address')
+            'fields': ('name', 'NID_no', 'role', 'present_address')
         }),
         ('Contact information', {
             'fields': (('office_telephone', 'home_telephone'), ('office_mobile', 'personal_mobile'), 'fax', 'email')

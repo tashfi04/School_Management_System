@@ -6,6 +6,17 @@ from django.db.models import F
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 class Teacher(models.Model):
+
+    Teacher = 1
+    Classteacher = 2
+    Headmaster = 3
+
+    ROLE_CHOICES = [
+        (Teacher, 'Teacher'),
+        (Classteacher, 'Class teacher'),
+        (Headmaster, 'Headmaster')
+    ]
+
     MARITAL_STATUS_CHOICES = [
         ('MR', 'Married'),
         ('UM', 'Unmarried'),
@@ -14,7 +25,9 @@ class Teacher(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     username = models.CharField(primary_key=True, max_length=50, blank=True)
     password = models.CharField(max_length=20)
-    duplicate_name_count = models.IntegerField(null=True, blank=True)
+    #duplicate_name_count = models.IntegerField(null=True, blank=True)
+
+    role = models.IntegerField(choices=ROLE_CHOICES)
 
     name = models.CharField(max_length=100)
     NID_no = models.CharField("NID no.:", max_length=100)
@@ -43,16 +56,20 @@ class Teacher(models.Model):
         super(Teacher, self).__init__(*args, **kwargs)
         self.originalPassword = self.password
 
+    duplicate_name_count = None
+
     def save(self, *args, **kwargs):
         if self._state.adding:
             first_name = self.name.split(' ', 1)[0]
 
             if get_user_model().objects.filter(username=first_name).exists():
-                existing_user = Teacher.objects.get(username=first_name)
+                #existing_user = Teacher.objects.get(username=first_name)
+                existing_user = get_user_model().objects.get(username=first_name)
                 username = first_name + str(existing_user.duplicate_name_count)
                 self.username = username
 
-                Teacher.objects.filter(username=first_name).update(duplicate_name_count=F('duplicate_name_count') + 1)
+                #Teacher.objects.filter(username=first_name).update(duplicate_name_count=F('duplicate_name_count') + 1)
+                get_user_model().objects.filter(username=first_name).update(duplicate_name_count=F('duplicate_name_count') + 1)
             else:
                 self.username = first_name
                 self.duplicate_name_count = 1
@@ -61,7 +78,7 @@ class Teacher(models.Model):
             length=10, allowed_chars='abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789')
 
             #experimental
-            user = get_user_model().objects.create_user(self.username, self.email, self.password, is_teacher=True)
+            user = get_user_model().objects.create_user(self.username, self.email, self.password, role=self.role, duplicate_name_count=self.duplicate_name_count)
             self.user = user
 
         else:
@@ -80,5 +97,8 @@ class Qualifications(models.Model):
     institute = models.CharField(max_length=70)
     board = models.CharField(max_length=50)
     result = models.CharField(max_length=10)
+
+    #def __str__(self):
+    #    return self.name
     
 
