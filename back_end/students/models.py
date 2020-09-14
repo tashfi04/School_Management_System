@@ -4,25 +4,14 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from django.db.models import F
 from django.core.validators import MaxValueValidator, MinValueValidator
+from classes.models import Class
 
 class Student(models.Model):
     GENDER_CHOICES = [
         ('M', 'Male'),
         ('F', 'Female'),
     ]
-    CLASS_CHOICES = [
-        ('0', 'Nursery'),
-        ('1', 'One'),
-        ('2', 'Two'),
-        ('3', 'Three'),
-        ('4', 'Four'),
-        ('5', 'Five'),
-        ('6', 'Six'),
-        ('7', 'Seven'),
-        ('8', 'Eight'),
-        ('9', 'Nine'),
-        ('10', 'Ten',),
-    ]
+    CLASS_CHOICES = Class.objects.values_list('id', 'name')
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     username = models.CharField(primary_key=True, max_length=50, blank=True)
@@ -45,7 +34,7 @@ class Student(models.Model):
     nationality = models.CharField(max_length=30)
     previous_class = models.IntegerField()
     previous_school = models.CharField(max_length=40)
-    current_class = models.CharField(max_length=2, choices=CLASS_CHOICES)
+    current_class = models.IntegerField(choices=CLASS_CHOICES)
     tc_number = models.CharField("T.C no.", max_length=50)
     date = models.DateField()
     photo = models.ImageField(upload_to='photos/%Y/%m/%d/')
@@ -64,6 +53,8 @@ class Student(models.Model):
     def __init__(self, *args, **kwargs):
         super(Student, self).__init__(*args, **kwargs)
         self.originalPassword = self.password
+        #self.CLASS_CHOICES = Class.objects.values_list('id', 'name')
+        #self.current_class = models.IntegerField(choices=self.CLASS_CHOICES)
 
     def save(self, *args, **kwargs):
         if self._state.adding:
@@ -84,7 +75,7 @@ class Student(models.Model):
             length=10, allowed_chars='abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789')
 
             #experimental
-            user = get_user_model().objects.create_user(self.username, self.email, self.password, is_student=True)
+            user = get_user_model().objects.create_user(self.username, self.email, self.password, role=4)
             self.user = user
         
         else:

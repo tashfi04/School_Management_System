@@ -12,10 +12,10 @@ class TeacherAdmin(admin.ModelAdmin):
 
     fieldsets = (
         ('Account credentials', {
-            'fields': (('username', 'password'))
+            'fields': (('username', 'password'), 'role')
         }),
         ('Basic information', {
-            'fields': ('name', 'NID_no', 'role', 'present_address')
+            'fields': ('name', 'NID_no', 'designation', 'present_address')
         }),
         ('Contact information', {
             'fields': (('office_telephone', 'home_telephone'), ('office_mobile', 'personal_mobile'), 'fax', 'email')

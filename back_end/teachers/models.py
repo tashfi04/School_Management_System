@@ -31,7 +31,7 @@ class Teacher(models.Model):
 
     name = models.CharField(max_length=100)
     NID_no = models.CharField("NID no.:", max_length=100)
-    designation = models.CharField(max_length=100)
+    designation = models.CharField(max_length=100, null=True, blank=False)
     present_address = models.TextField()
     office_telephone = models.CharField("Telephone no.(Office)", max_length=13)
     home_telephone = models.CharField("Telephone no.(Home)",max_length=13)
