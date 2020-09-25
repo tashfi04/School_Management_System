@@ -56,11 +56,10 @@ class Teacher(models.Model):
         super(Teacher, self).__init__(*args, **kwargs)
         self.originalPassword = self.password
 
-    duplicate_name_count = None
-
     def save(self, *args, **kwargs):
         if self._state.adding:
             first_name = self.name.split(' ', 1)[0]
+            duplicate_name_count = None
 
             if get_user_model().objects.filter(username=first_name).exists():
                 #existing_user = Teacher.objects.get(username=first_name)
@@ -72,13 +71,13 @@ class Teacher(models.Model):
                 get_user_model().objects.filter(username=first_name).update(duplicate_name_count=F('duplicate_name_count') + 1)
             else:
                 self.username = first_name
-                self.duplicate_name_count = 1
+                duplicate_name_count = 1
 
             self.password = get_user_model().objects.make_random_password(
             length=10, allowed_chars='abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789')
 
             #experimental
-            user = get_user_model().objects.create_user(self.username, self.email, self.password, role=self.role, duplicate_name_count=self.duplicate_name_count)
+            user = get_user_model().objects.create_user(self.username, self.email, self.password, role=self.role, duplicate_name_count=duplicate_name_count)
             self.user = user
 
         else:
