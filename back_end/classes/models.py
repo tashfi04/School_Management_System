@@ -28,7 +28,7 @@ class Subject(models.Model):
 class Exam(models.Model):
 
     related_class = models.ForeignKey(Class, on_delete=models.CASCADE)
-    exam_name = models.CharField(max_length=50)
+    exam = models.ForeignKey('exams.Exam', on_delete=models.CASCADE, null=True, blank=False)
     exam_year = models.IntegerField(validators=[MinValueValidator(1900), MaxValueValidator(9999)], null=True, blank=False)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE, null=True, blank=True)#, limit_choices_to=limit_subject_choices)
     subjective_marks = models.IntegerField()
