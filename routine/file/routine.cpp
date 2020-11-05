@@ -10,7 +10,7 @@ struct data{
 
 int number_of_teacher,number_of_class;
 vector<string>teacher_id;
-vector<data>information;
+vector<data>information[15];
 
 
 
@@ -30,7 +30,7 @@ int main()
             string subject_name,teacher_name;
             int total_class;
             cin>>subject_name>>teacher_name>>total_class;
-            information.push_back(data(subject_name,teacher_name,total_class));
+            information[i].push_back(data(subject_name,teacher_name,total_class));
         }
     }
 }
