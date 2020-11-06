@@ -11,7 +11,23 @@ struct data{
 int number_of_teacher,number_of_class;
 vector<string>teacher_id;
 vector<data>information[15];
+queue<int>teacherQueue[15];
 
+bool availableTeacher[15];
+
+
+void generateTeacherQueue()
+{
+    memset(availableTeacher,false,sizeof availableTeacher);
+    for(int i=0;i<number_of_class;i++){
+        while(!teacherQueue[i].empty()){
+            teacherQueue[i].pop();
+        }
+        for(int j=0;j<information[i].size();j++){
+            teacherQueue[i].push(j);
+        }
+    }
+}
 
 
 int main()
