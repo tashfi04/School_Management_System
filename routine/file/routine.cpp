@@ -13,12 +13,15 @@ vector<string>teacher_id;
 vector<data>information[15];
 queue<int>teacherQueue[15];
 
-bool availableTeacher[15];
+map<string,bool> availableTeacher;
+
+
+
 
 
 void generateTeacherQueue()
 {
-    memset(availableTeacher,false,sizeof availableTeacher);
+    availableTeacher.clear();
     for(int i=0;i<number_of_class;i++){
         while(!teacherQueue[i].empty()){
             teacherQueue[i].pop();
@@ -28,6 +31,8 @@ void generateTeacherQueue()
         }
     }
 }
+
+
 
 
 int main()
