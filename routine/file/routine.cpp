@@ -13,6 +13,7 @@ struct data{
 int number_of_teacher,number_of_class;
 vector<string>teacher_id;
 vector<data>information[15];
+vector<data>firstClassinformation[15];
 queue<int>teacherQueue[15];
 
 map<string,bool> availableTeacher;
@@ -37,20 +38,35 @@ void generateTeacherQueue()
 
 void generateForSingleDay(int day)
 {
-    for(int gap=0;gap<totalClass;gap++){
+    for(int _class=0;_class<number_of_class;_class++){
+        for(int i=0;i<firstClassinformation[_class].size();i++){
+            if(firstClassinformation[_class][i].total_class>0){
+                firstClassinformation[_class][i].total_class--;
+                routine[day][_class].push_back({firstClassinformation[_class][i].subject_name,firstClassinformation[_class][i].teacher_name});
+                break;
+            }
+        }
+    }
+
+    for(int gap=1;gap<totalClass;gap++){
         for(int _class=0;_class<number_of_class;_class++){
-            bool allocated=0;
             availableTeacher.clear();
-            while(!allocated){
+            int allocated=0;
+            for(allocated=0;allocated<number_of_teacher;allocated++){
                 int i=teacherQueue[_class].front();
                 teacherQueue[_class].pop();
                 if(availableTeacher[information[_class][i].teacher_name]==false && information[_class][i].total_class>0){
                     availableTeacher[information[_class][i].teacher_name]=true;
                     information[_class][i].total_class--;
                     routine[day][_class].push_back({information[_class][i].subject_name,information[_class][i].teacher_name});
-                    allocated=true;
+                    teacherQueue[_class].push(i);
+                    break;
                 }
                 teacherQueue[_class].push(i);
+            }
+            if(allocated==number_of_teacher){
+                cout<<"Cant generate\n";
+                return;
             }
         }
     }
@@ -90,11 +106,18 @@ int main()
     for(int i=0;i<number_of_class;i++){
         int number_of_subject;
         cin>>number_of_subject;
+        int cnt=7;
         for(int j=0;j<number_of_subject;j++){
             string subject_name,teacher_name;
             int total_class;
             cin>>subject_name>>teacher_name>>total_class;
-            information[i].push_back(data(subject_name,teacher_name,total_class));
+            if(cnt){
+                firstClassinformation[i].push_back(data(subject_name,teacher_name,total_class));
+                cnt-=total_class;
+            }else{
+                information[i].push_back(data(subject_name,teacher_name,total_class));
+            }
+
         }
     }
     generateWeek();
