@@ -38,6 +38,7 @@ void generateTeacherQueue()
 
 void generateForSingleDay(int day)
 {
+    //first class
     for(int _class=0;_class<number_of_class;_class++){
         for(int i=0;i<firstClassinformation[_class].size();i++){
             if(firstClassinformation[_class][i].total_class>0){
@@ -47,7 +48,8 @@ void generateForSingleDay(int day)
             }
         }
     }
-
+    
+    //from 2nd class
     for(int gap=1;gap<totalClass;gap++){
         for(int _class=0;_class<number_of_class;_class++){
             availableTeacher.clear();
