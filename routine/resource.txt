@@ -1,0 +1,9 @@
+resource
+
+http://www.ijmlc.org/papers/174-L031.pdf
+
+https://ijarcce.com/wp-content/uploads/2015/03/IJARCCE4I.pdf
+
+https://github.com/maruf0011/class-routine-generator
+
+https://www.codeproject.com/Articles/23111/Making-a-Class-Schedule-Using-a-Genetic-Algorithm ***
