@@ -18,15 +18,22 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 
-INSTALLED_APPS = [
+DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+]
+
+THIRD_PARTY_APPS = [
     'rest_framework',
     'corsheaders',
+]
+
+LOCAL_APPS = [
+    'api.apps.ApiConfig',
     'authentication.apps.AuthenticationConfig',
     'accounts.apps.AccountsConfig',
     'students.apps.StudentsConfig',
@@ -34,6 +41,8 @@ INSTALLED_APPS = [
     'classes.apps.ClassesConfig',
     'exams.apps.ExamsConfig'
 ]
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
