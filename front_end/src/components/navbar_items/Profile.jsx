@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { Jumbotron, Container,Col,Row,Image } from 'react-bootstrap'
-import './Profile.css'
+import { Jumbotron, Container} from 'react-bootstrap'
 import StudentShow from './StudentShow'
 import TeacherShow from './TeacherShow'
 
@@ -20,7 +19,7 @@ export default class Profile extends Component {
    }
 
     componentDidMount() {
-        axios.get('http://127.0.0.1:8000/profileStudent/', {
+        axios.get('/api/v1/profileStudent/', {
             params: {
                 username : localStorage.getItem('username')
             }
@@ -33,7 +32,7 @@ export default class Profile extends Component {
             console.log(error)
         })
 
-        axios.get('http://127.0.0.1:8000/profileTeacher/', {
+        axios.get('/api/v1/profileTeacher/', {
             params: {
                 username : localStorage.getItem('username')
             }
