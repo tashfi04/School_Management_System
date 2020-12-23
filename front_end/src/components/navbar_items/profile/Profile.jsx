@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
-import { Jumbotron, Container} from 'react-bootstrap'
+import { Jumbotron, Container, Row, Col} from 'react-bootstrap'
+import Sidebar from './Sidebar'
 import StudentShow from './StudentShow'
 import TeacherShow from './TeacherShow'
+
+import "./Profile.scss"
 
 const axios = require('axios')
 
@@ -49,25 +52,47 @@ export default class Profile extends Component {
     render() {
         if(this.state.dataStudent){
             return (
-                <div>
-                    <Jumbotron>
-                        <Container>
-                        <h1 className="pt-4">Account Information</h1> <br></br>
-                            <StudentShow data={this.state.dataStudent}/>
-                        </Container>
-                    </Jumbotron>
+                <div style={{backgroundColor:"#B8B8B8"}}>
+                    <Row>
+                        <Col sm={4}>
+                            <Jumbotron>
+                                <Container>
+                                    <Sidebar />
+                                </Container>
+                            </Jumbotron>
+                        </Col>
+                        <Col sm={8}>
+                        <Jumbotron>
+                            <Container>
+                            <h1 className="pt-4">Account Information</h1> <br></br>
+                                <StudentShow data={this.state.dataStudent}/>
+                            </Container>
+                        </Jumbotron>
+                        </Col>
+                    </Row>
                 </div>
             )
         }
         else{
             return (
-                <div>
+                <div style={{backgroundColor:"#B8B8B8"}}>
+                    <Row>
+                        <Col sm={3}>
+                            <Jumbotron>
+                                <Container>
+                                    <Sidebar />
+                                </Container>
+                            </Jumbotron>
+                        </Col>
+                        <Col sm={9}>
                     <Jumbotron>
                         <Container>
                         <h1 className="pt-4">Account Information</h1> <br></br>
                             <TeacherShow data={this.state.dataTeacher} />
                         </Container>
                     </Jumbotron>
+                    </Col>
+                    </Row>
                 </div>
             )
         }

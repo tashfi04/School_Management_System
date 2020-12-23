@@ -9,8 +9,6 @@ export default class TeacherShow extends Component {
     {
         return (
             <Container fluid>
-                <div>
-                    
                   <div className="mb-3 container profile">
                     <Row>
                         <Col sm={6}>
@@ -153,7 +151,6 @@ export default class TeacherShow extends Component {
                     </Row>
                     <br />
                   </div>
-                </div>
             </Container>
           );
     }

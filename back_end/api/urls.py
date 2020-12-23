@@ -3,11 +3,11 @@ from .views import apiOverview
 
 urlpatterns = [
 
-     path('profileStudent/',include('students.urls')),
-
-    path('profileTeacher/',include('teachers.urls'))
-]  path('', apiOverview, name = "api-overview"),
+    path('/', apiOverview, name = "api-overview"),
 
     path('authentication/', include('authentication.urls')),
 
- 
+    path('profileStudent/',include('students.urls')),
+
+    path('profileTeacher/',include('teachers.urls'))
+]
