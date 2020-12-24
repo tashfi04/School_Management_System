@@ -38,6 +38,7 @@ LOCAL_APPS = [
     'accounts.apps.AccountsConfig',
     'students.apps.StudentsConfig',
     'teachers.apps.TeachersConfig',
+    'staffs.apps.StaffsConfig',
     'classes.apps.ClassesConfig',
     'exams.apps.ExamsConfig'
 ]

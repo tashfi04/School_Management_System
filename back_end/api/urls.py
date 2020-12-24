@@ -3,7 +3,7 @@ from .views import apiOverview
 
 urlpatterns = [
 
-    path('/', apiOverview, name = "api-overview"),
+    path('', apiOverview, name = "api-overview"),
 
     path('authentication/', include('authentication.urls')),
 

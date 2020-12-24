@@ -11,6 +11,6 @@ def apiOverview(request):
         'API Overview': 'api/v1/',
     }
 
-    return (api_urls)
+    return Response(api_urls)
 
 # Create your views here.
