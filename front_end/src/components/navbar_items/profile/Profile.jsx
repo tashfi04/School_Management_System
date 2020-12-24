@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
-import { Jumbotron, Container,Col,Row,Image } from 'react-bootstrap'
-import './Profile.css'
+import { Jumbotron, Container, Row, Col} from 'react-bootstrap'
+import Sidebar from './Sidebar'
 import StudentShow from './StudentShow'
 import TeacherShow from './TeacherShow'
+
+import "./Profile.scss"
 
 const axios = require('axios')
 
@@ -20,7 +22,7 @@ export default class Profile extends Component {
    }
 
     componentDidMount() {
-        axios.get('http://127.0.0.1:8000/profileStudent/', {
+        axios.get('/api/v1/profileStudent/', {
             params: {
                 username : localStorage.getItem('username')
             }
@@ -33,7 +35,7 @@ export default class Profile extends Component {
             console.log(error)
         })
 
-        axios.get('http://127.0.0.1:8000/profileTeacher/', {
+        axios.get('/api/v1/profileTeacher/', {
             params: {
                 username : localStorage.getItem('username')
             }
@@ -50,25 +52,47 @@ export default class Profile extends Component {
     render() {
         if(this.state.dataStudent){
             return (
-                <div>
-                    <Jumbotron>
-                        <Container>
-                        <h1 className="pt-4">Account Information</h1> <br></br>
-                            <StudentShow data={this.state.dataStudent}/>
-                        </Container>
-                    </Jumbotron>
+                <div style={{backgroundColor:"#B8B8B8"}}>
+                    <Row>
+                        <Col sm={4}>
+                            <Jumbotron>
+                                <Container>
+                                    <Sidebar />
+                                </Container>
+                            </Jumbotron>
+                        </Col>
+                        <Col sm={8}>
+                        <Jumbotron>
+                            <Container>
+                            <h1 className="pt-4">Account Information</h1> <br></br>
+                                <StudentShow data={this.state.dataStudent}/>
+                            </Container>
+                        </Jumbotron>
+                        </Col>
+                    </Row>
                 </div>
             )
         }
         else{
             return (
-                <div>
+                <div style={{backgroundColor:"#B8B8B8"}}>
+                    <Row>
+                        <Col sm={3}>
+                            <Jumbotron>
+                                <Container>
+                                    <Sidebar />
+                                </Container>
+                            </Jumbotron>
+                        </Col>
+                        <Col sm={9}>
                     <Jumbotron>
                         <Container>
                         <h1 className="pt-4">Account Information</h1> <br></br>
                             <TeacherShow data={this.state.dataTeacher} />
                         </Container>
                     </Jumbotron>
+                    </Col>
+                    </Row>
                 </div>
             )
         }

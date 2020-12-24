@@ -2,17 +2,10 @@ footer{
     position: fixed;
 }
 
-.Cont {
-    width: 80%;
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
-    padding-top: 50px;
-    margin-top: 30px;
-}
+
 
 form{
-    width: max-content;
+    width: 50%;
     margin: auto;
+    align-content: center;
 }

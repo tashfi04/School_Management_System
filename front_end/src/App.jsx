@@ -12,7 +12,13 @@ import CustomFooter from './components/navbar_items/CustomFooter'
 import Login from './components/user_authentication/Login'
 import Registration from './components/user_authentication/Registration';
 import Logout from './components/user_authentication/Logout';
-import Profile from './components/navbar_items/Profile';
+import Profile from './components/navbar_items/profile/Profile';
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { far } from "@fortawesome/free-regular-svg-icons";
+import { fas } from "@fortawesome/free-solid-svg-icons";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+
+library.add(far, fas, fab);
 
 const axios = require('axios')
 
@@ -26,7 +32,7 @@ function App() {
   //const [logged_in, setlogged_in] = useState('')
 
   useEffect(() => {
-    let endpoint = "http://127.0.0.1:8000/authentication/current_user/";
+    let endpoint = "/api/v1/authentication/current_user/";
     let config = {
       headers: {
         Authorization: `JWT ${localStorage.getItem('token')}`
