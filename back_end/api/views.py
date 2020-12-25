@@ -8,7 +8,9 @@ from rest_framework.response import Response
 def apiOverview(request):
 
     api_urls = {
-        'API Overview': 'api/v1/',
+        'API Overview'      : 'api/v1/',
+        'Teacher List'      : 'api/v1/teachers/list/',
+        'Teacher Details'   : 'api/v1/teachers/details/'
     }
 
     return Response(api_urls)
