@@ -10,7 +10,9 @@ def apiOverview(request):
     api_urls = {
         'API Overview'      : 'api/v1/',
         'Teacher List'      : 'api/v1/teachers/list/',
-        'Teacher Details'   : 'api/v1/teachers/details/'
+        'Teacher Details'   : 'api/v1/teachers/details/',
+        'Student Details'   : 'api/v1/students/details/',
+        'Classes Details'   : 'api/v1/classes/list/',
     }
 
     return Response(api_urls)

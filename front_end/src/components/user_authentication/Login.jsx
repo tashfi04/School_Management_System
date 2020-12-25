@@ -38,6 +38,7 @@ export default class Login extends Component {
         axios
             .post(endpoint, body, config)
             .then((json) => {
+                console.log(json.data)
                 localStorage.setItem("token", json.data.token);
                 localStorage.setItem("username", json.data.user.username);
                 this.setState({
