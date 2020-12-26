@@ -36,7 +36,6 @@ class TeacherList(ListAPIView):
         else:
             raise NotFound("No teacher has beed added yet!")
 
-
 class TeacherDetails(ListAPIView):
 
     permission_classes = [permissions.IsAuthenticated]

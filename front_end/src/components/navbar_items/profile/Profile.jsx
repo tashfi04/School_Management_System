@@ -22,9 +22,9 @@ export default class Profile extends Component {
    }
 
     componentDidMount() {
-        axios.get('/api/v1/profileStudent/', {
-            params: {
-                username : localStorage.getItem('username')
+        axios.get('/api/v1/students/details/', {
+            headers: {
+                "Authorization": `JWT ${localStorage.getItem("token")}`,
             }
         })
         .then(response => {
@@ -35,14 +35,16 @@ export default class Profile extends Component {
             console.log(error)
         })
 
-        axios.get('/api/v1/profileTeacher/', {
-            params: {
-                username : localStorage.getItem('username')
+        console.log(localStorage.getItem("token"));
+
+        axios.get('/api/v1/teachers/details/', {
+            headers: {
+                "Authorization": `JWT ${localStorage.getItem("token")}`,
             }
         })
         .then(response => {
                 this.setState({dataTeacher: response.data[0]})
-                console.log(this.state.dataTeacher)
+                console.log("hi", this.state.dataTeacher)
             })
         .catch(error => {
             console.log(error)

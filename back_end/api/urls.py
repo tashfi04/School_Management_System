@@ -9,5 +9,7 @@ urlpatterns = [
 
     path('students/',include('students.urls')),
 
-    path('teachers/',include('teachers.urls'))
+    path('teachers/',include('teachers.urls')),
+
+    path('classes/', include('classes.urls'))
 ]

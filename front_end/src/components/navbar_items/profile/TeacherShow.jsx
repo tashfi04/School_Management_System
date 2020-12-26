@@ -18,7 +18,7 @@ export default class TeacherShow extends Component {
                             </h2>
                         </Col>
                         <Col sm={6}>
-                            <Image style={{height:'75%', width:'75%'}} src={`http://localhost:8000${this.props.data.photo}` } thumbnail/>
+                            <Image style={{height:'75%', width:'75%'}} src={`${this.props.data.photo}` } thumbnail/>
                         </Col>
                     </Row>
                     <hr></hr>
