@@ -5,12 +5,11 @@ from rest_framework.exceptions import (
     PermissionDenied,
 )
 from rest_framework.generics import (
-    ListAPIView,
-    RetrieveAPIView
+    ListAPIView
 )
 
 from .serializers import (
-    StudentsSerializer
+    StudentDetailsSerializer
 )
 
 from .models import Student
@@ -23,7 +22,7 @@ class Conflict(APIException):
 
 class StudentDetails(ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
-    serializer_class = StudentsSerializer
+    serializer_class = StudentDetailsSerializer
 
     def get_queryset(self):
         user_id = self.request.user.id

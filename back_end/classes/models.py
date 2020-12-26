@@ -9,36 +9,36 @@ class Class(models.Model):
         ('Bus', 'Business Studies')
     ]
 
-    name = models.CharField(max_length=20)
-    group = models.CharField(choices=GROUP_CHOICES, max_length=30, null=True, blank=True)
-    class_teacher = models.OneToOneField('teachers.Teacher', on_delete=models.CASCADE, null=True, blank=True)
+    name = models.CharField(max_length = 20)
+    group = models.CharField(choices = GROUP_CHOICES, max_length = 30, null = True, blank = True)
+    class_teacher = models.OneToOneField('teachers.Teacher', on_delete = models.CASCADE, null = True, blank = True)
 
-    syllebus = models.FileField(upload_to='uploads/%Y/%m/', null=True, blank=False)
+    syllebus = models.FileField(upload_to='uploads/%Y/%m/', max_length = 200, null = True, blank = False)
 
     def __str__(self):
         return self.name
 
 class Subject(models.Model):
 
-    related_class = models.ForeignKey(Class, on_delete=models.CASCADE)
-    name = models.CharField(max_length=50)
-    teacher = models.ForeignKey('teachers.Teacher', on_delete=models.CASCADE, null=True, blank=True)
+    related_class = models.ForeignKey(Class, on_delete = models.CASCADE)
+    name = models.CharField(max_length = 50)
+    teacher = models.ForeignKey('teachers.Teacher', on_delete = models.CASCADE, null = True, blank = True)
 
     def __str__(self):
         return self.name
     
 class Exam(models.Model):
 
-    related_class = models.ForeignKey(Class, on_delete=models.CASCADE)
-    exam = models.ForeignKey('exams.Exam', on_delete=models.CASCADE, null=True, blank=False)
-    exam_year = models.IntegerField(validators=[MinValueValidator(1900), MaxValueValidator(9999)], null=True, blank=False)
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, null=True, blank=True)#, limit_choices_to=limit_subject_choices)
+    related_class = models.ForeignKey(Class, on_delete = models.CASCADE)
+    exam = models.ForeignKey('exams.Exam', on_delete = models.CASCADE, null = True, blank = False)
+    exam_year = models.IntegerField(validators = [MinValueValidator(1900), MaxValueValidator(9999)], null = True, blank = False)
+    subject = models.ForeignKey(Subject, on_delete = models.CASCADE, null = True, blank = True)#, limit_choices_to=limit_subject_choices)
     subjective_marks = models.IntegerField()
-    subjective_pass_marks = models.DecimalField(max_digits=5, decimal_places=2, verbose_name="subjective pass marks (in %)", null=True, blank=False)
+    subjective_pass_marks = models.DecimalField(max_digits = 5, decimal_places = 2, verbose_name = "subjective pass marks (in %)", null = True, blank = False)
     objective_marks = models.IntegerField()
-    objective_pass_marks = models.DecimalField(max_digits=5, decimal_places=2, verbose_name="objective pass marks (in %)", null=True, blank=False)
+    objective_pass_marks = models.DecimalField(max_digits = 5, decimal_places = 2, verbose_name = "objective pass marks (in %)", null = True, blank = False)
     total_marks = models.IntegerField()
-    total_pass_marks = models.DecimalField(max_digits=5, decimal_places=2, verbose_name="total pass marks (in %)", null=True, blank=False)
+    total_pass_marks = models.DecimalField(max_digits = 5, decimal_places = 2, verbose_name = "total pass marks (in %)", null = True, blank = False)
 
     def save(self, *args, **kwargs):
 
@@ -57,13 +57,11 @@ class Exam(models.Model):
 
 class MarksSheet(models.Model):
 
-    exam = models.ForeignKey(Exam, on_delete=models.CASCADE, null=True, blank=True)
-    student = models.ForeignKey('students.Student', on_delete=models.CASCADE, null=True)
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, null=True, blank=False)
-    subjective_marks = models.DecimalField(max_digits=5, decimal_places=2)
-    objective_marks = models.DecimalField(max_digits=5, decimal_places=2)
-    total_marks = models.DecimalField(max_digits=5, decimal_places=2)
-    letter_grade = models.CharField(max_length=5)
+    exam = models.ForeignKey(Exam, on_delete = models.CASCADE, null = True, blank = True)
+    student = models.ForeignKey('students.Student', on_delete = models.CASCADE, null = True)
+    subject = models.ForeignKey(Subject, on_delete = models.CASCADE, null = True, blank = False)
+    subjective_marks = models.DecimalField(max_digits = 5, decimal_places = 2)
+    objective_marks = models.DecimalField(max_digits = 5, decimal_places = 2)
+    total_marks = models.DecimalField(max_digits = 5, decimal_places = 2)
+    letter_grade = models.CharField(max_length = 5)
     
-
-

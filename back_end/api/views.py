@@ -9,10 +9,15 @@ def apiOverview(request):
 
     api_urls = {
         'API Overview'      : 'api/v1/',
+
         'Teacher List'      : 'api/v1/teachers/list/',
         'Teacher Details'   : 'api/v1/teachers/details/',
+
         'Student Details'   : 'api/v1/students/details/',
-        'Classes Details'   : 'api/v1/classes/list/',
+
+        'Class List'        : 'api/v1/classes/list/',
+
+        'Subject List'      : 'api/v1/classes/<str:class_pk>/subjects/list/'
     }
 
     return Response(api_urls)
