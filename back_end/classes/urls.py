@@ -1,8 +1,13 @@
 from django.urls import path
 from .views import (
-    ClassesList
+    ClassList,
+
+    SubjectList
 )
 
 urlpatterns = [
-    path('list/', ClassesList.as_view(), name = "classes-list")
+
+    path('list/', ClassList.as_view(), name = "class-list"),
+
+    path('<str:class_pk>/subjects/list/', SubjectList.as_view(), name = "subject-list")
 ]

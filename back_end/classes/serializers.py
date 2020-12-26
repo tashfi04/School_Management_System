@@ -4,9 +4,9 @@ from .models import Class, Subject
 class ClassListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Class
-        fields = "__all__" 
+        fields = '__all__'
 
 class SubjectListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subject
-        fields = "__all__"
+        fields = ['name', 'teacher']

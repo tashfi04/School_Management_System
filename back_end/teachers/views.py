@@ -5,8 +5,7 @@ from rest_framework.exceptions import (
     PermissionDenied,
 )
 from rest_framework.generics import (
-    ListAPIView,
-    RetrieveAPIView
+    ListAPIView
 )
 
 from .serializers import (
