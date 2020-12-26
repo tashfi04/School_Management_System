@@ -13,6 +13,8 @@ class Class(models.Model):
     group = models.CharField(choices=GROUP_CHOICES, max_length=30, null=True, blank=True)
     class_teacher = models.OneToOneField('teachers.Teacher', on_delete=models.CASCADE, null=True, blank=True)
 
+    syllebus = models.FileField(upload_to='uploads/%Y/%m/', null=True, blank=False)
+
     def __str__(self):
         return self.name
 
