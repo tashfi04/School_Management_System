@@ -8,6 +8,7 @@ export default class StudentShow extends Component {
     render() {
         return (
             <Container fluid>
+              {this.props.data ? (
                 <div>  
                   <div className="mb-3 container profile">
                     <Row>
@@ -296,6 +297,10 @@ export default class StudentShow extends Component {
                     <br />
                   </div>
                 </div>
+                ):(
+                  <div></div>
+                )
+              }
             </Container>
           );
     }
