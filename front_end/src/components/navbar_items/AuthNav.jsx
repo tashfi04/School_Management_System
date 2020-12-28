@@ -1,5 +1,6 @@
 import React from 'react'
-import {Navbar, Nav, NavDropdown } from 'react-bootstrap'
+import {Navbar, Nav , DropdownButton, Dropdown} from 'react-bootstrap'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import './AuthNav.css'
 
 function AuthNav() {
@@ -12,17 +13,34 @@ function AuthNav() {
                 <Nav className="mr-auto">
                 <Nav.Link href="/about">About</Nav.Link>
                 <Nav.Link href="/administration">Administration</Nav.Link>
-                <Nav.Link href="/academics">Academic</Nav.Link>
+                <Nav.Link href="/academics/overview">Academic</Nav.Link>
                 <Nav.Link href="/facilities">Facilities</Nav.Link>
                 <Nav.Link href="/notice">Notice</Nav.Link>
                 </Nav>    
-                <NavDropdown title="Options"id="basic-nav-dropdown">
-                    <NavDropdown.Item href="/profile">{localStorage.getItem('username')}</NavDropdown.Item>
-                    <NavDropdown.Item href="#">Actiodcgjfcghvghjkgn 1</NavDropdown.Item>
-                    <NavDropdown.Item href="#">Actions 2</NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item href="/logout">Logout <img src="assets/login.png" alt="login icon" width="25px" float="right" /> </NavDropdown.Item>
-                </NavDropdown>
+                <DropdownButton
+                    title="Options"
+                    menuAlign="right"
+                    id="dropdown-menu-align-right"
+                    variant="secondary"
+                >
+                    <Dropdown.Item href="/profile">
+                        <FontAwesomeIcon
+                            className="fa-icon"
+                            icon={["fas", "user-circle"]}
+                        />{"  "}
+                        {localStorage.getItem('username')}
+                    </Dropdown.Item>
+                    <Dropdown.Item href="#">Actions 2</Dropdown.Item>
+                    <Dropdown.Item href="#">Actions 3</Dropdown.Item>
+                    <Dropdown.Divider />
+                    <Dropdown.Item href="/logout">
+                        <FontAwesomeIcon
+                            className="fa-icon"
+                            icon={["fas", "sign-out-alt"]}
+                        />{" "}
+                           Logout 
+                    </Dropdown.Item>
+                </DropdownButton>
             </Navbar.Collapse>
         </Navbar>
         </div>

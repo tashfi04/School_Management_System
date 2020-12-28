@@ -41,6 +41,7 @@ export default class Login extends Component {
                 console.log(json.data)
                 localStorage.setItem("token", json.data.token);
                 localStorage.setItem("username", json.data.user.username);
+                localStorage.setItem("role", json.data.user.role);
                 this.setState({
                     username: json.data.user.username,
                     logged_in: true,
