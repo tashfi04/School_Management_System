@@ -16,6 +16,7 @@ def apiOverview(request):
         'Student Details'   : 'api/v1/students/details/',
 
         'Class List'        : 'api/v1/classes/list/',
+        'Class Details'     : 'api/v1/classes/<str:class_pk>/details/',
 
         'Subject List'      : 'api/v1/classes/<str:class_pk>/subjects/list/'
     }

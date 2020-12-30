@@ -1,5 +1,6 @@
 from .class_views import (
-    ClassList
+    ClassList,
+    ClassDetails
 )
 
 from .subject_views import (
