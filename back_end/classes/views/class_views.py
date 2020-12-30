@@ -14,6 +14,7 @@ from rest_framework.generics import (
 
 from ..serializers import (
     ClassListSerializer,
+    ClassDetailsSerializer,
     SubjectListSerializer
 )
 
@@ -34,5 +35,21 @@ class ClassList(ListAPIView):
         if queryset:
             return queryset
         else:
-            raise NotFound("No Class Available")
+            raise NotFound("No classes available")
+
+class ClassDetails(ListAPIView):
+
+    permission_classes = [permissions.AllowAny]
+    serializer_class = ClassDetailsSerializer
+
+    def get_queryset(self):
+
+        class_id = self.kwargs.get('class_pk', None)
+
+        queryset = Class.objects.filter(id = class_id)
+
+        if queryset:
+            return queryset
+        else:
+            raise NotFound("The class you are looking for does not exist!")
     

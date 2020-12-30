@@ -4,6 +4,11 @@ from .models import Class, Subject
 class ClassListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Class
+        fields = ['id', 'name', 'group']
+
+class ClassDetailsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Class
         fields = '__all__'
 
 class SubjectListSerializer(serializers.ModelSerializer):
