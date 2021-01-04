@@ -4,7 +4,7 @@ from .models import Class, Subject
 class ClassListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Class
-        fields = ['id', 'name', 'group']
+        fields = ['id', 'name', 'group','class_teacher']
 
 class ClassDetailsSerializer(serializers.ModelSerializer):
     class Meta:

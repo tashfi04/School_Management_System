@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Jumbotron, Container, Row, Col, Card, Button } from "react-bootstrap";
+import {
+    Jumbotron,
+    Container,
+    Row,
+    Col,
+    Card,
+    Button,
+} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import SidebarAcademic from "./SidebarAcademic";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const axios = require("axios");
 
@@ -15,13 +23,13 @@ const Classes = (props) => {
                 .then((response) => {
                     console.log(response.data);
                     setClasses(response.data);
-                }, console.log("vai", classes))
+                })
                 .catch((error) => {
                     console.log(error);
                 });
         };
         loadClasses();
-        console.log(classes);
+        // console.log(classes);
     }, []);
 
     let classCards;
@@ -30,41 +38,53 @@ const Classes = (props) => {
             <div key={item.id}>
                 <Card border="primary" style={{ width: "30vw" }}>
                     <Card.Body>
-                        <Card.Title>Class {item.name}</Card.Title>
-                        <Card.Subtitle className="mb-2 text-muted">
-                            {
-                                item.group == 'Sci' ? (
-                                <div>
-                                    Science
-                                </div>
-                                ) : item.group == 'Bus' ? (
-                                    <div>
-                                        Business
-                                    </div>
-                                ) : item.group == 'Hum' ? (
-                                    <div>
-                                        Humanities
-                                    </div>
-                                ) : (
-                                    <div>
-
-                                    </div>
-                                )
-                            }
+                        <Card.Title style={{color:"blue"}}>
+                            <FontAwesomeIcon
+                                className="fa-icon"
+                                icon={["fas", "chalkboard"]}
+                            />{" "}
+                            {"    "}
+                            Class {item.name}
+                        </Card.Title>
+                        <Card.Subtitle style={{color:"black"}}>
+                            {item.group == "Sci" ? (
+                                <div>Science</div>
+                            ) : item.group == "Bus" ? (
+                                <div>Business</div>
+                            ) : item.group == "Hum" ? (
+                                <div>Humanities</div>
+                            ) : (
+                                <div></div>
+                            )}
                         </Card.Subtitle>
-                        <br/>
+                        <br />
+
+                        <h6 style={{color:"blue"}}>
+                            <FontAwesomeIcon
+                                className="fa-icon"
+                                icon={["fas", "chalkboard-teacher"]}
                         
-                        <h6>Class Teacher {item.class_teacher} </h6>
-                        <Link to="#">
+                            />{" "}
+                            {"    "}
+                            Class Teacher {item.class_teacher}
+                        </h6>
+                        <Link to={`/academics/classdetails/${item.id}`}>
                             <Button
                                 variant="outlined"
                                 color="primary"
                                 style={{
                                     float: "right",
                                     marginBottom: "10px",
+                                    backgroundColor: "#04B059",
                                 }}
                             >
-                                Enter
+                                <FontAwesomeIcon
+                                    className="fa-icon"
+                                    icon={["fas", "external-link-alt"]}
+                                    color="white"
+                                />{" "}
+                                {"    "}
+                                <b style={{color:"white"}}>Enter</b>
                             </Button>
                         </Link>
                     </Card.Body>
@@ -89,11 +109,9 @@ const Classes = (props) => {
                     <Jumbotron>
                         <Container>
                             {Object.keys(classes).length > 0 ? (
-                                <div>
-                                    {classCards}
-                                </div>
+                                <div>{classCards}</div>
                             ) : (
-                                <div>hello</div>
+                                <div></div>
                             )}
                         </Container>
                     </Jumbotron>
