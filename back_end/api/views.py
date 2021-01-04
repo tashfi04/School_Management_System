@@ -8,17 +8,22 @@ from rest_framework.response import Response
 def apiOverview(request):
 
     api_urls = {
-        'API Overview'      : 'api/v1/',
+        'API Overview'          : 'api/v1/',
 
-        'Teacher List'      : 'api/v1/teachers/list/',
-        'Teacher Details'   : 'api/v1/teachers/details/',
+        'Institution Details'   :'api/v1/institution/details/',
+        'Homepage Details'      :'api/v1/institution/homepage_details/',
+        'About Us Details'      :'api/v1/institution/about_us_details/',
+        'Academic Details'      :'api/v1/institution/academic_details/',
 
-        'Student Details'   : 'api/v1/students/details/',
+        'Teacher List'          : 'api/v1/teachers/list/',
+        'Teacher Details'       : 'api/v1/teachers/details/',
 
-        'Class List'        : 'api/v1/classes/list/',
-        'Class Details'     : 'api/v1/classes/<str:class_pk>/details/',
+        'Student Details'       : 'api/v1/students/details/',
 
-        'Subject List'      : 'api/v1/classes/<str:class_pk>/subjects/list/'
+        'Class List'            : 'api/v1/classes/list/',
+        'Class Details'         : 'api/v1/classes/<str:class_pk>/details/',
+
+        'Subject List'          : 'api/v1/classes/<str:class_pk>/subjects/list/'
     }
 
     return Response(api_urls)
