@@ -35,6 +35,7 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     'api.apps.ApiConfig',
     'authentication.apps.AuthenticationConfig',
+    'institution.apps.InstitutionConfig',
     'accounts.apps.AccountsConfig',
     'students.apps.StudentsConfig',
     'teachers.apps.TeachersConfig',
