@@ -34,7 +34,7 @@ function AuthNav() {
                             id="dropdown-menu-align-right"
                             variant="secondary"
                         >
-                            <Dropdown.Item href="/profile">
+                            <Dropdown.Item href="/profile/dashboard">
                                 <FontAwesomeIcon
                                     className="fa-icon"
                                     icon={["fas", "user-circle"]}
@@ -54,7 +54,7 @@ function AuthNav() {
                             </Dropdown.Item>
                         </DropdownButton>
                     ) : (
-                        <Nav.Link href="/login">
+                        <Nav.Link href="/login" style={{color:'white'}}>
                             <FontAwesomeIcon
                                 className="fa-icon"
                                 icon={["fas", "sign-in-alt"]}

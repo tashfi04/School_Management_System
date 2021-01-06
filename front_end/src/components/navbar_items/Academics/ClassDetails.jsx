@@ -37,6 +37,8 @@ function ClassDetails() {
                 });
         };
         loadSubjects();
+
+        
     }, []);
 
     let subjectsTable;

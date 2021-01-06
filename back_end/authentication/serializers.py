@@ -9,7 +9,6 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['username', 'role']
 
 
-
 class UserSerializerWithToken(serializers.ModelSerializer):
     token = serializers.SerializerMethodField()
     password = serializers.CharField(write_only=True)
