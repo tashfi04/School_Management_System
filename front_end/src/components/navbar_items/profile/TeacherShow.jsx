@@ -5,11 +5,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./Profile.scss";
 
 export default class TeacherShow extends Component {
-
-  componentDidUpdate() {
-    
-  }
-
     render() 
     {
         return (

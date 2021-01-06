@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Class, Subject
+from students.models import Student
 
 class ClassListSerializer(serializers.ModelSerializer):
     class Meta:
@@ -15,3 +16,10 @@ class SubjectListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subject
         fields = ['name', 'teacher']
+
+class ClassStudentsListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Student
+        fields = ['name']
+
+

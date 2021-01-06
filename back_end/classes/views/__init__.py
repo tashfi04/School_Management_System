@@ -4,7 +4,11 @@ from .class_views import (
 )
 
 from .subject_views import (
-    SubjectList
+    SubjectList,
+)
+
+from .class_student_list_views import (
+    ClassStudentList,
 )
 
 # from .exam_views import (

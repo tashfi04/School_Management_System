@@ -21,6 +21,7 @@ import Overview from "./components/navbar_items/Academics/Overview";
 import Classes from "./components/navbar_items/Academics/Classes";
 import ClassDetails from "./components/navbar_items/Academics/ClassDetails"
 import Teachers from "./components/navbar_items/Academics/Teachers";
+import MyClasses from "./components/navbar_items/profile/MyClasses";
 
 library.add(far, fas, fab);
 
@@ -66,7 +67,10 @@ function App() {
                 <Route path="/facilities" component={Facilities}></Route>
                 <Route path="/notice" component={Notice}></Route>
                 <Route path="/login" component={Login}></Route>
-                <Route path="/profile/" component={Profile}></Route>
+
+                <Route path="/profile/dashboard/" component={Profile}></Route>
+                <Route path="/profile/myclasses/" component={MyClasses}></Route>
+
                 <Route path="/logout/" component={Logout}></Route>
                 <Route path="/registration" component={Registration}></Route>
                 <CustomFooter />

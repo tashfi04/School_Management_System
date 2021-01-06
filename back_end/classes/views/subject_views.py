@@ -12,7 +12,7 @@ from rest_framework.generics import (
 )
 
 from ..serializers import (
-    SubjectListSerializer
+    SubjectListSerializer,
 )
 
 class SubjectList(ListAPIView):

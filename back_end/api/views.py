@@ -22,8 +22,10 @@ def apiOverview(request):
 
         'Class List'            : 'api/v1/classes/list/',
         'Class Details'         : 'api/v1/classes/<str:class_pk>/details/',
+        'Class Students List'   : 'api/v1/classes/<str:class_pk>/students/list/',
 
-        'Subject List'          : 'api/v1/classes/<str:class_pk>/subjects/list/'
+        'Subject List'          : 'api/v1/classes/<str:class_pk>/subjects/list/',
+        'Teacher Subject List'  : 'api/v1/teachers/<str:teacher_pk>/subjects/list/'
     }
 
     return Response(api_urls)
