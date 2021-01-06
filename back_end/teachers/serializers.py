@@ -15,4 +15,4 @@ class TeacherDetailsSerializer(serializers.ModelSerializer):
 class TeacherSubjectListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subject
-        fields = ['related_class','name']
+        fields = ['id','related_class','name']

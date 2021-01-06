@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, Jumbotron, Row, Col, Table, Tab } from "react-bootstrap";
+import { Container, Jumbotron, Row, Col, Table, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import Sidebar from "./Sidebar";
@@ -8,6 +8,9 @@ const axios = require("axios");
 
 function MyClasses() {
     const [classes, setClasses] = useState({});
+    const [className, setClassName] = useState([]);
+    const [wait, setWait] = useState(false);
+
     useEffect(() => {
         const loadClasses = async () => {
             axios
@@ -17,29 +20,68 @@ function MyClasses() {
                     )}/subjects/list/`,
                     {
                         headers: {
-                            Authorization: `JWT ${localStorage.getItem(
-                                "token"
-                            )}`,
+                            Authorization: `JWT ${localStorage.getItem("token")}`,
                         },
                     }
                 )
                 .then((response) => {
-                    console.log(response.data);
                     setClasses(response.data);
+                    setWait(true);
                 })
                 .catch((error) => {
                     console.log(error);
                 });
         };
         loadClasses();
-    }, []);
+        
+        const loadClassName = async() => {
+            for(let i=0; i<Object.keys(classes).length ; i++) {
+                axios
+                .get(
+                    `/api/v1/classes/${classes[i].related_class}/details/`,
+                    {
+                        headers: {
+                            Authorization: `JWT ${localStorage.getItem("token")}`,
+                        },
+                    }
+                )
+                .then((response) => {
+                    setClassName(className => [...className, response.data[0].name]);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+            }
+        }
+        if(wait)
+            loadClassName();
+    }, [wait]);
+
 
     let subjectList;
+    let related_class_name = 0;
     if (Object.keys(classes).length > 0) {
         subjectList = classes.map((item) => (
-            <tr>
-                <td>{item.related_class}</td>
-                <td>{item.name}</td>
+            <tr key={item.id}>
+                <td>
+                    <Link
+                        to={`/profile/class/${item.related_class}/subject/${item.id}/`}
+                    >
+                        <FontAwesomeIcon
+                            className="fa-icon"
+                            icon={["fas", "chalkboard"]}
+                        />{" "}
+                        <b>{className[related_class_name++]}</b>
+                    </Link>
+                </td>
+                <td>
+                    <Link
+                        to={`/profile/class/${item.related_class}/subject/${item.id}/`}
+                    >
+                        {" "}
+                        <b>{item.name}</b>{" "}
+                    </Link>
+                </td>
             </tr>
         ));
     }
@@ -57,8 +99,11 @@ function MyClasses() {
                 <Col sm={8}>
                     <Jumbotron>
                         <Container>
+                            <br />
                             <div className="m-5 p-5">
-                                <h3>My classes:</h3>
+                                <h3 style={{color:'CaptionText'}}>My classes:</h3>
+                                <hr />
+                                <hr />
                                 <br />
                                 <br />
                                 <Table striped hover>
@@ -70,7 +115,14 @@ function MyClasses() {
                                         {subjectList}
                                     </tbody>
                                 </Table>
+                                <br />
+                                <br />
                             </div>
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
                         </Container>
                     </Jumbotron>
                 </Col>

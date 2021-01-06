@@ -58,6 +58,8 @@ function Teachers() {
                                 Teachers of Shahjalal University School are
                                 listed below:
                             </div>
+                            <hr />
+                            <hr />
                             <br />
                             <br />
                             <Table striped bordered hover variant="dark">

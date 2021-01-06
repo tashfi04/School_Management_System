@@ -30,3 +30,20 @@ class SubjectList(ListAPIView):
             return queryset
         else:
             raise NotFound("No subject has been added to the class yet!")
+
+class SubjectDetails(ListAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = SubjectListSerializer
+
+    def get_queryset(self):
+        
+        subject_id = self.kwargs.get('subject_pk', None)
+
+        queryset = Subject.objects.filter(pk = subject_id)
+
+        if queryset:
+            return queryset
+        else:
+            raise NotFound("No subject by this primary key")
+
+

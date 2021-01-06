@@ -5,6 +5,7 @@ from .class_views import (
 
 from .subject_views import (
     SubjectList,
+    SubjectDetails
 )
 
 from .class_student_list_views import (
