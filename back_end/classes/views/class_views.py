@@ -1,4 +1,5 @@
 from ..models import Class
+from students.models import Student
 from rest_framework import permissions
 
 from rest_framework.exceptions import (
@@ -15,7 +16,7 @@ from rest_framework.generics import (
 from ..serializers import (
     ClassListSerializer,
     ClassDetailsSerializer,
-    SubjectListSerializer
+    ClassStudentsListSerializer
 )
 
 class Conflict(APIException):
@@ -53,3 +54,16 @@ class ClassDetails(ListAPIView):
         else:
             raise NotFound("The class you are looking for does not exist!")
     
+class ClassStudentList(ListAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = ClassStudentsListSerializer
+
+    def get_queryset(self):
+
+        class_id = self.kwargs.get('class_pk', None)
+        queryset = Student.objects.filter(current_class_id = class_id)
+
+        if queryset:
+            return queryset
+        else:
+            raise NotFound("No student has been added to the class yet!")

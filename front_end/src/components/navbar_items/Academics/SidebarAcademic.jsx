@@ -32,7 +32,7 @@ function SidebarAcademic() {
                             icon={["fas", "chalkboard-teacher"]}
                         />{" "}
                         {"    "}
-                        <Link to="#"  style={{color:"black"}}>Teachers</Link>
+                        <Link to="/academics/teachers"  style={{color:"black"}}>Teachers</Link>
                     </h5>
                     <hr />
                     <h5>

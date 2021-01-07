@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import CustomNavbar from "./components/navbar_items/CustomNavbar";
+import AuthNav from "./components/navbar_items/AuthNav"
 import Home from "./components/navbar_items/Home";
 import Academics from "./components/navbar_items/Academics";
 import Administration from "./components/navbar_items/Administration";
@@ -19,6 +19,10 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import Overview from "./components/navbar_items/Academics/Overview";
 import Classes from "./components/navbar_items/Academics/Classes";
+import ClassDetails from "./components/navbar_items/Academics/ClassDetails"
+import Teachers from "./components/navbar_items/Academics/Teachers";
+import MyClasses from "./components/navbar_items/profile/MyClasses";
+import MySubject from "./components/navbar_items/profile/MySubject";
 
 library.add(far, fas, fab);
 
@@ -51,19 +55,25 @@ function App() {
         <Router>
             <div>
                 {/* <CustomNavbar username={username} /> */}
-                <CustomNavbar />
+                <AuthNav />
                 <Route exact path="/" component={Home} />
-                <Route path="/about" component={About}></Route>
-                <Route path="/administration" component={Administration} />
+                <Route path="/about/" component={About}></Route>
+                <Route path="/administration/" component={Administration} />
 
-                <Route path="/academics/overview" component={Overview}></Route>
-                <Route path="/academics/classes" component={Classes}></Route>
+                <Route path="/academics/overview/" component={Overview}></Route>
+                <Route path="/academics/classes/" component={Classes}></Route>
+                <Route path="/academics/classdetails/:class_pk/" component={ClassDetails}></Route>
+                <Route path="/academics/teachers/" component={Teachers}></Route>
 
                 <Route path="/facilities" component={Facilities}></Route>
                 <Route path="/notice" component={Notice}></Route>
                 <Route path="/login" component={Login}></Route>
-                <Route path="/profile" component={Profile}></Route>
-                <Route path="/logout" component={Logout}></Route>
+
+                <Route path="/profile/dashboard/" component={Profile}></Route>
+                <Route path="/profile/myclasses/" component={MyClasses}></Route>
+                <Route path="/profile/class/:class_pk/subject/:subject_pk/" component={MySubject}></Route> 
+
+                <Route path="/logout/" component={Logout}></Route>
                 <Route path="/registration" component={Registration}></Route>
                 <CustomFooter />
             </div>

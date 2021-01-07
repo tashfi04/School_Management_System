@@ -28,4 +28,5 @@ class StudentDetails(ListAPIView):
         user_id = self.request.user.id
 
         return Student.objects.filter(user_id=user_id)
+    
 

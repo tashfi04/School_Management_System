@@ -1,5 +1,13 @@
 import React, { Component } from "react";
-import { Form, Button, Container } from "react-bootstrap";
+import {
+    Form,
+    Button,
+    Jumbotron,
+    Container,
+    Image,
+    Row,
+    Col,
+} from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import "./Login.css";
 
@@ -38,7 +46,7 @@ export default class Login extends Component {
         axios
             .post(endpoint, body, config)
             .then((json) => {
-                console.log(json.data)
+                console.log(json.data);
                 localStorage.setItem("token", json.data.token);
                 localStorage.setItem("username", json.data.user.username);
                 localStorage.setItem("role", json.data.user.role);
@@ -52,59 +60,67 @@ export default class Login extends Component {
                 console.log(err);
             });
     };
-
+    // backgroundColor: "#D8D7D7",
     render() {
         if (this.state.logged_in) return <Redirect to={{ pathname: "/" }} />;
         else {
             return (
-                <div
-                    style={{
-                        backgroundColor: "#D8D7D7",
-                        height: "100vh",
-                        weidth: "100vw",
-                        alignContent: "center",
-                        display:"flex",
-                        alignItems: "center"
-                    }}
-                >
-                    <Container style={{margin: "auto"}}>
-                        <Form
-                            onSubmit={(e) => this.handle_login(e, this.state)}
+                <Row style={{ backgroundColor: "#D8D7D7",}}>
+                    <Col sm={8}>
+                        <Image
+                            src="../../assets/login.jpg"
+                            style={{ height: "100vh" }}
+                        ></Image>
+                    </Col>
+                    <Col sm={4}>
+                        <div
+                            style={{
+                                backgroundColor: "#D8D7D7",
+                                height: "100vh",
+                                alignContent: "center",
+                                marginTop: '30vh',
+                                marginBottom: '0vh',
+                                alignItems: "center",
+                            }}
                         >
-                            <Form.Group controlId="formBasicEmail">
-                                <Form.Label>
-                                  <h4>
-                                    User Name:
-                                  </h4>
-                                  </Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    placeholder="User Name"
-                                    name="username"
-                                    onChange={this.handle_change}
-                                />
-                            </Form.Group>
+                            <Container style={{ }}>
+                                <Form
+                                    onSubmit={(e) =>
+                                        this.handle_login(e, this.state)
+                                    }
+                                >
+                                    <Form.Group controlId="formBasicEmail">
+                                        <Form.Label>
+                                            <h4>User Name:</h4>
+                                        </Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            placeholder="User Name"
+                                            name="username"
+                                            onChange={this.handle_change}
+                                        />
+                                    </Form.Group>
 
-                            <Form.Group controlId="formBasicPassword">
-                                <Form.Label>
-                                <h4>
-                                    Password:
-                                  </h4>
-                                </Form.Label>
-                                <Form.Control
-                                    type="password"
-                                    placeholder="Password"
-                                    name="password"
-                                    onChange={this.handle_change}
-                                />
-                            </Form.Group>
-                            <br />
-                            <Button variant="primary" type="submit">
-                                Submit
-                            </Button>
-                        </Form>
-                    </Container>
-                </div>
+                                    <Form.Group controlId="formBasicPassword">
+                                        <Form.Label>
+                                            <h4>Password:</h4>
+                                        </Form.Label>
+                                        <Form.Control
+                                            type="password"
+                                            placeholder="Password"
+                                            name="password"
+                                            onChange={this.handle_change}
+                                        />
+                                    </Form.Group>
+                                    <br />
+                                    <Button variant="primary" type="submit">
+                                        Submit
+                                    </Button>
+                                </Form>
+                            </Container>
+                        </div>
+                    </Col>
+                </Row>
             );
         }
     }

@@ -1,4 +1,5 @@
 import os
+import datetime
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -155,4 +156,9 @@ JWT_AUTH = {
     #'JWT_RESPONSE_PAYLOAD_HANDLER': 'core.views.my_jwt_response_handler',
     'JWT_RESPONSE_PAYLOAD_HANDLER': 'back_end.utils.my_jwt_response_handler',
     'JWT_PAYLOAD_HANDLER': 'rest_framework_jwt.utils.jwt_payload_handler',
+    # extend to solve session unauthorized after a short time to check what happened
+    'JWT_AUTH_HEADER_PREFIX': "JWT",
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=2),
+    'JWT_ALLOW_REFRESH': True,
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
 }

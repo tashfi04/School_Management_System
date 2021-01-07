@@ -17,13 +17,16 @@ def apiOverview(request):
 
         'Teacher List'                      : 'api/v1/teachers/list/',
         'Teacher Details'                   : 'api/v1/teachers/details/',
+        'Teacher Subject List'              : 'api/v1/teachers/<str:teacher_pk>/subjects/list/',
 
         'Student Details'                   : 'api/v1/students/details/',
 
         'Class List'                        : 'api/v1/classes/list/',
         'Class Details'                     : 'api/v1/classes/<str:class_pk>/details/',
+        'Class Students List'               : 'api/v1/classes/<str:class_pk>/students/list/',
 
         'Subject List'                      : 'api/v1/classes/<str:class_pk>/subjects/list/',
+        'Subject Details'                   : 'api/v1/classes/subjects/<str:subject_pk>/details/',
 
         'Marksheet List Create Update'      : 'api/v1/classes/marksheets/<str:subject_pk>/<str:exam_pk>/'
     }
