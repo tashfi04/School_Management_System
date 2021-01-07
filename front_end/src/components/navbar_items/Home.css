@@ -19,14 +19,31 @@
     background-size: cover;
 }
 
-.carousel-caption {
-    position: absolute;
-    right: 15%;
-    bottom: 20px;
-    left: 15%;
-    z-index: 10;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    color: rgb(46, 152, 214);
-    text-align: center;
+
+.img-hover-zoom {
+    overflow: hidden; /* [1.2] Hide the overflowing of child elements */
+}
+
+.img-hover-zoom img {
+    transition: transform .5s ease;
+  }
+  
+  /* [3] Finally, transforming the image when container gets hovered */
+.img-hover-zoom:hover img {
+    transform: scale(1.5);
+}
+
+hr.new {
+    border: 2px solid black;
+    border-radius: 2px;
+  }
+
+hr.new1 {
+    border: 1px solid black;
+    border-radius: 2px;
+}
+
+hr.new2 {
+    border: 1px solid white;
+    border-radius: 2px;
 }
