@@ -3,11 +3,9 @@ import "./App.css";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import AuthNav from "./components/navbar_items/AuthNav"
 import Home from "./components/navbar_items/Home";
-import Academics from "./components/navbar_items/Academics";
 import Administration from "./components/navbar_items/Administration";
 import Facilities from "./components/navbar_items/Facilities";
 import Notice from "./components/navbar_items/Notice";
-import About from "./components/navbar_items/About";
 import CustomFooter from "./components/navbar_items/CustomFooter";
 import Login from "./components/user_authentication/Login";
 import Registration from "./components/user_authentication/Registration";
@@ -57,7 +55,6 @@ function App() {
                 {/* <CustomNavbar username={username} /> */}
                 <AuthNav />
                 <Route exact path="/" component={Home} />
-                <Route path="/about/" component={About}></Route>
                 <Route path="/administration/" component={Administration} />
 
                 <Route path="/academics/overview/" component={Overview}></Route>

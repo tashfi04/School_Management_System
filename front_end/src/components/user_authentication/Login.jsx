@@ -76,14 +76,14 @@ export default class Login extends Component {
                         <div
                             style={{
                                 backgroundColor: "#D8D7D7",
-                                height: "100vh",
+                                 height: "72vh",
                                 alignContent: "center",
                                 marginTop: '30vh',
                                 marginBottom: '0vh',
                                 alignItems: "center",
                             }}
                         >
-                            <Container style={{ }}>
+                            <Container>
                                 <Form
                                     onSubmit={(e) =>
                                         this.handle_login(e, this.state)
