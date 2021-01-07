@@ -1,15 +1,12 @@
 from .class_views import (
     ClassList,
-    ClassDetails
+    ClassDetails,
+    ClassStudentList
 )
 
 from .subject_views import (
     SubjectList,
     SubjectDetails
-)
-
-from .class_student_list_views import (
-    ClassStudentList,
 )
 
 # from .exam_views import (
