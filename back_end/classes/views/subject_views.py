@@ -45,5 +45,3 @@ class SubjectDetails(ListAPIView):
             return queryset
         else:
             raise NotFound("No subject by this primary key")
-
-

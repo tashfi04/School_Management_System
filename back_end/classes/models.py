@@ -24,6 +24,9 @@ class Subject(models.Model):
     name = models.CharField(max_length = 50)
     teacher = models.ForeignKey('teachers.Teacher', on_delete = models.CASCADE, null = True, blank = True)
 
+    # def __str__(self):
+    #     return '%s (%s)' % (str(self.related_class), self.name)
+
     def __str__(self):
         return self.name
     
@@ -32,7 +35,7 @@ class Exam(models.Model):
     related_class = models.ForeignKey(Class, on_delete = models.CASCADE)
     exam = models.ForeignKey('exams.Exam', on_delete = models.CASCADE, null = True, blank = False)
     exam_year = models.IntegerField(validators = [MinValueValidator(1900), MaxValueValidator(9999)], null = True, blank = False)
-    subject = models.ForeignKey(Subject, on_delete = models.CASCADE, null = True, blank = True)#, limit_choices_to=limit_subject_choices)
+    subject = models.ForeignKey(Subject, on_delete = models.CASCADE, null = True, blank = True)
     subjective_marks = models.IntegerField()
     subjective_pass_marks = models.DecimalField(max_digits = 5, decimal_places = 2, verbose_name = "subjective pass marks (in %)", null = True, blank = False)
     objective_marks = models.IntegerField()
@@ -54,8 +57,11 @@ class Exam(models.Model):
 
         super().save(*args, **kwargs)
 
+    def __str__(self):
+        return str(self.exam)
 
-class MarksSheet(models.Model):
+
+class MarkSheet(models.Model):
 
     exam = models.ForeignKey(Exam, on_delete = models.CASCADE, null = True, blank = True)
     student = models.ForeignKey('students.Student', on_delete = models.CASCADE, null = True)
@@ -64,4 +70,7 @@ class MarksSheet(models.Model):
     objective_marks = models.DecimalField(max_digits = 5, decimal_places = 2)
     total_marks = models.DecimalField(max_digits = 5, decimal_places = 2)
     letter_grade = models.CharField(max_length = 5)
+
+    def __str__(self):
+        return self.subject
     
