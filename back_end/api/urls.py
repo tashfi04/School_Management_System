@@ -7,11 +7,13 @@ urlpatterns = [
 
     path('authentication/', include('authentication.urls')),
 
-    path('institution/',include('institution.urls')),
+    path('institution/', include('institution.urls')),
 
-    path('students/',include('students.urls')),
+    path('students/', include('students.urls')),
 
-    path('teachers/',include('teachers.urls')),
+    path('teachers/', include('teachers.urls')),
 
-    path('classes/', include('classes.urls'))
+    path('classes/', include('classes.urls')),
+
+    path('notices/', include('notices.urls'))
 ]

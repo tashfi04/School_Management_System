@@ -9,13 +9,14 @@ from rest_framework.generics import (
 )
 
 from ..serializers import (
-    AboutUsDetailsSerializer
+    AboutUsSerializer,
+    HeadmasterSpeechSerializer
 )
 
 class AboutUsDetails(ListAPIView):
 
     permission_classes = [permissions.AllowAny]
-    serializer_class = AboutUsDetailsSerializer
+    serializer_class = AboutUsSerializer
 
     def get_queryset(self):
 
@@ -25,3 +26,18 @@ class AboutUsDetails(ListAPIView):
             return queryset
         else:
             raise NotFound("The information hasn't been added yet!")
+
+class HeadmasterSpeechDetails(ListAPIView):
+
+    permission_classes = [permissions.AllowAny]
+    serializer_class = HeadmasterSpeechSerializer
+
+    def get_queryset(self):
+
+        queryset = Institution.objects.all()
+
+        if queryset:
+            return queryset
+        else:
+            raise NotFound("The information hasn't been added yet!")
+

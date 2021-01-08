@@ -26,7 +26,7 @@ class Student(models.Model):
     guardian_name = models.CharField("Guardian's name(applicaple if different from parents)", max_length=100)
     present_address = models.TextField()
     permanent_address = models.TextField()
-    email = models.CharField(max_length=50)
+    email = models.EmailField(max_length=50)
     telephone = models.CharField("Telephone no.", max_length=11)
     emergency_telephone = models.CharField("Emergency telephone No.", max_length=11)
     religion = models.CharField(max_length=30)
@@ -34,6 +34,7 @@ class Student(models.Model):
     previous_class = models.IntegerField()
     previous_school = models.CharField(max_length=40)
     current_class = models.ForeignKey('classes.Class', on_delete=models.CASCADE)
+    roll_no = models.PositiveIntegerField(null=True, blank=False)
 
     tc_number = models.CharField("T.C no.", max_length=50)
     date = models.DateField()

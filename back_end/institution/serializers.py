@@ -1,22 +1,37 @@
 from rest_framework import serializers
-from .models import Institution
+from .models import Institution, EventNews
 
-class InstitutionDetailsSerializer(serializers.ModelSerializer):
+class InstitutionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Institution
         fields = ['name']
 
-class HomepageDetailsSerializer(serializers.ModelSerializer):
+class HomepageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Institution
         fields = ['description', 'home_background', 'home_photo_1', 'home_photo_2', 'home_photo_3', 'home_photo_4']
 
-class AboutUsDetailsSerializer(serializers.ModelSerializer):
+class AboutUsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Institution
-        fields = ['overview']
+        fields = ['overview', 'about_us_photo']
 
-class AcademicDetailsSerializer(serializers.ModelSerializer):
+class HeadmasterSpeechSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Institution
+        fields = ['headmaster_speech', 'headmaster_photo']
+
+class AcademicSerializer(serializers.ModelSerializer):
     class Meta:
         model = Institution
         fields = ['academic_overview', 'academic_photo']
+
+class ContactInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Institution
+        fields = ['phone_no', 'email', 'address']
+
+class EventNewsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EventNews
+        fields = ['date', 'title', 'description', 'photo']

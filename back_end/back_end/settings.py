@@ -42,7 +42,8 @@ LOCAL_APPS = [
     'teachers.apps.TeachersConfig',
     'staffs.apps.StaffsConfig',
     'classes.apps.ClassesConfig',
-    'exams.apps.ExamsConfig'
+    'exams.apps.ExamsConfig',
+    'notices.apps.NoticesConfig'
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
