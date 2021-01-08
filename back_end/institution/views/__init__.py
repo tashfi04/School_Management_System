@@ -3,13 +3,22 @@ from .global_views import (
 )
 
 from .homepage_views import (
-    HomepageDetails    
+    HomepageDetails
 )
 
 from .about_us_views import (
-    AboutUsDetails
+    AboutUsDetails,
+    HeadmasterSpeechDetails
 )
 
 from .academic_views import (
     AcademicDetails
+)
+
+from .contact_info_views import (
+    ContactInfoDetails
+)
+
+from .event_news_views import (
+    EventNewsList
 )

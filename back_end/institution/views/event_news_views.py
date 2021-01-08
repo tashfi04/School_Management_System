@@ -1,4 +1,4 @@
-from ..models import Institution
+from ..models import EventNews
 from rest_framework import permissions
 
 from rest_framework.exceptions import (
@@ -9,19 +9,20 @@ from rest_framework.generics import (
 )
 
 from ..serializers import (
-    AcademicSerializer
+    EventNewsSerializer
 )
 
-class AcademicDetails(ListAPIView):
+class EventNewsList(ListAPIView):
 
     permission_classes = [permissions.AllowAny]
-    serializer_class = AcademicSerializer
+    serializer_class = EventNewsSerializer
 
     def get_queryset(self):
 
-        queryset = Institution.objects.all()
+        queryset = EventNews.objects.all()
 
         if queryset:
             return queryset
         else:
-            raise NotFound("The information hasn't been added yet!")
+            raise NotFound("The event related news hasn't been published yet!")
+        

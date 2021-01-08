@@ -38,7 +38,7 @@ class Teacher(models.Model):
     office_mobile = models.CharField("Mobilephone no.(Office)",max_length=11)
     personal_mobile = models.CharField("Mobilephone no.(Personal)",max_length=11)
     fax = models.CharField(max_length=70)
-    email = models.CharField(max_length=50)
+    email = models.EmailField(max_length=50)
     date_of_join = models.DateField()
     date_of_birth = models.DateField()
     marital_status = models.CharField(max_length=2, choices=MARITAL_STATUS_CHOICES)

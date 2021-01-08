@@ -9,13 +9,13 @@ from rest_framework.generics import (
 )
 
 from ..serializers import (
-    HomepageDetailsSerializer
+    HomepageSerializer
 )
 
 class HomepageDetails(ListAPIView):
 
     permission_classes = [permissions.AllowAny]
-    serializer_class = HomepageDetailsSerializer
+    serializer_class = HomepageSerializer
 
     def get_queryset(self):
 

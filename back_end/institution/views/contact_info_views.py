@@ -9,13 +9,13 @@ from rest_framework.generics import (
 )
 
 from ..serializers import (
-    AcademicSerializer
+    ContactInfoSerializer
 )
 
-class AcademicDetails(ListAPIView):
+class ContactInfoDetails(ListAPIView):
 
     permission_classes = [permissions.AllowAny]
-    serializer_class = AcademicSerializer
+    serializer_class = ContactInfoSerializer
 
     def get_queryset(self):
 
