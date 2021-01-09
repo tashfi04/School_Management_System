@@ -42,7 +42,7 @@ function StudentShow() {
                             </Col>
                             <Col sm={6}>
                                 <Image
-                                    style={{ height: "75%", width: "75%" }}
+                                    style={{ height: "25vh", width: "20vw" }}
                                     src={`${studentDetails.photo}`}
                                     thumbnail
                                 />
