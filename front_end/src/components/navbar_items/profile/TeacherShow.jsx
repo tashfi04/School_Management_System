@@ -39,7 +39,7 @@ function TeacherShow() {
                     </Col>
                     <Col sm={6}>
                         <Image
-                            style={{ height: '300px', width: '300px' }}
+                            style={{ height: '25vh', width: '20vw' }}
                             src={`${teacherDetails.photo}`}
                             thumbnail
                         />

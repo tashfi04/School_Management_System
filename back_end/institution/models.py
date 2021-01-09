@@ -9,9 +9,9 @@ class Institution(models.Model):
     description = models.TextField(null=True, blank=True)
     home_background = models.ImageField("Homepage Background Photo", upload_to='photos/others/%Y/%m/%d/', null=True, blank=True)
     home_photo_1 = models.ImageField("Homepage Photo 1", upload_to='photos/others/%Y/%m/%d/', null=True, blank=True)
-    home_photo_2 = models.ImageField("Homepage Photo 1", upload_to='photos/others/%Y/%m/%d/', null=True, blank=True)
-    home_photo_3 = models.ImageField("Homepage Photo 1", upload_to='photos/others/%Y/%m/%d/', null=True, blank=True)
-    home_photo_4 = models.ImageField("Homepage Photo 1", upload_to='photos/others/%Y/%m/%d/', null=True, blank=True)
+    home_photo_2 = models.ImageField("Homepage Photo 2", upload_to='photos/others/%Y/%m/%d/', null=True, blank=True)
+    home_photo_3 = models.ImageField("Homepage Photo 3", upload_to='photos/others/%Y/%m/%d/', null=True, blank=True)
+    home_photo_4 = models.ImageField("Homepage Photo 4", upload_to='photos/others/%Y/%m/%d/', null=True, blank=True)
 
     #about us page information
     overview = models.TextField(null=True, blank=True)

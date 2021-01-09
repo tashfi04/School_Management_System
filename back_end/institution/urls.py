@@ -6,7 +6,8 @@ from .views import (
     HeadmasterSpeechDetails,
     AcademicDetails,
     ContactInfoDetails,
-    EventNewsList
+    EventNewsList,
+    EventDetails
 )
 
 urlpatterns = [
@@ -17,5 +18,6 @@ urlpatterns = [
     path('about_us/headmaster_speech/', HeadmasterSpeechDetails.as_view(), name="headmaster-speech-details"),
     path('academic_details/', AcademicDetails.as_view(), name="academic-details"),
     path('contact_info/', ContactInfoDetails.as_view(), name="contact-info-details"),
-    path('event_news_list/', EventNewsList.as_view(), name="event-news-list")
+    path('event_news_list/', EventNewsList.as_view(), name="event-news-list"),
+    path('event_details/<str:event_pk>/', EventDetails.as_view(), name="event-details"),
 ]

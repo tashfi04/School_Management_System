@@ -20,5 +20,6 @@ from .contact_info_views import (
 )
 
 from .event_news_views import (
-    EventNewsList
+    EventNewsList,
+    EventDetails
 )

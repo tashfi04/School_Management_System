@@ -18,6 +18,7 @@ def apiOverview(request):
         'Academic Details'                  :'api/v1/institution/academic_details/',
         'Contact Information'               :'api/v1/institution/contact_info/',
         'Event News List'                   :'api/v1/institution/event_news_list/',
+        'Event Details'                     :'api/v1/institution/event_details/<str:event_pk>/',
 
         'Teacher Related API'               : '--------------------------------------------------------------------------',
         'Teacher List'                      : 'api/v1/teachers/list/',

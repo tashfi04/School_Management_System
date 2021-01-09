@@ -34,4 +34,4 @@ class ContactInfoSerializer(serializers.ModelSerializer):
 class EventNewsSerializer(serializers.ModelSerializer):
     class Meta:
         model = EventNews
-        fields = ['date', 'title', 'description', 'photo']
+        fields = ['pk','date', 'title', 'description', 'photo']
