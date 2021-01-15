@@ -1,9 +1,9 @@
 from django.db import models
 
-class Exam(models.Model):
+class ExamType(models.Model):
 
-    exam_name = models.CharField(max_length=100)
+    exam_type = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.exam_name
+        return self.exam_type
 

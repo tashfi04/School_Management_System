@@ -31,7 +31,12 @@ class ContactInfoSerializer(serializers.ModelSerializer):
         model = Institution
         fields = ['phone_no', 'email', 'address']
 
-class EventNewsSerializer(serializers.ModelSerializer):
+class EventListSerializer(serializers.ModelSerializer):
     class Meta:
         model = EventNews
-        fields = ['pk','date', 'title', 'description', 'photo']
+        fields = ['id', 'date', 'title']
+
+class EventDetailsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EventNews
+        fields = ['date', 'title', 'description', 'photo']

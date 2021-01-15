@@ -15,5 +15,7 @@ urlpatterns = [
 
     path('classes/', include('classes.urls')),
 
+    path('results/', include('results.urls')),
+
     path('notices/', include('notices.urls'))
 ]

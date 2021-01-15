@@ -17,8 +17,8 @@ def apiOverview(request):
         'Headmaster\'s Speech'              :'api/v1/institution/about_us/headmaster_speech/',
         'Academic Details'                  :'api/v1/institution/academic_details/',
         'Contact Information'               :'api/v1/institution/contact_info/',
-        'Event News List'                   :'api/v1/institution/event_news_list/',
-        'Event Details'                     :'api/v1/institution/event_details/<str:event_pk>/',
+        'Event List'                        :'api/v1/institution/events/list/',
+        'Event Details'                     :'api/v1/institution/events/<str:event_pk>/details/',
 
         'Teacher Related API'               : '--------------------------------------------------------------------------',
         'Teacher List'                      : 'api/v1/teachers/list/',
@@ -32,13 +32,15 @@ def apiOverview(request):
         'Class List'                        : 'api/v1/classes/list/',
         'Class Details'                     : 'api/v1/classes/<str:class_pk>/details/',
         'Class Students List'               : 'api/v1/classes/<str:class_pk>/students/list/',
+        'Class Exam Type List'              : 'api/v1/classes/<str:class_pk>/exam_types/list/',
 
         'Subject Related API'               : '--------------------------------------------------------------------------',
         'Subject List'                      : 'api/v1/classes/<str:class_pk>/subjects/list/',
         'Subject Details'                   : 'api/v1/classes/subjects/<str:subject_pk>/details/',
 
-        'Marksheet Related API'             : '--------------------------------------------------------------------------',
-        'Marksheet List Create Update'      : 'api/v1/classes/marksheets/<str:subject_pk>/<str:exam_pk>/',
+        'Result Related API'                : '--------------------------------------------------------------------------',
+        'Marksheet List Create Update'      : 'api/v1/results/marksheet/<str:subject_pk>/<str:exam_pk>/',
+        'Tabulationsheet List'              : 'api/v1/results/tabulationsheet/<str:class_pk>/<str:exam_type_pk>/list/',
 
         'Notice Related API'                : '--------------------------------------------------------------------------',
         'Notice List'                       : 'api/v1/notices/<str:notice_type>/list/',

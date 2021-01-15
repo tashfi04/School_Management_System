@@ -27,16 +27,13 @@ class Subject(models.Model):
     name = models.CharField(max_length=50)
     teacher = models.ForeignKey('teachers.Teacher', on_delete=models.CASCADE, null=True, blank=True)
 
-    # def __str__(self):
-    #     return '%s (%s)' % (str(self.related_class), self.name)
-
     def __str__(self):
         return self.name
     
 class Exam(models.Model):
 
     related_class = models.ForeignKey(Class, on_delete=models.CASCADE)
-    exam = models.ForeignKey('exams.Exam', on_delete=models.CASCADE, null=True, blank=False)
+    exam_type = models.ForeignKey('exams.ExamType', on_delete=models.CASCADE, null=True, blank=False)
     exam_year = models.IntegerField(validators=[MinValueValidator(1900), MaxValueValidator(9999)], null=True, blank=False)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE, null=True, blank=True)
     subjective_marks = models.IntegerField()
@@ -48,9 +45,6 @@ class Exam(models.Model):
 
     def save(self, *args, **kwargs):
 
-        # self.subjective_pass_marks *= 0.01
-        # self.objective_pass_marks *= 0.01
-        # self.total_pass_marks *= 0.01
         if (0 <= self.subjective_pass_marks):
             self.subjective_pass_marks = self.subjective_marks * self.subjective_pass_marks / 100
         if (0 <= self.objective_pass_marks):
@@ -61,19 +55,4 @@ class Exam(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return str(self.exam)
-
-
-class MarkSheet(models.Model):
-
-    exam = models.ForeignKey(Exam, on_delete=models.CASCADE, null=True, blank=True)
-    student = models.ForeignKey('students.Student', on_delete=models.CASCADE, null=True)
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, null=True, blank=False)
-    subjective_marks = models.DecimalField(max_digits=5, decimal_places=2)
-    objective_marks = models.DecimalField(max_digits=5, decimal_places=2)
-    total_marks = models.DecimalField(max_digits=5, decimal_places=2)
-    letter_grade = models.CharField(max_length=5)
-
-    def __str__(self):
-        return self.subject
-    
+        return '%s (%s) (%s)' % (str(self.subject), str(self.exam_type), str(self.exam_year))
