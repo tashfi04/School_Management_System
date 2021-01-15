@@ -1,4 +1,4 @@
-from ..models import MarkSheet, Subject
+from ..models import MarkSheet
 from rest_framework import permissions
 from rest_framework.response import Response
 
@@ -10,16 +10,10 @@ from rest_framework.exceptions import (
     ValidationError
 )
 from rest_framework.generics import (
-    ListAPIView,
-    CreateAPIView,
-    UpdateAPIView,
     ListCreateAPIView
 )
 
 from ..serializers import (
-    # MarkSheetCreateSerializer,
-    # MarkSheetUpdateSerializer,
-
     MarkSheetSerializer
 )
 

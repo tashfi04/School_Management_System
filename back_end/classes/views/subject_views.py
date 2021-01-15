@@ -2,17 +2,14 @@ from ..models import Subject
 from rest_framework import permissions
 
 from rest_framework.exceptions import (
-    NotFound,
-    APIException,
-    NotAcceptable,
-    PermissionDenied,
+    NotFound
 )
 from rest_framework.generics import (
     ListAPIView
 )
 
 from ..serializers import (
-    SubjectListSerializer,
+    SubjectListSerializer
 )
 
 class SubjectList(ListAPIView):

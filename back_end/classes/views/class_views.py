@@ -16,7 +16,7 @@ from rest_framework.generics import (
 from ..serializers import (
     ClassListSerializer,
     ClassDetailsSerializer,
-    ClassStudentsListSerializer
+    ClassStudentListSerializer
 )
 
 class Conflict(APIException):
@@ -56,7 +56,7 @@ class ClassDetails(ListAPIView):
     
 class ClassStudentList(ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
-    serializer_class = ClassStudentsListSerializer
+    serializer_class = ClassStudentListSerializer
 
     def get_queryset(self):
 

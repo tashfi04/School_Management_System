@@ -9,10 +9,6 @@ from .subject_views import (
     SubjectDetails
 )
 
-# from .exam_views import (
-
-# )
-
-from .marksheet_views import (
-    MarkSheetListCreateUpdate
+from .exam_views import (
+    ClassExamTypeList
 )

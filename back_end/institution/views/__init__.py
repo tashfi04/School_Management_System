@@ -19,7 +19,7 @@ from .contact_info_views import (
     ContactInfoDetails
 )
 
-from .event_news_views import (
-    EventNewsList,
+from .event_views import (
+    EventList,
     EventDetails
 )

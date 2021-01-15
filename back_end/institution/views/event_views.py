@@ -9,13 +9,14 @@ from rest_framework.generics import (
 )
 
 from ..serializers import (
-    EventNewsSerializer
+    EventListSerializer,
+    EventDetailsSerializer
 )
 
-class EventNewsList(ListAPIView):
+class EventList(ListAPIView):
 
     permission_classes = [permissions.AllowAny]
-    serializer_class = EventNewsSerializer
+    serializer_class = EventListSerializer
 
     def get_queryset(self):
 
@@ -24,11 +25,11 @@ class EventNewsList(ListAPIView):
         if queryset:
             return queryset
         else:
-            raise NotFound("The event related news hasn't been published yet!")
+            raise NotFound("No event has been published yet!")
 
 class EventDetails(ListAPIView):
     permission_classes = [permissions.AllowAny]
-    serializer_class = EventNewsSerializer
+    serializer_class = EventDetailsSerializer
 
     def get_queryset(self):
         event_pk = self.kwargs.get('event_pk', None)
@@ -37,6 +38,6 @@ class EventDetails(ListAPIView):
         if queryset:
             return queryset
         else:
-            raise NotFound("No Event Exist such like that")
+            raise NotFound("No such event exists!")
         
         
