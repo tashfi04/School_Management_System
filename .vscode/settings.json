@@ -1,6 +1,0 @@
-{
-    //"python.pythonPath": "/usr/bin/python",
-    "python.pythonPath": "F:\github\School_Management_System\back_end\venvpython",
-    "python.linting.enabled": true,
-    "python.linting.pylintEnabled": true
-}
