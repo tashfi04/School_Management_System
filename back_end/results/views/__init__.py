@@ -3,5 +3,6 @@ from .marksheet_views import (
 )
 
 from .result_views import (
-    TabulationSheetList
+    TabulationSheetList,
+    ResultCardDetails
 )
