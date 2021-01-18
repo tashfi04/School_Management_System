@@ -7,7 +7,6 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Footer_up from "./Footer_up";
 
 const axios = require("axios");
 
@@ -201,17 +200,18 @@ function Home() {
             </Carousel>
             {/* about us */}
             <Row className="m-5 p-5">
-                <Col sm={8}>
+                <Col md={8}>
                     <h3>About Us:</h3>
                     <hr className="new" />
                     <br />
                     {String(aboutUs.overview)}
                 </Col>
-                <Col sm={4}>
-                    <div className="img-hover-zoom" style={{ width: "25vw" }}>
+                <Col md={4} className="mt-2">
+                    <div className="img-hover-zoom">
                         <img
                             src={String(aboutUs.about_us_photo)}
                             style={{ height: "40vh" }}
+                            alt="About us photo"
                         />
                     </div>
                 </Col>
@@ -245,17 +245,18 @@ function Home() {
             <div>
                 {/* heamasster section */}
                 <Row className="m-5 p-5">
-                    <Col sm={8}>
+                    <Col md={8}>
                         <h3>Headmaster Speech:</h3>
                         <hr className="new" />
                         <br />
                         {String(headMaster.headmaster_speech)}
                     </Col>
-                    <Col sm={4}>
-                        <div style={{ width: "25vw" }}>
+                    <Col md={4}>
+                        <div>
                             <img
                                 src={String(headMaster.headmaster_photo)}
                                 style={{ height: "40vh" }}
+                                alt="Headmaster photo"
                             />
                         </div>
                     </Col>

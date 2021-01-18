@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import {
     Form,
     Button,
-    Jumbotron,
     Container,
     Image,
     Row,

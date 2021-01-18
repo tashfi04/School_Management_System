@@ -47,11 +47,11 @@ const Classes = (props) => {
                             Class {item.name}
                         </Card.Title>
                         <Card.Subtitle style={{color:"black"}}>
-                            {item.group == "Sci" ? (
+                            {item.group === "Sci" ? (
                                 <div>Science</div>
-                            ) : item.group == "Bus" ? (
+                            ) : item.group === "Bus" ? (
                                 <div>Business</div>
-                            ) : item.group == "Hum" ? (
+                            ) : item.group === "Hum" ? (
                                 <div>Humanities</div>
                             ) : (
                                 <div></div>

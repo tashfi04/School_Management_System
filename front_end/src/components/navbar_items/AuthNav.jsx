@@ -28,7 +28,11 @@ function AuthNav() {
                     </Nav>
                     {localStorage.getItem("token") ? (
                         <DropdownButton
-                            title="Options"
+                            title={
+                                    <FontAwesomeIcon
+                                        className="fa-icon"
+                                        icon={["fas", "bars"]}
+                                    />}
                             menuAlign="right"
                             id="dropdown-menu-align-right"
                             variant="secondary"

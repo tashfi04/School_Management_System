@@ -6,7 +6,7 @@ import TeacherShow from './TeacherShow'
 
 import "./Profile.scss"
 
-const axios = require('axios')
+// const axios = require('axios')
 
 
 export default class Profile extends Component {
@@ -26,7 +26,7 @@ export default class Profile extends Component {
                             <Jumbotron>
                                 <Container>
                                 <h1 className="pt-4">Account Information</h1> <br></br>
-                                    {localStorage.getItem('role') == '4' ? (
+                                    {localStorage.getItem('role') === '4' ? (
                                         <StudentShow/>
                                     ) : (
                                         <TeacherShow/>
