@@ -11,7 +11,7 @@ function Event() {
     useEffect(() => {
         const loadEvent = async () => {
             axios
-                .get(`/api/v1/institution/event_details/${event_pk}/`)
+                .get(`/api/v1/institution/events/${event_pk}/details/`)
                 .then((response) => {
                     setEventDetails(response.data[0]);
                     console.log("rumi", response.data[0]);

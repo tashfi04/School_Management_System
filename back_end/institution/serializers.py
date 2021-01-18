@@ -34,7 +34,7 @@ class ContactInfoSerializer(serializers.ModelSerializer):
 class EventListSerializer(serializers.ModelSerializer):
     class Meta:
         model = EventNews
-        fields = ['id', 'date', 'title']
+        fields = ['id', 'date', 'title','description','photo']
 
 class EventDetailsSerializer(serializers.ModelSerializer):
     class Meta:

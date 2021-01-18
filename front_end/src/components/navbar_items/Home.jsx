@@ -15,6 +15,7 @@ function Home() {
     const [headMaster, setHeadMaster] = useState({});
     const [homePage, setHomePage] = useState({});
     const [event, setEvent] = useState({});
+    const [notice, setNotice] = useState({})
 
     useEffect(() => {
         const loadAboutUs = async () => {
@@ -39,7 +40,7 @@ function Home() {
                     console.log(error);
                 });
         };
-        loadHeadmaster()
+        loadHeadmaster();
 
         const loadCarousol = async () => {
             axios
@@ -55,16 +56,28 @@ function Home() {
 
         const loadEvent = async () => {
             axios
-                .get("api/v1/institution/event_news_list/")
+                .get("api/v1/institution/events/list/")
                 .then((response) => {
                     setEvent(response.data);
-                    console.log("rumi", response.data);
                 })
                 .catch((error) => {
                     console.log(error);
                 });
         };
         loadEvent();
+
+        const loadNotice = async() => {
+            axios   
+                .get("api/v1/notices/0/list/")
+                .then((response) => {
+                    console.log('object', response.data)
+                    setNotice(response.data);
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        }
+        loadNotice();
     }, []);
 
     const settings = {
@@ -115,30 +128,37 @@ function Home() {
     };
 
     let showCards;
-    let KEY=0;
+    let KEY = 0;
+
     if (Object.keys(event).length > 0) {
         showCards = event.map((item) => (
-            <div className="merge" key={++KEY} style={{maxHeight:'10vh'}}>
+            <div className="merge" key={++KEY} style={{ maxHeight: "10vh" }}>
                 <Card>
                     <Card.Img variant="top" src={item.photo} />
                     <Card.Body>
-                        <Card.Title style={{height:'10vh'}}>
+                        <Card.Title style={{ height: "10vh" }}>
                             {item.title}
                         </Card.Title>
                         <b>
                             <FontAwesomeIcon
-                                    className="fa-icon"
-                                    icon={["fas", "calendar-day"]}
-                                />{" "}
+                                className="fa-icon"
+                                icon={["fas", "calendar-day"]}
+                            />{" "}
                             {item.date}
                         </b>
                         <br />
                         <br />
-                        <Card.Text style={{height:'15vh'}}>
-                            {item.description.substring(0,100)}
+                        <Card.Text style={{ height: "15vh" }}>
+                            {item.description.substring(0, 100)}
                         </Card.Text>
-                        <Button variant="secondary" style={{backgroundColor:'#2A2A28'}}>
-                            <Link to={`/event/${item.pk}`} style={{color:'white'}}>
+                        <Button
+                            variant="secondary"
+                            style={{ backgroundColor: "#2A2A28" }}
+                        >
+                            <Link
+                                to={`/event/${item.id}`}
+                                style={{ color: "white" }}
+                            >
                                 See more...
                             </Link>
                         </Button>
@@ -147,57 +167,97 @@ function Home() {
             </div>
         ));
     }
+
+    let showNotice;
+
+    if(Object.keys(notice).length > 0){
+        showNotice = notice.map((item) => (
+            <div key={item.id}>
+                <h5>
+                    {item.title}
+                </h5>
+                <i style={{fontSize:'12px'}}>
+                <FontAwesomeIcon
+                    className="fa-icon"
+                    icon={["fas", "calendar-day"]}
+                />{" "}
+                    Published at {item.date}
+                </i>
+                <hr />
+            </div>
+        ));
+    }
+
     return (
         <div style={{ fontFamily: "verdana" }}>
-            <Carousel
-                className="pb-0 mb-0"
-                style={{ backgroundColor: "#e9ecef" }}
-            >
-                <Carousel.Item>
-                    <img
-                        style={{ height: "70vh" }}
-                        className="d-block w-100"
-                        src={String(homePage.home_photo_1)}
-                        alt="School-Front"
-                    />
-                    <Carousel.Caption>
-                        <h3>Welcome to Shahjalal University School</h3>
-                    </Carousel.Caption>
-                </Carousel.Item>
-                <Carousel.Item>
-                    <img
-                        style={{ height: "70vh" }}
-                        className="d-block w-100"
-                        src={String(homePage.home_photo_2)}
-                        alt="Lab-Room"
-                    />
-                    <Carousel.Caption>
-                        <h3>Welcome to Shahjalal University School</h3>
-                    </Carousel.Caption>
-                </Carousel.Item>
-                <Carousel.Item>
-                    <img
-                        style={{ height: "70vh" }}
-                        className="d-block w-100"
-                        src={String(homePage.home_photo_3)}
-                        alt="Field"
-                    />
-                    <Carousel.Caption>
-                        <h3>Welcome to Shahjalal University School</h3>
-                    </Carousel.Caption>
-                </Carousel.Item>
-                <Carousel.Item>
-                    <img
-                        style={{ height: "70vh" }}
-                        className="d-block w-100"
-                        src={String(homePage.home_photo_4)}
-                        alt="Lab-Room"
-                    />
-                    <Carousel.Caption>
-                        <h3>Welcome to Shahjalal University School</h3>
-                    </Carousel.Caption>
-                </Carousel.Item>
-            </Carousel>
+            <Row>
+                <Col md={9}>
+                    <Carousel
+                        className="pb-0 mb-0"
+                        style={{ backgroundColor: "#e9ecef" }}
+                    >
+                        <Carousel.Item>
+                            <img
+                                style={{ height: "70vh" }}
+                                className="d-block w-100"
+                                src={String(homePage.home_photo_1)}
+                                alt="School-Front"
+                            />
+                            <Carousel.Caption>
+                                <h3>Welcome to Shahjalal University School</h3>
+                            </Carousel.Caption>
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <img
+                                style={{ height: "70vh" }}
+                                className="d-block w-100"
+                                src={String(homePage.home_photo_2)}
+                                alt="Lab-Room"
+                            />
+                            <Carousel.Caption>
+                                <h3>Welcome to Shahjalal University School</h3>
+                            </Carousel.Caption>
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <img
+                                style={{ height: "70vh" }}
+                                className="d-block w-100"
+                                src={String(homePage.home_photo_3)}
+                                alt="Field"
+                            />
+                            <Carousel.Caption>
+                                <h3>Welcome to Shahjalal University School</h3>
+                            </Carousel.Caption>
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <img
+                                style={{ height: "70vh" }}
+                                className="d-block w-100"
+                                src={String(homePage.home_photo_4)}
+                                alt="Lab-Room"
+                            />
+                            <Carousel.Caption>
+                                <h3>Welcome to Shahjalal University School</h3>
+                            </Carousel.Caption>
+                        </Carousel.Item>
+                    </Carousel>
+                </Col>
+                <Col md={3} style={{ backgroundColor: "#e9ecef", height: "70vh" }}>
+                    <div className="pt-5 mt-5 pl-2 mr-3" style={{height:"100%"}}>
+                        <h4 style={{ textAlign: "center" }}>
+                            <FontAwesomeIcon
+                                className="fa-icon"
+                                icon={["fas", "clipboard"]}
+                            />{" "}
+                            Notice
+                        </h4>
+                        <hr />
+                        <marquee direction="up" scrollamount="3" height="60%">
+                            {showNotice}
+                        </marquee>
+                    </div>
+                </Col>
+            </Row>
             {/* about us */}
             <Row className="m-5 p-5">
                 <Col md={8}>
@@ -227,9 +287,7 @@ function Home() {
                         <br />
                         <div className="container">
                             <style>{cssstyle}</style>
-                            <Slider {...settings}>
-                                {showCards}
-                            </Slider>
+                            <Slider {...settings}>{showCards}</Slider>
                         </div>
                         <div className="d-flex justify-content-end pb-3">
                             <Button
