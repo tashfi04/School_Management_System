@@ -6,7 +6,7 @@ import Home from "./components/navbar_items/Home";
 import Administration from "./components/navbar_items/Administration";
 import Facilities from "./components/navbar_items/Facilities";
 import Notice from "./components/navbar_items/Notice";
-import CustomFooter from "./components/navbar_items/CustomFooter";
+// import CustomFooter from "./components/navbar_items/CustomFooter";
 import Login from "./components/user_authentication/Login";
 import Registration from "./components/user_authentication/Registration";
 import Logout from "./components/user_authentication/Logout";
@@ -21,12 +21,13 @@ import ClassDetails from "./components/navbar_items/Academics/ClassDetails";
 import Teachers from "./components/navbar_items/Academics/Teachers";
 import MyClasses from "./components/navbar_items/profile/MyClasses";
 import MySubject from "./components/navbar_items/profile/MySubject";
-import Footer_up from "./components/navbar_items/Footer_up";
+import Footer from "./components/navbar_items/Footer";
 import Event from "./components/navbar_items/Event";
+import MarksheetTeacher from "./components/navbar_items/profile/Marksheet/MarksheetTeacher";
 
 library.add(far, fas, fab);
 
-const axios = require("axios");
+// const axios = require("axios");
 
 function App() {
     return (
@@ -51,12 +52,12 @@ function App() {
                     <Route path="/profile/dashboard/" component={Profile}></Route>
                     <Route path="/profile/myclasses/" component={MyClasses}></Route>
                     <Route path="/profile/class/:class_pk/subject/:subject_pk/" component={MySubject}></Route>
+                    <Route path="/profile/class/:class_pk/exam/:exam_pk/subject/:subject_pk/" component={MarksheetTeacher}></Route>
 
                     <Route path="/logout/" component={Logout}></Route>
                     <Route path="/registration/" component={Registration}></Route>
-
                 </Switch>
-                <Footer_up />
+                <Footer />
                 {/* <CustomFooter /> */}
             </div>
         </Router>

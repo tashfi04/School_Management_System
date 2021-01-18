@@ -9,7 +9,7 @@ function Sidebar() {
         <div>
             <Jumbotron>
                 <Container>
-                    {localStorage.getItem("role") == "4" ? (
+                    {localStorage.getItem("role") === "4" ? (
                         // For students sidebar
                         <div>
                             <br />
