@@ -76,11 +76,11 @@ function ClassDetails() {
                             {detail.name ? (
                                 <div>
                                     <h6>
-                                        {detail.group == "Sci" ? (
+                                        {detail.group === "Sci" ? (
                                             <div>Group Science</div>
-                                        ) : detail.group == "Bus" ? (
+                                        ) : detail.group === "Bus" ? (
                                             <div>Group Business Studies</div>
-                                        ) : detail.group == "Hum" ? (
+                                        ) : detail.group === "Hum" ? (
                                             <div>Group Humanities</div>
                                         ) : (
                                             <div></div>

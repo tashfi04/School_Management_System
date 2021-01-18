@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Jumbotron, Container, Row, Col, Image} from 'react-bootstrap'
-import Footer_up from '../Footer_up'
 import SidebarAcademic from './SidebarAcademic'
 
 export default class Overview extends Component {

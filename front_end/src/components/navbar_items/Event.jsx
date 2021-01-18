@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, useParams } from "react-router-dom";
-import { Carousel, Row, Col, Card, Button } from "react-bootstrap";
+// import { Carousel, Row, Col, Card, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const axios = require("axios");
@@ -32,6 +32,7 @@ function Event() {
                 src={String(eventDetails.photo)}
                 style={{ height: "70vh", width: "98vw" }}
                 className="p-5"
+                alt="event photo"
             />
             <h3 style={{ textAlign: "center" }}>
                 {String(eventDetails.title)}
