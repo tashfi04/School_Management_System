@@ -10,10 +10,13 @@ function MarksheetTeacher() {
     let exam_pk = useParams().exam_pk;
     let class_pk = useParams().class_pk;
 
-    const [tabulation, setTabulation] = useState({});
     const [available, setAvailable] = useState(false)
+    const [subjectDetails, setSubjectDetails] = useState({});
+    const [className, setClassName] = useState({});
+
 
     useEffect(() => {
+
         const loadMarksheet = async() => {
             axios
             .get(`/api/v1/results/marksheet/${subject_pk}/${exam_pk}/`, {
@@ -22,8 +25,6 @@ function MarksheetTeacher() {
                 },
             })
             .then((response) => {
-                setTabulation(response.data);
-                console.log(response.data)
                 if(response.data.length > 0){
                     setAvailable(true);
                 }
@@ -32,18 +33,66 @@ function MarksheetTeacher() {
                 console.log(error);
             });
         }
+
+        const loadSubjectDetails = async () => {
+            axios
+                .get(`/api/v1/classes/subjects/${subject_pk}/details/`, {
+                    headers: {
+                        Authorization: `JWT ${localStorage.getItem("token")}`,
+                    },
+                })
+                .then((response) => {
+                    setSubjectDetails(response.data[0]);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        };
+
+        const loadClassName = async () => {
+            axios
+                .get(`/api/v1/classes/${class_pk}/details/`, {
+                    headers: {
+                        Authorization: `JWT ${localStorage.getItem("token")}`,
+                    },
+                })
+                .then((response) => {
+                    setClassName(response.data[0]);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        };
+
         loadMarksheet();
+        loadSubjectDetails();
+        loadClassName();
+
+        // return () => isCancelled.current = true;
+        
     },[]);
 
     return(
         <div>
             {available ? (
                 <div>
-                    <UpdateMarksheet />
+                    <UpdateMarksheet
+                        class_pk={class_pk} 
+                        exam_pk={exam_pk} 
+                        subject_pk={subject_pk} 
+                        subjectDetails={subjectDetails} 
+                        className={className}
+                    />
                 </div>
             ) : (
                 <div>
-                    <CreateMarksheet class_pk={class_pk} exam_pk={exam_pk} subject_pk={subject_pk}/>
+                    <CreateMarksheet 
+                        class_pk={class_pk} 
+                        exam_pk={exam_pk} 
+                        subject_pk={subject_pk} 
+                        subjectDetails={subjectDetails} 
+                        className={className}
+                    />
                 </div>
             )}
         </div>
