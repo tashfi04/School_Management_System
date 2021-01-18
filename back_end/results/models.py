@@ -42,7 +42,7 @@ class MarkSheet(models.Model):
 
         else:
             previous_marks = MarkSheet.objects.filter(student=self.student, exam=self.exam).values_list('total_marks', flat=True)
-            tabulationsheet[0].update(total_marks=F('total_marks') - previous_marks[0] + self.total_marks)
+            tabulationsheet.update(total_marks=F('total_marks') - previous_marks[0] + self.total_marks)
 
         super().save(*args, **kwargs)
 

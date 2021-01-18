@@ -11,9 +11,9 @@ class TabulationSheetSerializer(serializers.ModelSerializer):
     marksheet_set = MarksSerializer(many=True, read_only=True)
     class Meta:
         model = TabulationSheet
-        fields = ['total_marks', 'position', 'marksheet_set']
+        fields = ['marksheet_set', 'total_marks', 'total_GP', 'CGPA', 'letter_grade', 'position']
 
-class ResultCardSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = MarkSheet
-        fields = ['name', 'teacher']
+# class ResultCardSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = MarkSheet
+#         fields = ['name', 'teacher']
