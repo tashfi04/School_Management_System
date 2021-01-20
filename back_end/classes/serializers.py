@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Class, Subject
+from .models import Class, Subject, Exam
 from students.models import Student
 from exams.models import ExamType
 
@@ -27,3 +27,9 @@ class SubjectListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subject
         fields = ['name', 'teacher','related_class']
+
+class SubjectExamListSerializer(serializers.ModelSerializer):
+    exam_type = serializers.StringRelatedField()
+    class Meta:
+        model = Exam
+        fields = ['id','exam_year','exam_type']

@@ -189,7 +189,7 @@ function UpdateMarksheet(props) {
                     <h5>Update the marks where needed</h5>
                     <hr />
                     <hr />
-                    <Table striped hover className="p-5">
+                    <Table striped hover className="p-5" size="sm">
                         <thead>
                             <tr>
                                 <th>Name</th>

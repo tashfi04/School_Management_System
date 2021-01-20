@@ -7,6 +7,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import NoticeMarquee from './Notice/NoticeMarquee';
 
 const axios = require("axios");
 
@@ -15,7 +16,6 @@ function Home() {
     const [headMaster, setHeadMaster] = useState({});
     const [homePage, setHomePage] = useState({});
     const [event, setEvent] = useState({});
-    const [notice, setNotice] = useState({})
 
     useEffect(() => {
         const loadAboutUs = async () => {
@@ -65,19 +65,6 @@ function Home() {
                 });
         };
         loadEvent();
-
-        const loadNotice = async() => {
-            axios   
-                .get("api/v1/notices/0/list/")
-                .then((response) => {
-                    console.log('object', response.data)
-                    setNotice(response.data);
-                })
-                .catch((error) => {
-                    console.log(error)
-                })
-        }
-        loadNotice();
     }, []);
 
     const settings = {
@@ -168,26 +155,6 @@ function Home() {
         ));
     }
 
-    let showNotice;
-
-    if(Object.keys(notice).length > 0){
-        showNotice = notice.map((item) => (
-            <div key={item.id}>
-                <h5>
-                    {item.title}
-                </h5>
-                <i style={{fontSize:'12px'}}>
-                <FontAwesomeIcon
-                    className="fa-icon"
-                    icon={["fas", "calendar-day"]}
-                />{" "}
-                    Published at {item.date}
-                </i>
-                <hr />
-            </div>
-        ));
-    }
-
     return (
         <div style={{ fontFamily: "verdana" }}>
             <Row>
@@ -242,20 +209,8 @@ function Home() {
                         </Carousel.Item>
                     </Carousel>
                 </Col>
-                <Col md={3} style={{ backgroundColor: "#e9ecef", height: "70vh" }}>
-                    <div className="pt-5 mt-5 pl-2 mr-3" style={{height:"100%"}}>
-                        <h4 style={{ textAlign: "center" }}>
-                            <FontAwesomeIcon
-                                className="fa-icon"
-                                icon={["fas", "clipboard"]}
-                            />{" "}
-                            Notice
-                        </h4>
-                        <hr />
-                        <marquee direction="up" scrollamount="3" height="60%">
-                            {showNotice}
-                        </marquee>
-                    </div>
+                <Col md={3} style={{ backgroundColor: "rgb(194 225 255)", height: "70vh" }}>
+                    <NoticeMarquee />
                 </Col>
             </Row>
             {/* about us */}

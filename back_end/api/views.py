@@ -37,6 +37,7 @@ def apiOverview(request):
         'Subject Related API'               : '--------------------------------------------------------------------------',
         'Subject List'                      : 'api/v1/classes/<str:class_pk>/subjects/list/',
         'Subject Details'                   : 'api/v1/classes/subjects/<str:subject_pk>/details/',
+        'Subject Exam List'                 : '/api/v1/classes/subjects/<str:subject_pk>/exams/list/',
 
         'Result Related API'                : '--------------------------------------------------------------------------',
         'Marksheet List Create Update'      : 'api/v1/results/marksheet/<str:subject_pk>/<str:exam_pk>/',

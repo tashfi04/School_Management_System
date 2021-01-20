@@ -17,7 +17,7 @@ function MySubject() {
     const [studentList, setStudentList] = useState({});
     const [className, setClassName] = useState({});
     const [subjectDetails, setSubjectDetails] = useState({});
-    const [examName, setExamName] = useState({});
+    const [examList, setExamList] = useState({});
 
     useEffect(() => {
         const loadStudentList = async () => {
@@ -68,41 +68,25 @@ function MySubject() {
         };
         loadSubjectDetails();
 
-        const loadExamName = async () => {
+        const loadExamList = async () => {
             axios
-                .get(`/api/v1/classes/${class_pk}/exam_types/list/`, {
+                .get(`/api/v1/classes/subjects/${subject_pk}/exams/list/`, {
                     headers: {
                         Authorization: `JWT ${localStorage.getItem("token")}`,
                     },
                 })
                 .then((response) => {
-                    console.log(response.data);
-                    setExamName(response.data);
+                    setExamList(response.data);
                 })
                 .catch((error) => {
                     console.log(error);
                 });
         };
-        loadExamName();
+        loadExamList();
     }, []);
 
     let Name = String(className.name);
     let SubjectName = String(subjectDetails.name);
-    // let randomKey = 0;
-    // let StudentList;
-    // if (Object.keys(studentList).length > 0) {
-    //     StudentList = studentList.map((item) => (
-    //         <tr key={++randomKey}>
-    //             <td>
-    //                 <FontAwesomeIcon
-    //                     className="fa-icon"
-    //                     icon={["fas", "user"]}
-    //                 />{" "}
-    //                 {item.name}
-    //             </td>
-    //         </tr>
-    //     ));
-    // }
 
     const StudentShow = () => {
         const show = [];
@@ -156,11 +140,17 @@ function MySubject() {
         return show;
     };
 
-    let examList;
-    if (Object.keys(examName).length > 0) {
-        examList = examName.map((item) => (
+    let showExamList;
+    if (Object.keys(examList).length > 0) {
+        showExamList = examList.map((item) => (
             <tr key={item.id}>
-                <td><Link to={`/profile/class/${class_pk}/exam/${item.id}/subject/${subject_pk}/`}><h6 style={{color:'white'}}> {item.exam_type} </h6></Link></td>
+                <td>
+                    <Link
+                        to={`/profile/class/${class_pk}/exam/${item.id}/subject/${subject_pk}/`}
+                    >
+                        <h6 style={{ color: "white" }}> {item.exam_type} </h6>
+                    </Link>
+                </td>
             </tr>
         ));
     }
@@ -176,7 +166,7 @@ function MySubject() {
                     </Jumbotron>
                 </Col>
                 <Col sm={8}>
-                    <Jumbotron className="pl-5" style={{textAlign:'center'}}>
+                    <Jumbotron className="pl-5" style={{ textAlign: "center" }}>
                         <Container className="pl-5">
                             <div>
                                 <br />
@@ -223,9 +213,7 @@ function MySubject() {
                                         <th>Exam</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    {examList}
-                                </tbody>
+                                <tbody>{showExamList}</tbody>
                             </Table>
                         </Container>
                     </Jumbotron>
