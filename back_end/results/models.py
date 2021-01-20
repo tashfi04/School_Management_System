@@ -28,7 +28,7 @@ class MarkSheet(models.Model):
 
     def save(self, *args, **kwargs):
 
-        tabulationsheet = TabulationSheet.objects.filter(marksheet__student=self.student, marksheet__exam=self.exam).distinct()
+        tabulationsheet = TabulationSheet.objects.filter(marksheet__student_id=self.student, marksheet__exam__exam_type_id=self.exam.exam_type_id, marksheet__exam__related_class_id=self.exam.related_class_id).distinct()
 
         if self._state.adding:
 
@@ -46,11 +46,11 @@ class MarkSheet(models.Model):
 
         super().save(*args, **kwargs)
 
-        update_position(self.exam.exam_type_id)
+        update_position(self.exam.exam_type_id, self.exam.related_class_id)
 
-def update_position(exam_type):
+def update_position(exam_type, related_class):
 
-    tabulation_sheets = TabulationSheet.objects.filter(marksheet__exam__exam_type_id=exam_type).order_by('total_marks').distinct()
+    tabulation_sheets = TabulationSheet.objects.filter(marksheet__exam__exam_type_id=exam_type, marksheet__exam__related_class_id=related_class).order_by('total_marks').distinct()
     #print(tabulation_sheets)
     for indx, item in enumerate(tabulation_sheets):
         item.position = indx
