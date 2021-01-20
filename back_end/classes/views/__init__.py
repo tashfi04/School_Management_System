@@ -10,5 +10,6 @@ from .subject_views import (
 )
 
 from .exam_views import (
-    ClassExamTypeList
+    ClassExamTypeList,
+    SubjectExamList
 )
