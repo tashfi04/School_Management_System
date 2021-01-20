@@ -35,23 +35,6 @@ function SidebarAcademic() {
                         <Link to="/academics/teachers"  style={{color:"black"}}>Teachers</Link>
                     </h5>
                     <hr />
-                    <h5>
-                        <FontAwesomeIcon
-                            className="fa-icon"
-                            icon={["fas", "book-open"]}
-                        />{" "}
-                        {"    "}
-                        <Link to="#" style={{color:"black"}}>Syllabus</Link>
-                    </h5>
-                    <hr />
-                    <h5>
-                        <FontAwesomeIcon
-                            className="fa-icon"
-                            icon={["fas", "calendar"]}
-                        />{" "}
-                        {"    "}
-                        <Link to="#"  style={{color:"black"}}>Routines</Link>
-                    </h5>
                 </Container>
             </Jumbotron>
         </div>

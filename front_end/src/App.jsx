@@ -5,7 +5,7 @@ import AuthNav from "./components/navbar_items/AuthNav";
 import Home from "./components/navbar_items/Home";
 import Administration from "./components/navbar_items/Administration";
 import Facilities from "./components/navbar_items/Facilities";
-import Notice from "./components/navbar_items/Notice";
+import Notice from "./components/navbar_items/Notice/Notice";
 // import CustomFooter from "./components/navbar_items/CustomFooter";
 import Login from "./components/user_authentication/Login";
 import Registration from "./components/user_authentication/Registration";
@@ -24,6 +24,7 @@ import MySubject from "./components/navbar_items/profile/MySubject";
 import Footer from "./components/navbar_items/Footer";
 import Event from "./components/navbar_items/Event";
 import MarksheetTeacher from "./components/navbar_items/profile/Marksheet/MarksheetTeacher";
+import NoticeDetails from "./components/navbar_items/Notice/NoticeDetails";
 
 library.add(far, fas, fab);
 
@@ -47,6 +48,7 @@ function App() {
 
                     <Route path="/facilities" component={Facilities}></Route>
                     <Route path="/notice/" component={Notice}></Route>
+                    <Route path="/noticedetails/:notice_pk/" component={NoticeDetails}></Route>
                     <Route path="/login/" component={Login}></Route>
 
                     <Route path="/profile/dashboard/" component={Profile}></Route>
