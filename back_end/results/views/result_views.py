@@ -9,8 +9,7 @@ from rest_framework.generics import (
 )
 
 from ..serializers import (
-    TabulationSheetSerializer,
-    ResultCardSerializer
+    TabulationSheetSerializer
 )
 
 # class TabulationSheetCreate(ListAPIView):
@@ -67,16 +66,19 @@ class TabulationSheetList(ListAPIView):
         else:
             raise NotFound("No tabulation sheet has created yet!")
 
-class ResultCard(ListAPIView):
+class ResultCardDetails(ListAPIView):
 
     permission_classes = [permissions.AllowAny]
-    serializer_class = ResultCardSerializer
+    serializer_class = TabulationSheetSerializer
 
     def get_queryset(self):
 
-        queryset = MarkSheet.objects.all()
+        class_id = self.kwargs.get('class_pk', None)
+        student_id = self.kwargs.get('student_pk', None)
+
+        queryset = TabulationSheet.objects.filter(marksheet__exam__related_class_id=class_id, marksheet__student_id=student_id)
 
         if queryset:
             return queryset
         else:
-            raise NotFound("No classes available")
+            raise NotFound("No result card available")

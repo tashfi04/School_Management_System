@@ -36,15 +36,13 @@ class MarkSheet(models.Model):
             
             if(tabulationsheet):
                 self.tabulationsheet = tabulationsheet[0]
-                # tabulationsheet.update(total_marks=F('total_marks') + self.total_marks)
-                tabulationsheet[0].total_marks = F('total_marks') + self.total_marks
+                tabulationsheet.update(total_marks=F('total_marks') + self.total_marks)
             else:
                 self.tabulationsheet = TabulationSheet.objects.create(total_marks=self.total_marks, total_GP=None, CGPA=None, letter_grade=None, position=None)
 
         else:
             previous_marks = MarkSheet.objects.filter(student=self.student, exam=self.exam).values_list('total_marks', flat=True)
-            # tabulationsheet[0].update(total_marks=F('total_marks') - previous_marks[0] + self.total_marks)
-            tabulationsheet[0].total_marks = F('total_marks') - previous_marks[0] + self.total_marks
+            tabulationsheet.update(total_marks=F('total_marks') - previous_marks[0] + self.total_marks)
 
         super().save(*args, **kwargs)
 
