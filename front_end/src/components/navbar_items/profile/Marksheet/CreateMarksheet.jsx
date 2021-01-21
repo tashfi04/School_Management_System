@@ -130,7 +130,6 @@ function CreateMarksheet(props) {
                             });
                         }}
                     >
-
                     </input>
                 </td>
             </tr>
@@ -151,7 +150,6 @@ function CreateMarksheet(props) {
         axios
             .post(endpoint, body, config)
             .then((response) => {
-            // browserHistory.push(`/profile/class/${class_pk}/exam/${item.id}/subject/${subject_pk}/`);
             window.location.reload(false);
             console.log(response.data)
             })

@@ -4,7 +4,8 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import AuthNav from "./components/navbar_items/AuthNav";
 import Home from "./components/navbar_items/Home";
 import Administration from "./components/navbar_items/Administration";
-import Facilities from "./components/navbar_items/Facilities";
+import Tabulation from "./components/navbar_items/Result/Tabulation";
+import SelectedCurrentTabulation from "./components/navbar_items/Result/SelectedCurrentTabulation";
 import Notice from "./components/navbar_items/Notice/Notice";
 // import CustomFooter from "./components/navbar_items/CustomFooter";
 import Login from "./components/user_authentication/Login";
@@ -46,7 +47,9 @@ function App() {
                     <Route path="/academics/classdetails/:class_pk/" component={ClassDetails}></Route>
                     <Route path="/academics/teachers/" component={Teachers}></Route>
 
-                    <Route path="/facilities" component={Facilities}></Route>
+                    <Route path="/result/tabulation/" component={Tabulation}></Route>
+                    <Route path="/result/class/:class_pk/exam_type/:exam_type_pk/" component={SelectedCurrentTabulation}></Route>
+
                     <Route path="/notice/" component={Notice}></Route>
                     <Route path="/noticedetails/:notice_pk/" component={NoticeDetails}></Route>
                     <Route path="/login/" component={Login}></Route>
