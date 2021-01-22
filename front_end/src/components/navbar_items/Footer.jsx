@@ -21,7 +21,7 @@ function Footer_up() {
     }, []);
 
     return (
-        <div style={{ backgroundColor: "#2A2A28" }} style={{}}>
+        <div style={{ backgroundColor: "#2A2A28" }}>
             <div className="ml-5 mr-5 p-5" style={{ color: "white" }}>
                 <Row style={{ fontFamily: "cursive" }}>
                     <Col sm={4}>

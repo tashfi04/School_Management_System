@@ -173,7 +173,7 @@ function SelectedCurrentTabulation() {
 
 
     return (
-        <div>
+        <div className="pb-5">
             <div id="divToPrint" className="mt-5 pt-5 ml-1 mr-1">
             <div style={{ textAlign: "center" }}>
                 <h3 style={{ color: "CaptionText" }}>
