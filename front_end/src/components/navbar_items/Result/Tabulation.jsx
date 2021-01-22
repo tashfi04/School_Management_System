@@ -79,7 +79,6 @@ function Tabulation() {
 
     const handleExamSelect = (e) => {
         let value = JSON.parse(e);
-        console.log(value);
         setSelectedExamId(value.id);
         setSelectedExamName(value.exam_type);
         setPromiseExam(true);
