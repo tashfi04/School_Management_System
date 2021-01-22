@@ -61,7 +61,7 @@ function NoticeMarquee() {
                 Notice
             </h4>
             <hr />
-            <marquee direction="up" scrollamount="3" height="60%">
+            <marquee direction="up" scrollamount="5" height="60%">
                 <Table striped hover>
                     <tbody>{showNotice}</tbody>
                 </Table>

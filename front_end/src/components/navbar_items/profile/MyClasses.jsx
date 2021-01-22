@@ -8,8 +8,10 @@ const axios = require("axios");
 
 function MyClasses() {
     const [classes, setClasses] = useState({});
-    const [className, setClassName] = useState([]);
+    const [className, setClassName] = useState({});
     const [wait, setWait] = useState(false);
+    const [promiseName, setPromiseName] = useState(false);
+    const [classPkToName, setClassPkToName] = useState({});
 
     useEffect(() => {
         const loadClasses = async () => {
@@ -35,10 +37,10 @@ function MyClasses() {
         loadClasses();
         
         const loadClassName = async() => {
-            for(let i=0; i<Object.keys(classes).length ; i++) {
+            // for(let i=0; i<Object.keys(classes).length ; i++) {
                 axios
                 .get(
-                    `/api/v1/classes/${classes[i].related_class}/details/`,
+                    `/api/v1/classes/list/`,
                     {
                         headers: {
                             Authorization: `JWT ${localStorage.getItem("token")}`,
@@ -46,20 +48,35 @@ function MyClasses() {
                     }
                 )
                 .then((response) => {
-                    setClassName(className => [...className, response.data[0].name]);
+                    setClassName(response.data);
+                    setPromiseName(true);
                 })
                 .catch((error) => {
                     console.log(error);
                 });
-            }
         }
         if(wait)
             loadClassName();
-    }, [wait]);
+
+        const ClassPkToName = async() => {
+            let tempClassName = {};
+            for(let i=0;i<Object.keys(className).length;i++){
+                tempClassName = {
+                    ...tempClassName,
+                    [className[i].id] : className[i].name
+                }
+            }
+            setClassPkToName(tempClassName);
+        }
+
+        if(promiseName)
+            ClassPkToName();
+
+    }, [wait, promiseName]);
+
 
 
     let subjectList;
-    let related_class_name = 0;
     if (Object.keys(classes).length > 0) {
         subjectList = classes.map((item) => (
             <tr key={item.id}>
@@ -71,7 +88,7 @@ function MyClasses() {
                             className="fa-icon"
                             icon={["fas", "chalkboard"]}
                         />{" "}
-                        <b>{className[related_class_name++]}</b>
+                        <b>{classPkToName[item.related_class]}</b>
                     </Link>
                 </td>
                 <td>
