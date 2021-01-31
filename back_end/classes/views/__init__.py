@@ -13,3 +13,7 @@ from .exam_views import (
     ClassExamTypeList,
     SubjectExamList
 )
+
+from .transfer_class_views import (
+    transfer_class
+)
