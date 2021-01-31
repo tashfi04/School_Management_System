@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Table, Button } from 'react-bootstrap';
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf'
+import { Table, Button } from "react-bootstrap";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 const axios = require("axios");
 
@@ -94,21 +94,20 @@ function SelectedCurrentTabulation() {
         loadClassDetails();
         loadSubjectListName();
 
-        const formalizeSubjectList = async() => {
+        const formalizeSubjectList = async () => {
             let tempSubjectList = {};
-            for(let i = 0; i<Object.keys(subjectListName).length; i++){
+            for (let i = 0; i < Object.keys(subjectListName).length; i++) {
                 tempSubjectList = {
                     ...tempSubjectList,
-                    [subjectListName[i].pk]: subjectListName[i].name
-                }
+                    [subjectListName[i].pk]: subjectListName[i].name,
+                };
             }
             setPkToSubject(tempSubjectList);
-        }
+        };
 
-        if(promiseSubject){
+        if (promiseSubject) {
             formalizeSubjectList();
         }
-
     }, [promise, promiseSubject]);
 
     console.log(modTabulation);
@@ -117,114 +116,122 @@ function SelectedCurrentTabulation() {
     if (modTabulation[0]) {
         if (modTabulation[0].marksheet_set) {
             ShowTableCol = modTabulation[0].marksheet_set.map((item) => (
-                <th colSpan="4" key={item.exam}>{pkToSubject[item.subject]}</th>
+                <th colSpan="4" key={item.exam}>
+                    {pkToSubject[item.subject]}
+                </th>
             ));
         }
     }
 
     let ShowTableSubCol;
-    let SubHead = ['MT','Term','Total','GP'];
-    let KEY=0;
+    let SubHead = ["MT", "Term", "Total", "GP"];
+    let KEY = 0;
     if (modTabulation[0]) {
         if (modTabulation[0].marksheet_set) {
-            ShowTableSubCol = modTabulation[0].marksheet_set.map((item) => (
-                SubHead.map((iitem) => (
-                    <th key={++KEY}>{iitem}</th>
-                )
-            )));
+            ShowTableSubCol = modTabulation[0].marksheet_set.map((item) =>
+                SubHead.map((iitem) => <th key={++KEY}>{iitem}</th>)
+            );
         }
     }
 
     let showTabulationsheet;
-    if(Object.keys(modTabulation).length){
+    if (Object.keys(modTabulation).length) {
         showTabulationsheet = modTabulation.map((item) => (
             <tr key={item.position}>
-            <td>{item.marksheet_set[0].student}</td>
-            {
-                item.marksheet_set.map((iitem) => (
+                <td>{item.marksheet_set[0].student}</td>
+                {item.marksheet_set.map((iitem) => (
                     <React.Fragment>
                         <td></td>
                         <td></td>
                         <td>{iitem.total_marks}</td>
                         <td></td>
                     </React.Fragment>
-                ))
-            }
-            <td>{item.total_marks}</td>
-            <td>{item.total_GP}</td>
-            <td>{item.position}</td>
+                ))}
+                <td>{item.total_marks}</td>
+                <td>{item.total_GP}</td>
+                <td>{item.position}</td>
             </tr>
-        ))
-
+        ));
     }
 
     // For PDF Generate
     const printDocument = () => {
-        const input = document.getElementById('divToPrint');
-        html2canvas(input)
-          .then((canvas) => {
-            const imgData = canvas.toDataURL('image/png');
-            const pdf = new jsPDF();
-            pdf.addImage(imgData, 'JPEG',0,0,200,50);
-            // pdf.output('dataurlnewwindow');
-            pdf.save("download.pdf");
-          }) ;
+        const input = document.getElementById("divToPrint");
+        html2canvas(input).then((canvas) => {
+            var imgWidth = 200;  
+            var pageHeight = 490;  
+            var imgHeight = canvas.height * imgWidth / canvas.width;  
+            var heightLeft = imgHeight;  
+            const imgData = canvas.toDataURL('image/png');  
+            const pdf = new jsPDF('p', 'mm', 'a4')  
+            var position = 0;  
+            var heightLeft = imgHeight;  
+            pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight/1);  
+            pdf.save("download.pdf")
+        });
     };
-
 
     return (
         <div className="pb-5">
-            <div id="divToPrint" className="mt-5 pt-5 ml-1 mr-1">
-            <div style={{ textAlign: "center" }}>
-                <h3 style={{ color: "CaptionText" }}>
-                    <FontAwesomeIcon
-                        className="fa-icon"
-                        icon={["fas", "chalkboard"]}
-                    />{" "}
-                    Tabulation Sheet for Class: {String(classDetails.name)}
-                </h3>
-                <div style={{fontSize:'15px'}}>
-                    {classDetails.group === "Sci" ? (
-                                <div> Group: Science</div>
-                            ) : classDetails.group === "Bus" ? (
-                                <div>Group: Business</div>
-                            ) : classDetails.group === "Hum" ? (
-                                <div>Group: Humanities</div>
-                            ) : (
-                                <div></div>
-                            )}
+            <div id='divToPrint' className="mt-5 pt-5 ml-1 mr-1">
+                <div style={{ textAlign: "center" }}>
+                    <h3 style={{ color: "CaptionText" }}>
+                        <FontAwesomeIcon
+                            className="fa-icon"
+                            icon={["fas", "chalkboard"]}
+                        />{" "}
+                        Tabulation Sheet for Class: {String(classDetails.name)}
+                    </h3>
+                    <div style={{ fontSize: "15px" }}>
+                        {classDetails.group === "Sci" ? (
+                            <div> Group: Science</div>
+                        ) : classDetails.group === "Bus" ? (
+                            <div>Group: Business</div>
+                        ) : classDetails.group === "Hum" ? (
+                            <div>Group: Humanities</div>
+                        ) : (
+                            <div></div>
+                        )}
+                    </div>
+                    <h5 style={{ color: "CaptionText" }}>
+                        <FontAwesomeIcon
+                            className="fa-icon"
+                            icon={["fas", "user"]}
+                        />{" "}
+                        Class Teacher: {String(classDetails.class_teacher)}
+                    </h5>
+                    <div
+                        className="mt-5 mb-5 p-3"
+                        style={{ overflowX: "auto" }}
+                    >
+                        <Table size="sm" striped bordered hover>
+                            <thead>
+                                <tr>
+                                    <th rowSpan="2">Name</th>
+                                    {ShowTableCol}
+                                    <th>Total Marks</th>
+                                    <th>GPA</th>
+                                    <th>Position</th>
+                                </tr>
+                                <tr>
+                                    {ShowTableSubCol}
+                                    <th colSpan="3"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {showTabulationsheet}
+                            </tbody>
+                        </Table>
+                    </div>
                 </div>
-                <h5 style={{ color: "CaptionText" }}>
-                    <FontAwesomeIcon
-                        className="fa-icon"
-                        icon={["fas", "user"]}
-                    />{" "}
-                    Class Teacher: {String(classDetails.class_teacher)}
-                </h5>
-                <div className='mt-5 mb-5 p-3' style={{overflowX:'auto'}}>
-                    <Table size='sm' striped bordered hover>
-                        <thead>
-                            <tr>
-                                <th rowSpan="2">Name</th>
-                                {ShowTableCol}
-                                <th>Total Marks</th>
-                                <th>GPA</th>
-                                <th>Position</th>
-                            </tr>
-                            <tr>
-                                {ShowTableSubCol}
-                                <th colSpan='3'></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {showTabulationsheet}
-                        </tbody>
-                    </Table>
-                </div>
-            </div>
             </div>
 
-            <Button variant="secondary" size="sm" className='float-right mr-3' onClick={printDocument}>
+            <Button
+                variant="secondary"
+                size="sm"
+                className="float-right mr-3"
+                onClick={printDocument}
+            >
                 Print result
             </Button>
         </div>

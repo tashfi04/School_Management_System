@@ -38,11 +38,13 @@ function CreateMarksheet(props) {
                         ...tempResult[name],
                         exam: parseInt(exam_pk),
                         student: name,
-                        subject: parseInt(subject_pk),
-                        subjective_marks: "0.00",
-                        objective_marks: "0.00",
-                        total_marks: "0.00",
-                        letter_grade: "0.00",
+                        // subject: parseInt(subject_pk),
+                        term_test_objective_marks: "0.00",
+                        term_test_subjective_marks: "0.00",
+                        class_test_marks: "0.00",
+                        lab_marks: "0.00",
+                        // total_marks: "0.00",
+                        // letter_grade: "0.00",
                     },
                 };
             }
@@ -77,7 +79,7 @@ function CreateMarksheet(props) {
                                 ...result,
                                 [item.name]: {
                                     ...result[item.name],
-                                    subjective_marks: e.target.value,
+                                    class_test_marks: e.target.value,
                                 },
                             });
                         }}
@@ -93,7 +95,7 @@ function CreateMarksheet(props) {
                                 ...result,
                                 [item.name]: {
                                     ...result[item.name],
-                                    objective_marks: e.target.value,
+                                    term_test_subjective_marks: e.target.value,
                                 },
                             });
                         }}
@@ -109,7 +111,7 @@ function CreateMarksheet(props) {
                                 ...result,
                                 [item.name]: {
                                     ...result[item.name],
-                                    total_marks: e.target.value,
+                                    term_test_objective_marks: e.target.value,
                                 },
                             });
                         }}
@@ -125,7 +127,7 @@ function CreateMarksheet(props) {
                                 ...result,
                                 [item.name]: {
                                     ...result[item.name],
-                                    letter_grade: e.target.value,
+                                    lab_marks: e.target.value,
                                 },
                             });
                         }}
@@ -140,6 +142,7 @@ function CreateMarksheet(props) {
         let endpoint = `/api/v1/results/marksheet/${subject_pk}/${exam_pk}/`;
         let data = Object.values(result);
         let body = JSON.stringify(data);
+        console.log(body);
         let config = {
             headers: {
                 Authorization: `JWT ${localStorage.getItem("token")}`,
@@ -188,10 +191,10 @@ function CreateMarksheet(props) {
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Subjective Mark</th>
-                                <th>Objective Mark</th>
-                                <th>Total Mark</th>
-                                <th>Letter Grade</th>
+                                <th>MT Marks</th>
+                                <th>Term Subjective Marks</th>
+                                <th>Term Objective Marks</th>
+                                <th>Lab Marks</th>
                             </tr>
                         </thead>
                         <tbody>{ShowTable}</tbody>

@@ -40,11 +40,14 @@ function UpdateMarksheet(props) {
                         id: marksheet[i].id,
                         exam: marksheet[i].exam,
                         student: marksheet[i].student,
-                        subject: marksheet[i].subject,
-                        subjective_marks: marksheet[i].subjective_marks,
-                        objective_marks: marksheet[i].objective_marks,
-                        total_marks: marksheet[i].total_marks,
-                        letter_grade: marksheet[i].letter_grade,
+                        // subject: marksheet[i].subject,
+                        term_test_subjective_marks: marksheet[i].subjective_marks,
+                        term_test_objective_marks: marksheet[i].objective_marks,
+                        class_test_marks: marksheet[i].class_test_marks,
+                        lab_marks: marksheet[i].lab_marks,
+                        // total_marks: marksheet[i].total_marks,
+                        // letter_grade: marksheet[i].letter_grade,
+                        
                     }
                 }
             }
@@ -80,7 +83,7 @@ function UpdateMarksheet(props) {
                                 ...result,
                                 [item.student]: {
                                     ...result[item.student],
-                                    subjective_marks: e.target.value,
+                                    class_test_marks: e.target.value,
                                 },
                             });
                             
@@ -97,7 +100,7 @@ function UpdateMarksheet(props) {
                                 ...result,
                                 [item.student]: {
                                     ...result[item.student],
-                                    objective_marks: e.target.value,
+                                    term_test_subjective_marks: e.target.value,
                                 },
                             });
                         }}
@@ -113,7 +116,7 @@ function UpdateMarksheet(props) {
                                 ...result,
                                 [item.student]: {
                                     ...result[item.student],
-                                    total_marks: e.target.value,
+                                    term_test_objective_marks: e.target.value,
                                 },
                             });
                         }}
@@ -129,7 +132,7 @@ function UpdateMarksheet(props) {
                                 ...result,
                                 [item.student]: {
                                     ...result[item.student],
-                                    letter_grade: e.target.value,
+                                    lab_marks: e.target.value,
                                 },
                             });
                         }}
@@ -193,10 +196,10 @@ function UpdateMarksheet(props) {
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Subjective Mark</th>
-                                <th>Objective Mark</th>
-                                <th>Total Mark</th>
-                                <th>Letter Grade</th>
+                                <th>MT Marks</th>
+                                <th>Term Subjective Marks</th>
+                                <th>Term Objective Marks</th>
+                                <th>Lab Marks</th>
                             </tr>
                         </thead>
                         <tbody>{ShowTable}</tbody>
