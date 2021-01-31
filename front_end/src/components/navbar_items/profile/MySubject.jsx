@@ -192,7 +192,7 @@ function MySubject() {
                             </p>
                             <hr />
                             <hr />
-                            <Table striped hover>
+                            <Table striped hover size='sm'>
                                 <thead>
                                     <tr>
                                         <th>Name</th>
@@ -207,7 +207,7 @@ function MySubject() {
                             <h5> Exam List </h5>
                             <hr />
                             <hr />
-                            <Table striped hover variant="dark">
+                            <Table striped hover variant="dark" size='sm'>
                                 <thead>
                                     <tr>
                                         <th>Exam</th>

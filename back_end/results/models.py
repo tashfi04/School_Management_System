@@ -1,5 +1,4 @@
 from django.db import models
-#from exams.models import ExamType
 from django.db.models import F
 from decimal import Decimal
 
