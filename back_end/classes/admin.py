@@ -31,7 +31,7 @@ class ClassAdmin(admin.ModelAdmin):
 
     fieldsets = (
         ('Class Information', {
-            'fields': (('name', 'group'), 'class_teacher', 'syllebus')
+            'fields': (('name', 'group', 'class_order'), 'class_teacher', 'syllebus')
         }),
     )
 
