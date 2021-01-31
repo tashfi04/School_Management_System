@@ -219,7 +219,9 @@ function Home() {
                     <h3>About Us:</h3>
                     <hr className="new" />
                     <br />
-                    {String(aboutUs.overview)}
+                    <div className='pl-4' style={{borderLeft: 'solid', borderLeftColor:'#555573', borderLeftWidth:'7px'}}>
+                        {String(aboutUs.overview)}
+                    </div>
                 </Col>
                 <Col md={4} className="mt-2">
                     <div className="img-hover-zoom">
@@ -262,7 +264,9 @@ function Home() {
                         <h3>Headmaster Speech:</h3>
                         <hr className="new" />
                         <br />
-                        {String(headMaster.headmaster_speech)}
+                        <div className='pl-4' style={{borderLeft: 'solid', borderLeftColor:'#555573', borderLeftWidth:'7px'}}>
+                            {String(headMaster.headmaster_speech)}
+                        </div>
                     </Col>
                     <Col md={4}>
                         <div>

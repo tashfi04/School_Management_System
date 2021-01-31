@@ -97,10 +97,6 @@ function MySubject() {
                         <td>
                             {studentList[j] ? (
                                 <div>
-                                    <FontAwesomeIcon
-                                        className="fa-icon"
-                                        icon={["fas", "user"]}
-                                    />{" "}
                                     {String(studentList[j].name)}
                                 </div>
                             ) : (
@@ -156,70 +152,64 @@ function MySubject() {
     }
 
     return (
-        <div style={{ backgroundColor: "#B8B8B8" }}>
+        <Container style={{ margin: "auto" }}>
             <Row>
-                <Col sm={4}>
-                    <Jumbotron>
-                        <Container>
-                            <Sidebar />
-                        </Container>
-                    </Jumbotron>
+                <Col sm={3}>
+                    <Sidebar />
                 </Col>
-                <Col sm={8}>
-                    <Jumbotron className="pl-5" style={{ textAlign: "center" }}>
-                        <Container className="pl-5">
-                            <div>
-                                <br />
-                                <br />
-                                <h3 style={{ color: "CaptionText" }}>
-                                    <FontAwesomeIcon
-                                        className="fa-icon"
-                                        icon={["fas", "chalkboard"]}
-                                    />{" "}
-                                    Class {Name}
-                                </h3>
-                                <h5>
-                                    <FontAwesomeIcon
-                                        className="fa-icon"
-                                        icon={["fas", "book"]}
-                                    />{" "}
-                                    {SubjectName}
-                                </h5>
-                            </div>
+                <Col sm={9}>
+                    <Container className="pl-5" style={{textAlign:'center',backgroundColor: "#ebebeb"}}>
+                        <div>
                             <br />
-                            <p style={{ fontSize: "20px" }}>
-                                Student List of this class:
-                            </p>
-                            <hr />
-                            <hr />
-                            <Table striped hover size='sm'>
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Name</th>
-                                        <th>Name</th>
-                                    </tr>
-                                </thead>
-                                <tbody>{StudentShow()}</tbody>
-                            </Table>
                             <br />
-                            <hr />
-                            <h5> Exam List </h5>
-                            <hr />
-                            <hr />
-                            <Table striped hover variant="dark" size='sm'>
-                                <thead>
-                                    <tr>
-                                        <th>Exam</th>
-                                    </tr>
-                                </thead>
-                                <tbody>{showExamList}</tbody>
-                            </Table>
-                        </Container>
-                    </Jumbotron>
+                            <h3 style={{ color: "CaptionText" }}>
+                                <FontAwesomeIcon
+                                    className="fa-icon"
+                                    icon={["fas", "chalkboard"]}
+                                />{" "}
+                                Class {Name}
+                            </h3>
+                            <h5>
+                                <FontAwesomeIcon
+                                    className="fa-icon"
+                                    icon={["fas", "book"]}
+                                />{" "}
+                                {SubjectName}
+                            </h5>
+                        </div>
+                        <br />
+                        <p style={{ fontSize: "20px" }}>
+                            Student List of this class:
+                        </p>
+                        <hr />
+                        <hr />
+                        <Table striped hover size="sm">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Name</th>
+                                    <th>Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>{StudentShow()}</tbody>
+                        </Table>
+                        <br />
+                        <hr />
+                        <h5> Exam List </h5>
+                        <hr />
+                        <hr />
+                        <Table striped hover variant="dark" size="sm">
+                            <thead>
+                                <tr>
+                                    <th>Exam</th>
+                                </tr>
+                            </thead>
+                            <tbody>{showExamList}</tbody>
+                        </Table>
+                    </Container>
                 </Col>
             </Row>
-        </div>
+        </Container>
     );
 }
 

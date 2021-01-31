@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-    Jumbotron,
-    Container,
-    Row,
-    Col,
-    Card,
-    Button,
-} from "react-bootstrap";
+import { Jumbotron, Container, Row, Col, Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import SidebarAcademic from "./SidebarAcademic";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -35,10 +28,14 @@ const Classes = (props) => {
     let classCards;
     if (Object.keys(classes).length > 0) {
         classCards = classes.map((item) => (
-            <div key={item.id}>
-                <Card border="primary" style={{ width: "30vw" }}>
+            <>
+                <Card
+                    border="primary"
+                    className="m-2"
+                    style={{ width: "400px" }}
+                >
                     <Card.Body>
-                        <Card.Title style={{color:"blue"}}>
+                        <Card.Title style={{ color: "blue" }}>
                             <FontAwesomeIcon
                                 className="fa-icon"
                                 icon={["fas", "chalkboard"]}
@@ -46,7 +43,7 @@ const Classes = (props) => {
                             {"    "}
                             Class {item.name}
                         </Card.Title>
-                        <Card.Subtitle style={{color:"black"}}>
+                        <Card.Subtitle style={{ color: "black" }}>
                             {item.group === "Sci" ? (
                                 <div>Science</div>
                             ) : item.group === "Bus" ? (
@@ -59,11 +56,10 @@ const Classes = (props) => {
                         </Card.Subtitle>
                         <br />
 
-                        <h6 style={{color:"blue"}}>
+                        <h6 style={{ color: "blue" }}>
                             <FontAwesomeIcon
                                 className="fa-icon"
                                 icon={["fas", "chalkboard-teacher"]}
-                        
                             />{" "}
                             {"    "}
                             Class Teacher {item.class_teacher}
@@ -84,40 +80,49 @@ const Classes = (props) => {
                                     color="white"
                                 />{" "}
                                 {"    "}
-                                <b style={{color:"white"}}>Enter</b>
+                                <b style={{ color: "white" }}>Enter</b>
                             </Button>
                         </Link>
                     </Card.Body>
                 </Card>
-                <br />
-                <br />
-            </div>
+            </>
         ));
     }
 
     return (
-        <div style={{ backgroundColor: "#B8B8B8" }}>
+        <Container style={{ margin: "auto" }}>
             <Row>
-                <Col sm={4}>
-                    <Jumbotron>
-                        <Container>
-                            <SidebarAcademic />
-                        </Container>
-                    </Jumbotron>
+                <Col sm={2} md={2}>
+                    <Container>
+                        <SidebarAcademic />
+                    </Container>
                 </Col>
-                <Col sm={8}>
-                    <Jumbotron>
-                        <Container>
-                            {Object.keys(classes).length > 0 ? (
-                                <div>{classCards}</div>
-                            ) : (
-                                <div></div>
-                            )}
-                        </Container>
-                    </Jumbotron>
+                <Col sm={10} md={10} style={{backgroundColor:'#ebebeb'}}>
+                    <h3 className="pt-5 pb-3" style={{textAlign:'center'}}>
+                        <FontAwesomeIcon
+                            className="fa-icon"
+                            icon={["fas", "chalkboard"]}
+                        />{" "}
+                        {"    "}
+                        Classes
+                    </h3>
+                    {Object.keys(classes).length > 0 ? (
+                        <div
+                            style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                flexWrap: "wrap",
+                                justifyContent: "center",
+                            }}
+                        >
+                            {classCards}
+                        </div>
+                    ) : (
+                        <div></div>
+                    )}
                 </Col>
             </Row>
-        </div>
+        </Container>
     );
 };
 
