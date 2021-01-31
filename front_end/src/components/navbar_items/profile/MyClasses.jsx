@@ -22,7 +22,9 @@ function MyClasses() {
                     )}/subjects/list/`,
                     {
                         headers: {
-                            Authorization: `JWT ${localStorage.getItem("token")}`,
+                            Authorization: `JWT ${localStorage.getItem(
+                                "token"
+                            )}`,
                         },
                     }
                 )
@@ -35,18 +37,15 @@ function MyClasses() {
                 });
         };
         loadClasses();
-        
-        const loadClassName = async() => {
+
+        const loadClassName = async () => {
             // for(let i=0; i<Object.keys(classes).length ; i++) {
-                axios
-                .get(
-                    `/api/v1/classes/list/`,
-                    {
-                        headers: {
-                            Authorization: `JWT ${localStorage.getItem("token")}`,
-                        },
-                    }
-                )
+            axios
+                .get(`/api/v1/classes/list/`, {
+                    headers: {
+                        Authorization: `JWT ${localStorage.getItem("token")}`,
+                    },
+                })
                 .then((response) => {
                     setClassName(response.data);
                     setPromiseName(true);
@@ -54,27 +53,22 @@ function MyClasses() {
                 .catch((error) => {
                     console.log(error);
                 });
-        }
-        if(wait)
-            loadClassName();
+        };
+        if (wait) loadClassName();
 
-        const ClassPkToName = async() => {
+        const ClassPkToName = async () => {
             let tempClassName = {};
-            for(let i=0;i<Object.keys(className).length;i++){
+            for (let i = 0; i < Object.keys(className).length; i++) {
                 tempClassName = {
                     ...tempClassName,
-                    [className[i].id] : className[i].name
-                }
+                    [className[i].id]: className[i].name,
+                };
             }
             setClassPkToName(tempClassName);
-        }
+        };
 
-        if(promiseName)
-            ClassPkToName();
-
+        if (promiseName) ClassPkToName();
     }, [wait, promiseName]);
-
-
 
     let subjectList;
     if (Object.keys(classes).length > 0) {
@@ -104,47 +98,29 @@ function MyClasses() {
     }
 
     return (
-        <div style={{ backgroundColor: "#B8B8B8" }}>
+        <Container style={{ margin: "auto" }}>
             <Row>
-                <Col sm={4}>
-                    <Jumbotron>
-                        <Container>
-                            <Sidebar />
-                        </Container>
-                    </Jumbotron>
+                <Col sm={3}>
+                    <Sidebar />
                 </Col>
-                <Col sm={8}>
-                    <Jumbotron>
-                        <Container>
-                            <br />
-                            <div className="m-5 p-5">
-                                <h3 style={{color:'CaptionText'}}>My classes:</h3>
-                                <hr />
-                                <hr />
-                                <br />
-                                <br />
-                                <Table striped hover>
-                                    <tbody>
-                                        <tr>
-                                            <th>Class</th>
-                                            <th>Subject</th>
-                                        </tr>
-                                        {subjectList}
-                                    </tbody>
-                                </Table>
-                                <br />
-                                <br />
-                            </div>
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                        </Container>
-                    </Jumbotron>
+                <Col sm={9}>
+                    <Container style={{ backgroundColor: "#ebebeb" }}>
+                        <h3 style={{ color: "CaptionText" }}>My classes:</h3>
+                        <hr />
+                        <hr />
+                        <Table striped hover>
+                            <tbody>
+                                <tr>
+                                    <th>Class</th>
+                                    <th>Subject</th>
+                                </tr>
+                                {subjectList}
+                            </tbody>
+                        </Table>
+                    </Container>
                 </Col>
             </Row>
-        </div>
+        </Container>
     );
 }
 

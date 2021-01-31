@@ -25,59 +25,77 @@ function Teachers() {
     let teachersTable;
     if (Object.keys(teachersList).length > 0) {
         teachersTable = teachersList.map((item) => (
-            <tr key={item.id} style={{ fontSize: "20px" }}>
-                <td>{item.name}</td>
+            <tr key={item.id}>
+                <td
+                    style={{
+                        borderLeft: "solid",
+                        borderLeftColor: "#555573",
+                        borderLeftWidth: "3px",
+                    }}
+                >
+                    {item.name}
+                </td>
                 <td>{item.designation}</td>
             </tr>
         ));
     }
 
     return (
-        <div style={{ backgroundColor: "#B8B8B8" }}>
+        <Container style={{ margin: "auto" }}>
             <Row>
-                <Col sm={4}>
-                    <Jumbotron>
-                        <Container>
-                            <SidebarAcademic />
-                        </Container>
-                    </Jumbotron>
+                <Col sm={2} md={2}>
+                    <Container>
+                        <SidebarAcademic />
+                    </Container>
                 </Col>
-                <Col sm={8}>
-                    <Jumbotron>
-                        <Container>
-                            <h3>
-                                <FontAwesomeIcon
-                                    className="fa-icon"
-                                    icon={["fas", "chalkboard-teacher"]}
-                                />{" "}
-                                {"    "}
-                                Teachers
-                            </h3>
-                            <br />
-                            <div style={{ fontSize: "20px" }}>
-                                Teachers of Shahjalal University School are
-                                listed below:
-                            </div>
-                            <hr />
-                            <hr />
-                            <br />
-                            <br />
-                            <Table striped bordered hover variant="dark">
-                                <thead>
-                                    <tr style={{ fontSize: "25px" }}>
-                                        <th>Name</th>
-                                        <th>Designation</th>
-                                    </tr>
-                                </thead>
-                                <tbody>{teachersTable}</tbody>
-                            </Table>
-                            <br />
-                            <br />
-                        </Container>
-                    </Jumbotron>
+                <Col sm={10} md={10} style={{backgroundColor:'#ebebeb'}}>
+                    <div
+                        style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "center",
+                            textAlign:'center'
+                        }}
+                        className='pt-5'
+                    >
+                        <h3>
+                            <FontAwesomeIcon
+                                className="fa-icon"
+                                icon={["fas", "chalkboard-teacher"]}
+                            />{" "}
+                            {"    "}
+                            Teachers
+                        </h3>
+                        <br />
+                        <div style={{ fontSize: "20px" }}>
+                            Teachers of Shahjalal University School are listed
+                            below:
+                        </div>
+                        <hr />
+                        <hr />
+                        <Table striped bordered hover size="sm">
+                            <thead>
+                                <tr>
+                                    <th
+                                        style={{
+                                            borderLeft: "solid",
+                                            borderLeftColor: "#555573",
+                                            borderLeftWidth: "3px",
+                                        }}
+                                    >
+                                        Name
+                                    </th>
+                                    <th>Designation</th>
+                                </tr>
+                            </thead>
+                            <tbody>{teachersTable}</tbody>
+                        </Table>
+                        <br />
+                        <br />
+                    </div>
                 </Col>
             </Row>
-        </div>
+        </Container>
     );
 }
 

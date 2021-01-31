@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, useParams } from "react-router-dom";
-import { Row, Col, Jumbotron } from "react-bootstrap";
+import { Row, Col, Container } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import NoticeMarquee from "./Notice/NoticeMarquee";
 import "./Home.css";
@@ -24,10 +24,10 @@ function Event() {
         loadEvent();
     }, []);
     return (
-        <Jumbotron>
+        <Container style={{margin:'auto'}}>
             <Row>
                 <Col md={9}>
-                    <div className="p-5" style={{ backgroundColor: "#e9ecef" }}>
+                    <div className="p-5" style={{ backgroundColor: "#ebebeb" }}>
                         <div className="pt-3"></div>
                         {/* <div className="pl-5 pr-5"></div> */}
                         <h3 style={{ textAlign: "center" }} className="mb-4">
@@ -36,7 +36,7 @@ function Event() {
                         </h3>
                         <img
                             src={String(eventDetails.photo)}
-                            style={{ height: "70vh", width: "68vw" }}
+                            style={{ height: "70vh", width: "50vw" }}
                             alt="event photo"
                         />
                         <h3 className="pt-3" style={{ textAlign: "center" }}>
@@ -66,7 +66,7 @@ function Event() {
                     <NoticeMarquee />
                 </Col>
             </Row>
-        </Jumbotron>
+        </Container>
     );
 }
 

@@ -49,7 +49,6 @@ function Notice() {
     }
 
     return (
-        <Jumbotron>
             <div className="m-5">
                 <Row>
                     <Col md={2} >
@@ -74,7 +73,6 @@ function Notice() {
                     </Col>
                 </Row>
             </div>
-        </Jumbotron>
     );
 }
 
