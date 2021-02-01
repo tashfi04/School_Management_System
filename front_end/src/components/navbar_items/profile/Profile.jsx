@@ -11,10 +11,12 @@ export default class Profile extends Component {
         return (
             <Container style={{ margin: "auto"}}>
                 <Row>
-                    <Col sm={3}>
-                        <Sidebar />
+                    <Col sm={3} md={3} className='pt-5'>
+                        <Container style={{border:'solid', borderColor:'#ebebeb'}}>
+                            <Sidebar />
+                        </Container>
                     </Col>
-                    <Col sm={9}>
+                    <Col sm={9} md={9}>
                         <Container style={{backgroundColor: "#ebebeb"}}>
                             <h1 style={{borderLeft: 'solid', borderLeftColor:'#555573', borderLeftWidth:'7px'}} className="pt-4 pl-4">Account Information</h1>{" "}
                             <br></br>

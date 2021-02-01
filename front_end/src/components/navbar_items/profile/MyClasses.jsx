@@ -100,10 +100,14 @@ function MyClasses() {
     return (
         <Container style={{ margin: "auto" }}>
             <Row>
-                <Col sm={3}>
-                    <Sidebar />
+                <Col sm={3} md={3} className="pt-5">
+                    <Container
+                        style={{ border: "solid", borderColor: "#ebebeb" }}
+                    >
+                        <Sidebar />
+                    </Container>
                 </Col>
-                <Col sm={9}>
+                <Col sm={9} md={9}>
                     <Container style={{ backgroundColor: "#ebebeb" }}>
                         <h3 style={{ color: "CaptionText" }}>My classes:</h3>
                         <hr />

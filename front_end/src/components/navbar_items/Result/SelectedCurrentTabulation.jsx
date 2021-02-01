@@ -140,7 +140,7 @@ function SelectedCurrentTabulation() {
             <tr key={item.position}>
                 <td>{item.marksheet_set[0].student}</td>
                 {item.marksheet_set.map((iitem) => (
-                    <React.Fragment>
+                    <React.Fragment key={++KEY}>
                         <td></td>
                         <td></td>
                         <td>{iitem.total_marks}</td>

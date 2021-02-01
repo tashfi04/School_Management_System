@@ -188,7 +188,7 @@ function CreateMarksheet(props) {
                     <h5>Please fill the data to create marksheet</h5>
                     <hr />
                     <hr />
-                    <Table striped hover className="p-5">
+                    <Table responsive className="p-5">
                         <thead>
                             <tr>
                                 <th>Name</th>
