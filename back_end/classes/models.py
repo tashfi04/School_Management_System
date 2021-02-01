@@ -64,8 +64,10 @@ class Exam(models.Model):
     term_objective_marks = models.IntegerField(null=True, blank=False)
     term_objective_pass_marks = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=False)#verbose_name="objective pass marks (in %)", null=True, blank=False)
     term_total_conversion = models.DecimalField(max_digits=5, decimal_places=2, verbose_name="Term test total marks conversion(in %)", null=True, blank=False)
-    total_marks = models.IntegerField(null=True, blank=False)
-    total_pass_marks = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=False)#verbose_name="total pass marks (in %)", null=True, blank=False)
+    lab_marks = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=False)
+    lab_pass_marks = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=False)
+    #total_marks = models.IntegerField(null=True, blank=False)
+    #total_pass_marks = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=False)#verbose_name="total pass marks (in %)", null=True, blank=False)
 
     def save(self, *args, **kwargs):
 

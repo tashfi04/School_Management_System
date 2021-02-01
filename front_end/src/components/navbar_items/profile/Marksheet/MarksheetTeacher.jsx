@@ -19,7 +19,8 @@ function MarksheetTeacher() {
 
         const loadMarksheet = async() => {
             axios
-            .get(`/api/v1/results/marksheet/${subject_pk}/${exam_pk}/`, {
+            //.get(`/api/v1/results/marksheet/${subject_pk}/${exam_pk}/`, {
+            .get(`/api/v1/results/marksheet/${exam_pk}/`, {
                 headers: {
                     Authorization: `JWT ${localStorage.getItem("token")}`,
                 },

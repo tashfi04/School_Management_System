@@ -46,11 +46,13 @@ class MarkSheetListCreateUpdate(ListCreateAPIView):
     def get_queryset(self, ids=None):
         if ids:
             return MarkSheet.objects.filter(
-                subject_id=self.kwargs["subject_pk"], exam_id=self.kwargs["exam_pk"], id__in=ids,
+                #subject_id=self.kwargs["subject_pk"], exam_id=self.kwargs["exam_pk"], id__in=ids,
+                exam_id=self.kwargs["exam_pk"], id__in=ids,
             )
 
         return MarkSheet.objects.filter(
-                subject_id=self.kwargs["subject_pk"], exam_id=self.kwargs["exam_pk"]
+                #subject_id=self.kwargs["subject_pk"], exam_id=self.kwargs["exam_pk"]
+                exam_id=self.kwargs["exam_pk"]
                 # subject_id=self.kwargs.get("subject_pk", None), exam_id=self.kwargs.get("exam_pk", None)
             )
 

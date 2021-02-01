@@ -40,7 +40,7 @@ def apiOverview(request):
         'Subject Exam List'                 : '/api/v1/classes/subjects/<str:subject_pk>/exams/list/',
 
         'Result Related API'                : '--------------------------------------------------------------------------',
-        'Marksheet List Create Update'      : 'api/v1/results/marksheet/<str:subject_pk>/<str:exam_pk>/',
+        'Marksheet List Create Update'      : 'api/v1/results/marksheet/<str:exam_pk>/',
         'Tabulationsheet List'              : 'api/v1/results/tabulationsheet/<str:class_pk>/<str:exam_type_pk>/list/',
 
         'Notice Related API'                : '--------------------------------------------------------------------------',

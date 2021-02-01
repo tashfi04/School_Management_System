@@ -15,8 +15,6 @@ class TabulationSheet(models.Model):
 
     def save(self, *args, **kwargs):
 
-        self.letter_grade = calculate_letter_grade(self.current_CGPA)
-
         if not self._state.adding:
             self.GPA = self.total_GP / self.marksheet_set.exclude(exam__subject__subject_type=1).count()
             if self.GPA > 5.00:
@@ -27,6 +25,8 @@ class TabulationSheet(models.Model):
             self.current_CGPA = (self.previous_CGPA + Decimal(self.GPA)) / 2
         else:
             self.current_CGPA = self.GPA
+
+        self.letter_grade = calculate_letter_grade(self.current_CGPA)
 
         super().save(*args, **kwargs)
 
@@ -40,6 +40,7 @@ class MarkSheet(models.Model):
     term_test_subjective_marks = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=False)
     term_test_objective_marks = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=False)
     term_test_total_marks = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    lab_marks = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=False)
     total_marks = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     GP = models.DecimalField(max_digits=3, decimal_places=2, null=True, blank=True)
     letter_grade = models.CharField(max_length=5, null=True, blank=True)
@@ -51,7 +52,7 @@ class MarkSheet(models.Model):
     def save(self, *args, **kwargs):
 
         self.term_test_total_marks = (self.term_test_subjective_marks + self.term_test_objective_marks) * self.exam.term_total_conversion / 100
-        self.total_marks = self.class_test_marks + self.term_test_total_marks
+        self.total_marks = self.class_test_marks + self.term_test_total_marks + self.lab_marks
         self.GP = calculate_GP(self.total_marks)
         self.letter_grade = calculate_letter_grade(self.GP)
 
