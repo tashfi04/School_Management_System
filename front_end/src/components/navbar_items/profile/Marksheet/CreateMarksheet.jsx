@@ -139,7 +139,8 @@ function CreateMarksheet(props) {
     }
 
     const createMarksheet = async () => {
-        let endpoint = `/api/v1/results/marksheet/${subject_pk}/${exam_pk}/`;
+        //let endpoint = `/api/v1/results/marksheet/${subject_pk}/${exam_pk}/`;
+        let endpoint = `/api/v1/results/marksheet/${exam_pk}/`;
         let data = Object.values(result);
         let body = JSON.stringify(data);
         console.log(body);

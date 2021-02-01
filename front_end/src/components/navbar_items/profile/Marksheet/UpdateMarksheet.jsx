@@ -15,7 +15,8 @@ function UpdateMarksheet(props) {
 
         const loadMarksheet = async() => {
             axios
-                .get(`/api/v1/results/marksheet/${subject_pk}/${exam_pk}/`, {
+                //.get(`/api/v1/results/marksheet/${subject_pk}/${exam_pk}/`, {
+                    .get(`/api/v1/results/marksheet/${exam_pk}/`, {
                     headers: {
                         Authorization: `JWT ${localStorage.getItem("token")}`,
                     },
@@ -145,7 +146,8 @@ function UpdateMarksheet(props) {
     }
 
     const updateMarksheet = async() => {
-        let endpoint = `/api/v1/results/marksheet/${subject_pk}/${exam_pk}/`;
+        //let endpoint = `/api/v1/results/marksheet/${subject_pk}/${exam_pk}/`;
+        let endpoint = `/api/v1/results/marksheet/${exam_pk}/`;
         let data = Object.values(result);
         let body = JSON.stringify(data);
         let config = {

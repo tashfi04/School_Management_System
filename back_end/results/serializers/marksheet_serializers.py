@@ -29,10 +29,10 @@ class MarkSheetSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
 
-        instance.subjective_marks = validated_data["subjective_marks"]
-        instance.objective_marks = validated_data["objective_marks"]
-        instance.total_marks = validated_data["total_marks"]
-        instance.letter_grade = validated_data["letter_grade"]
+        instance.class_test_marks = validated_data['class_test_marks']
+        instance.term_test_subjective_marks = validated_data['term_test_subjective_marks']
+        instance.term_test_objective_marks = validated_data['term_test_objective_marks']
+        instance.lab_marks = validated_data['lab_marks']
 
         instance.save()
 

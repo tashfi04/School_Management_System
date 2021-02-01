@@ -26,10 +26,10 @@ class ClassExamTypeListSerializer(serializers.ModelSerializer):
 class SubjectListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subject
-        fields = ['pk','name', 'teacher','related_class']
+        fields = ['pk', 'name', 'teacher', 'related_class']
 
 class SubjectExamListSerializer(serializers.ModelSerializer):
     exam_type = serializers.StringRelatedField()
     class Meta:
         model = Exam
-        fields = ['id','exam_year','exam_type']
+        fields = ['id', 'exam_year', 'exam_type']
