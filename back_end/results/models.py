@@ -16,13 +16,20 @@ class TabulationSheet(models.Model):
     def save(self, *args, **kwargs):
 
         if not self._state.adding:
-            self.GPA = self.total_GP / self.marksheet_set.exclude(exam__subject__subject_type=1).count()
-            if self.GPA > 5.00:
-                self.GPA = 5.00
+
+            if self.marksheet_set.filter(letter_grade='F'):
+                self.GPA = 0.00
+            else:
+                self.GPA = self.total_GP / self.marksheet_set.exclude(exam__subject__subject_type=1).count()
+                if self.GPA > 5.00:
+                    self.GPA = 5.00
             #self.GPA = self.total_GP / MarkSheet.objects.filter(id=self.pk).exclude(marksheet__exam__subject__subject_type=1).count()
 
         if self.previous_CGPA:
-            self.current_CGPA = (self.previous_CGPA + Decimal(self.GPA)) / 2
+            if self.previous_CGPA == 0.00:
+                self.current_CGPA = 0.00
+            else:
+                self.current_CGPA = (self.previous_CGPA + Decimal(self.GPA)) / 2
         else:
             self.current_CGPA = self.GPA
 
@@ -53,7 +60,7 @@ class MarkSheet(models.Model):
 
         self.term_test_total_marks = (self.term_test_subjective_marks + self.term_test_objective_marks) * self.exam.term_total_conversion / 100
         self.total_marks = self.class_test_marks + self.term_test_total_marks + self.lab_marks
-        self.GP = calculate_GP(self.total_marks)
+        self.GP = calculate_GP(self.term_test_subjective_marks, self.term_test_objective_marks, self.lab_marks, self.total_marks, self.exam)
         self.letter_grade = calculate_letter_grade(self.GP)
 
         GP_to_add = calculate_optional_subject_GP(Decimal(self.GP), self.exam.subject.subject_type)
@@ -95,9 +102,11 @@ class MarkSheet(models.Model):
 
         update_position(self.exam.exam_type_id, self.exam.related_class_id)
 
-def calculate_GP(total_marks):
+def calculate_GP(term_test_subjective_marks, term_test_objective_marks, lab_marks, total_marks, exam):
 
-    if total_marks >= 80:
+    if (term_test_subjective_marks < exam.term_subjective_pass_marks) or (term_test_objective_marks < exam.term_objective_pass_marks):
+        grade = 0.00
+    elif total_marks >= 80:
         grade = 5.00
     elif total_marks >= 70:
         grade = 4.00

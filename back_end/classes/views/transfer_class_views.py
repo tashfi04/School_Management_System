@@ -15,6 +15,50 @@ def check_next_class(request, class_pk):
 
     return Response(next_class_list)
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticatedOrReadOnly])
+def transfer_class_with_selection(request, class_pk):
+
+    class_selection_list = request.data
+
+    total_exams = Exam.objects.filter(related_class_id=class_pk).count()
+    total_marksheets = MarkSheet.objects.filter(exam__related_class_id=class_pk).count()
+
+    student_list_count = Student.objects.filter(current_class=class_pk).count()
+
+    if total_marksheets != (total_exams * student_list_count):
+        return Response("All exam results has not been submitted yet!")
+
+    final_exam = ExamType.objects.filter(exam__related_class_id=class_pk).distinct().order_by('-exam_order').first()
+
+    current_class = Class.objects.get(id=class_pk)
+    #next_class = Class.objects.get(class_order=current_class.class_order + 1)
+    
+    if current_class.class_order == 1:
+        previous_class = 0
+    else:
+        previous_class = Class.objects.get(id=current_class.class_order - 1)
+        previous_class_final_exam = ExamType.objects.filter(exam__related_class_id=previous_class.id).distinct().order_by('-exam_order').first()
+        previous_class_passed_student_count = TabulationSheet.objects.filter(marksheet__exam__exam_type_id=previous_class_final_exam.id).exclude(letter_grade='F').count()
+        
+
+    for item in class_selection_list:
+
+        current_tabulation_sheet = TabulationSheet.objects.filter(marksheet__exam__exam_type_id=final_exam.id, marksheet__student_id=item['student_id']).distinct()
+        student = Student.objects.get(pk=item['student_id'])
+        
+        if current_tabulation_sheet[0].letter_grade != 'F':
+
+            student.current_class = item['next_class']
+            student.roll_no = current_tabulation_sheet[0].position
+
+        else:
+            previous_class_passed_student_count += 1
+            student.roll_no = previous_class_passed_student_count
+            
+        student.save()
+
+    return Response("Student's class and roll no has been updated according to selection")
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticatedOrReadOnly])
