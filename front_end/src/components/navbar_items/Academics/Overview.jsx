@@ -10,12 +10,12 @@ export default class Overview extends Component {
             // style={{backgroundColor:"#B8B8B8"}}
             <Container style={{ margin: "auto" }}>
                 <Row>
-                    <Col sm={2} md={2}>
-                        <Container>
+                    <Col sm={4} md={4} className='pt-5'>
+                        <Container  style={{border:'solid', borderColor:'#ebebeb'}}>
                             <SidebarAcademic />
                         </Container>
                     </Col>
-                    <Col sm={10} md={10} style={{backgroundColor:'#ebebeb'}}>
+                    <Col sm={8} md={8} style={{backgroundColor:'#ebebeb'}}>
                         <div
                             style={{
                                 display: "flex",
