@@ -76,7 +76,7 @@ class ResultCardDetails(ListAPIView):
         class_id = self.kwargs.get('class_pk', None)
         student_id = self.kwargs.get('student_pk', None)
 
-        queryset = TabulationSheet.objects.filter(marksheet__exam__related_class_id=class_id, marksheet__student_id=student_id)
+        queryset = TabulationSheet.objects.filter(marksheet__exam__related_class_id=class_id, marksheet__student_id=student_id).distinct()
 
         if queryset:
             return queryset

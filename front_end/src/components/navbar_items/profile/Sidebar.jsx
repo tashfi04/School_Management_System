@@ -15,7 +15,7 @@ function Sidebar() {
                             icon={["fas", "chart-line"]}
                         />{" "}
                         {"    "}
-                        <Link to="/profile" style={{ color: "black" }}>
+                        <Link to="/profile/dashboard/" style={{ color: "black" }}>
                             Dashboard
                         </Link>
                     </h5>
@@ -26,7 +26,7 @@ function Sidebar() {
                             icon={["fas", "poll-h"]}
                         />{" "}
                         {"    "}
-                        <Link to="#" style={{ color: "black" }}>
+                        <Link to="/profile/result/" style={{ color: "black" }}>
                             Marksheet
                         </Link>
                     </h5>

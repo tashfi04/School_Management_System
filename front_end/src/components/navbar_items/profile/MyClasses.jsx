@@ -112,7 +112,7 @@ function MyClasses() {
                         <h3 style={{ color: "CaptionText" }}>My classes:</h3>
                         <hr />
                         <hr />
-                        <Table striped hover>
+                        <Table striped hover className='pb-5'>
                             <tbody>
                                 <tr>
                                     <th>Class</th>

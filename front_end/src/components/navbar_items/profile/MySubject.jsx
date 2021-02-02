@@ -106,10 +106,10 @@ function MySubject() {
                         <td>
                             {studentList[j + 1] ? (
                                 <div>
-                                    <FontAwesomeIcon
+                                    {/* <FontAwesomeIcon
                                         className="fa-icon"
                                         icon={["fas", "user"]}
-                                    />{" "}
+                                    />{" "} */}
                                     {studentList[j + 1].name}
                                 </div>
                             ) : (
@@ -119,10 +119,10 @@ function MySubject() {
                         <td>
                             {studentList[j + 2] ? (
                                 <div>
-                                    <FontAwesomeIcon
+                                    {/* <FontAwesomeIcon
                                         className="fa-icon"
                                         icon={["fas", "user"]}
-                                    />{" "}
+                                    />{" "} */}
                                     {studentList[j + 2].name}
                                 </div>
                             ) : (
@@ -154,8 +154,12 @@ function MySubject() {
     return (
         <Container style={{ margin: "auto" }}>
             <Row>
-                <Col sm={3}>
-                    <Sidebar />
+                <Col sm={3} md={3} className="pt-5">
+                    <Container
+                        style={{ border: "solid", borderColor: "#ebebeb" }}
+                    >
+                        <Sidebar />
+                    </Container>
                 </Col>
                 <Col sm={9}>
                     <Container className="pl-5" style={{textAlign:'center',backgroundColor: "#ebebeb"}}>

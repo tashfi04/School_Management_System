@@ -26,6 +26,7 @@ import Footer from "./components/navbar_items/Footer";
 import Event from "./components/navbar_items/Event";
 import MarksheetTeacher from "./components/navbar_items/profile/Marksheet/MarksheetTeacher";
 import NoticeDetails from "./components/navbar_items/Notice/NoticeDetails";
+import ResultStudent from "./components/navbar_items/profile/Marksheet/ResultStudent";
 
 library.add(far, fas, fab);
 
@@ -58,6 +59,7 @@ function App() {
                     <Route path="/profile/myclasses/" component={MyClasses}></Route>
                     <Route path="/profile/class/:class_pk/subject/:subject_pk/" component={MySubject}></Route>
                     <Route path="/profile/class/:class_pk/exam/:exam_pk/subject/:subject_pk/" component={MarksheetTeacher}></Route>
+                    <Route path="/profile/result/" component={ResultStudent}></Route>
 
                     <Route path="/logout/" component={Logout}></Route>
                     <Route path="/registration/" component={Registration}></Route>

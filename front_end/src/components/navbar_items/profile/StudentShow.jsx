@@ -19,6 +19,7 @@ function StudentShow() {
                 })
                 .then((response) => {
                     setStudentDetails(response.data[0]);
+                    localStorage.setItem("current_class",response.data[0].current_class);
                 })
                 .catch((error) => {
                     console.log(error);
