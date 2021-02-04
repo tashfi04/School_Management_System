@@ -9,3 +9,10 @@ from .result_serializers import (
     LabDetailsSerializer,
     CombinedTestDetailsSerializer
 )
+
+from .result_search_serializers import (
+    SessionListSerializer,
+    SessionBasedClassListSerializer,
+    SessionClassBasedSubjectListSerializer,
+    SessionClassBasedExamTypeListSerializer
+)

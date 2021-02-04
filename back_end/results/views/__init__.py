@@ -10,3 +10,10 @@ from .result_views import (
     LabDetails,
     CombinedTestDetails
 )
+
+from .result_search_views import (
+    SessionList,
+    SessionBasedClassList,
+    SessionClassBasedSubjectList,
+    SessionClassBasedExamTypeList
+)
