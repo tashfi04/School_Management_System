@@ -1,4 +1,5 @@
 from ..models import Class
+from exams.models import ExamType
 from students.models import Student
 from rest_framework import permissions
 
@@ -16,7 +17,8 @@ from rest_framework.generics import (
 from ..serializers import (
     ClassListSerializer,
     ClassDetailsSerializer,
-    ClassStudentListSerializer
+    ClassStudentListSerializer,
+    ClassExamTypeListSerializer
 )
 
 class Conflict(APIException):
@@ -47,7 +49,7 @@ class ClassDetails(ListAPIView):
 
         class_id = self.kwargs.get('class_pk', None)
 
-        queryset = Class.objects.filter(id = class_id)
+        queryset = Class.objects.filter(id=class_id)
 
         if queryset:
             return queryset
@@ -61,9 +63,25 @@ class ClassStudentList(ListAPIView):
     def get_queryset(self):
 
         class_id = self.kwargs.get('class_pk', None)
-        queryset = Student.objects.filter(current_class_id = class_id)
+        queryset = Student.objects.filter(current_class_id=class_id)
 
         if queryset:
             return queryset
         else:
             raise NotFound("No student has been added to the class yet!")
+
+class ClassExamTypeList(ListAPIView):
+
+    permission_classes = [permissions.AllowAny]
+    serializer_class = ClassExamTypeListSerializer
+
+    def get_queryset(self):
+
+        class_id = self.kwargs.get('class_pk', None)
+
+        queryset = ExamType.objects.filter(exam__related_class_id=class_id).distinct()
+
+        if queryset:
+            return queryset
+        else:
+            raise NotFound("No exam has been added to this class yet!")

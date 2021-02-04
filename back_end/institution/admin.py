@@ -11,7 +11,7 @@ class InstitutionAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('name',)
+            'fields': ('name', 'current_session')
         }),
         ('Home Page Information', {
             'fields': ('description', 'home_background', ('home_photo_1', 'home_photo_2'),

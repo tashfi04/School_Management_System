@@ -1,4 +1,5 @@
 from ..models import MarkSheet
+from institution.models import Institution
 from rest_framework import permissions
 from rest_framework.response import Response
 
@@ -47,12 +48,12 @@ class MarkSheetListCreateUpdate(ListCreateAPIView):
         if ids:
             return MarkSheet.objects.filter(
                 #subject_id=self.kwargs["subject_pk"], exam_id=self.kwargs["exam_pk"], id__in=ids,
-                exam_id=self.kwargs["exam_pk"], id__in=ids,
+                exam_id=self.kwargs["exam_pk"], session_id=get_current_session_id(), id__in=ids,
             )
 
         return MarkSheet.objects.filter(
                 #subject_id=self.kwargs["subject_pk"], exam_id=self.kwargs["exam_pk"]
-                exam_id=self.kwargs["exam_pk"]
+                exam_id=self.kwargs["exam_pk"], session_id=get_current_session_id()
                 # subject_id=self.kwargs.get("subject_pk", None), exam_id=self.kwargs.get("exam_pk", None)
             )
 
@@ -77,3 +78,11 @@ class MarkSheetListCreateUpdate(ListCreateAPIView):
 
     def perform_update(self, serializer):
         serializer.save()
+
+
+def get_current_session_id():
+
+    institution = Institution.objects.all().first()
+
+    return institution.current_session_id
+    

@@ -5,6 +5,9 @@ class Institution(models.Model):
     #global information
     name = models.CharField(max_length=200, null=True, blank=False)
 
+    #class related information
+    current_session = models.ForeignKey('academic_sessions.Session', on_delete=models.CASCADE, null=True, blank=True)
+
     #home page information
     description = models.TextField(null=True, blank=True)
     home_background = models.ImageField("Homepage Background Photo", upload_to='photos/others/%Y/%m/%d/', null=True, blank=True)

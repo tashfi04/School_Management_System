@@ -50,13 +50,12 @@ class Subject(models.Model):
         return self.name
 
     class Meta:
-        ordering = ['name', 'status']
+        ordering = ['status', 'name']
     
 class Exam(models.Model):
 
     related_class = models.ForeignKey(Class, on_delete=models.CASCADE)
     exam_type = models.ForeignKey('exams.ExamType', on_delete=models.CASCADE, null=True, blank=False)
-    exam_year = models.IntegerField(validators=[MinValueValidator(1900), MaxValueValidator(9999)], null=True, blank=False)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE, null=True, blank=True)
     class_test_marks = models.IntegerField(null=True, blank=False)
     term_subjective_marks = models.IntegerField(null=True, blank=False)
@@ -68,6 +67,9 @@ class Exam(models.Model):
     lab_pass_marks = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=False)
     #total_marks = models.IntegerField(null=True, blank=False)
     #total_pass_marks = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=False)#verbose_name="total pass marks (in %)", null=True, blank=False)
+
+    class Meta:
+        ordering = ['subject',]
 
     def save(self, *args, **kwargs):
 
@@ -84,4 +86,4 @@ class Exam(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return '%s (%s) (%s)' % (str(self.subject), str(self.exam_type), str(self.exam_year))
+        return '%s (%s)' % (str(self.subject), str(self.exam_type))
