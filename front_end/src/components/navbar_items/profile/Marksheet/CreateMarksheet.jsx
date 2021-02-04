@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Button, Jumbotron, Table } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ShowToast from './../../../ShowToast' 
 
 const axios = require("axios");
 
 function CreateMarksheet(props) {
     const [studentList, setStudentList] = useState({});
-    const { class_pk, exam_pk, subject_pk, subjectDetails, className } = props;
+    const { class_pk, exam_pk, subjectDetails, className } = props;
     const [result, setResult] = useState({});
     const [promise, setPromise] = useState(false);
+    const [errors, setErrors] = useState();
 
     useEffect(() => {
         const loadStudentList = async () => {
@@ -153,12 +155,13 @@ function CreateMarksheet(props) {
         console.log("json", body);
         axios
             .post(endpoint, body, config)
-            .then((response) => {
-            window.location.reload(false);
-            console.log(response.data)
+            .then(() => {
+                window.location.reload(false);
+                // console.log(response.data)
             })
-            .catch((error) => {
-                console.log(error);
+            .catch(() => {
+                // console.log(error);
+                setErrors('Invalid Marks');
             });
     };
 
@@ -188,7 +191,7 @@ function CreateMarksheet(props) {
                     <h5>Please fill the data to create marksheet</h5>
                     <hr />
                     <hr />
-                    <Table striped hover className="p-5">
+                    <Table responsive className="p-5">
                         <thead>
                             <tr>
                                 <th>Name</th>
@@ -210,6 +213,14 @@ function CreateMarksheet(props) {
                     >
                         Create
                     </Button>
+
+                    {
+                        errors ? (
+                            <ShowToast mssg={errors} color='red'/>
+                        ) : (
+                            <React.Fragment></React.Fragment>
+                        )
+                    }
                 </div>
             </Jumbotron>
         </div>

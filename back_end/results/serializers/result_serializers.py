@@ -2,6 +2,7 @@ from rest_framework import serializers
 from ..models import MarkSheet, TabulationSheet
 
 class MarksSerializer(serializers.ModelSerializer):
+    exam = serializers.StringRelatedField()
     class Meta:
         model = MarkSheet
         fields = ['exam', 'session', 'student', 'class_test_marks', 'term_test_total_marks', 'total_marks', 'GP', 'letter_grade']

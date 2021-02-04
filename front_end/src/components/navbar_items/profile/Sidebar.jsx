@@ -5,7 +5,7 @@ import "./Profile.scss";
 
 function Sidebar() {
     return (
-        <div className="pt-5 mt-5">
+        <div className='pb-5'>
             {localStorage.getItem("role") === "4" ? (
                 // For students sidebar
                 <div>
@@ -15,22 +15,22 @@ function Sidebar() {
                             icon={["fas", "chart-line"]}
                         />{" "}
                         {"    "}
-                        <Link to="/profile" style={{ color: "black" }}>
+                        <Link to="/profile/dashboard/" style={{ color: "black" }}>
                             Dashboard
                         </Link>
                     </h5>
-                    <hr />
+                    <hr style={{border:'solid', borderWidth:'1px'}}/>
                     <h5>
                         <FontAwesomeIcon
                             className="fa-icon"
                             icon={["fas", "poll-h"]}
                         />{" "}
                         {"    "}
-                        <Link to="#" style={{ color: "black" }}>
+                        <Link to="/profile/result/" style={{ color: "black" }}>
                             Marksheet
                         </Link>
                     </h5>
-                    <hr />
+                    <hr style={{border:'solid', borderWidth:'1px'}}/>
                     <h5>
                         <FontAwesomeIcon
                             className="fa-icon"
@@ -41,7 +41,7 @@ function Sidebar() {
                             Routine
                         </Link>
                     </h5>
-                    <hr />
+                    <hr style={{border:'solid', borderWidth:'1px'}}/>
                     <h5>
                         <FontAwesomeIcon
                             className="fa-icon"
@@ -61,35 +61,35 @@ function Sidebar() {
                             to="/profile/dashboard"
                             style={{ color: "black" }}
                         >
-                            <FontAwesomeIcon
+                            {/* <FontAwesomeIcon
                                 className="fa-icon"
                                 icon={["fas", "chart-line"]}
                             />{" "}
-                            {"    "}
+                            {"    "} */}
                             Dashboard
                         </Link>
                     </h5>
-                    <hr />
+                    <hr style={{border:'solid', borderWidth:'1px'}}/>
                     <h5>
                         <Link
                             to="/profile/myclasses"
                             style={{ color: "black" }}
                         >
-                            <FontAwesomeIcon
+                            {/* <FontAwesomeIcon
                                 className="fa-icon"
                                 icon={["fas", "chalkboard"]}
                             />{" "}
-                            {"    "}
+                            {"    "} */}
                             My Classes
                         </Link>
                     </h5>
-                    <hr />
+                    <hr style={{border:'solid', borderWidth:'1px'}}/>
                     <h5>
-                        <FontAwesomeIcon
+                        {/* <FontAwesomeIcon
                             className="fa-icon"
                             icon={["fas", "info-circle"]}
                         />{" "}
-                        {"    "}
+                        {"    "} */}
                         <Link to="#" style={{ color: "black" }}>
                             Information
                         </Link>

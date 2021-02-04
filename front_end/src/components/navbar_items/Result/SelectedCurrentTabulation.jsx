@@ -10,11 +10,8 @@ const axios = require("axios");
 function SelectedCurrentTabulation() {
     const [tabulation, setTabulation] = useState({});
     const [promise, setPromise] = useState(false);
-    const [promiseSubject, setPromiseSubject] = useState(false);
     const [modTabulation, setModTabulation] = useState({});
-    const [subjectListName, setSubjectListName] = useState({});
     const [classDetails, setClassDetails] = useState({});
-    const [pkToSubject, setPkToSubject] = useState({});
     const class_pk = useParams().class_pk;
     const exam_type_pk = useParams().exam_type_pk;
 
@@ -79,36 +76,36 @@ function SelectedCurrentTabulation() {
                 });
         };
 
-        const loadSubjectListName = async () => {
-            axios
-                .get(`/api/v1/classes/${class_pk}/subjects/list/`)
-                .then((response) => {
-                    setSubjectListName(response.data);
-                    setPromiseSubject(true);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        };
+        // const loadSubjectListName = async () => {
+        //     axios
+        //         .get(`/api/v1/classes/${class_pk}/subjects/list/`)
+        //         .then((response) => {
+        //             setSubjectListName(response.data);
+        //             setPromiseSubject(true);
+        //         })
+        //         .catch((error) => {
+        //             console.log(error);
+        //         });
+        // };
 
         loadClassDetails();
-        loadSubjectListName();
+        // loadSubjectListName();
 
-        const formalizeSubjectList = async () => {
-            let tempSubjectList = {};
-            for (let i = 0; i < Object.keys(subjectListName).length; i++) {
-                tempSubjectList = {
-                    ...tempSubjectList,
-                    [subjectListName[i].pk]: subjectListName[i].name,
-                };
-            }
-            setPkToSubject(tempSubjectList);
-        };
+        // const formalizeSubjectList = async () => {
+        //     let tempSubjectList = {};
+        //     for (let i = 0; i < Object.keys(subjectListName).length; i++) {
+        //         tempSubjectList = {
+        //             ...tempSubjectList,
+        //             [subjectListName[i].pk]: subjectListName[i].name,
+        //         };
+        //     }
+        //     setPkToSubject(tempSubjectList);
+        // };
 
-        if (promiseSubject) {
-            formalizeSubjectList();
-        }
-    }, [promise, promiseSubject]);
+        // if (promiseSubject) {
+        //     formalizeSubjectList();
+        // }
+    }, [promise]);
 
     console.log(modTabulation);
 
@@ -117,7 +114,8 @@ function SelectedCurrentTabulation() {
         if (modTabulation[0].marksheet_set) {
             ShowTableCol = modTabulation[0].marksheet_set.map((item) => (
                 <th colSpan="4" key={item.exam}>
-                    {pkToSubject[item.subject]}
+                    {/* {pkToSubject[item.subject]} */}
+                    {item.exam.split(" ")[0]}
                 </th>
             ));
         }
@@ -140,11 +138,11 @@ function SelectedCurrentTabulation() {
             <tr key={item.position}>
                 <td>{item.marksheet_set[0].student}</td>
                 {item.marksheet_set.map((iitem) => (
-                    <React.Fragment>
-                        <td></td>
-                        <td></td>
+                    <React.Fragment key={++KEY}>
+                        <td>{iitem.class_test_marks}</td>
+                        <td>{iitem.term_test_total_marks}</td>
                         <td>{iitem.total_marks}</td>
-                        <td></td>
+                        <td>{iitem.GP}</td>
                     </React.Fragment>
                 ))}
                 <td>{item.total_marks}</td>

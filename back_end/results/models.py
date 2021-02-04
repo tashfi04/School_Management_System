@@ -68,8 +68,8 @@ class MarkSheet(models.Model):
 
     def save(self, *args, **kwargs):
 
-        self.term_test_total_marks = (self.term_test_subjective_marks + self.term_test_objective_marks) * self.exam.term_total_conversion / 100
-        self.total_marks = self.class_test_marks + self.term_test_total_marks + self.lab_marks
+        self.term_test_total_marks = (self.term_test_subjective_marks + self.term_test_objective_marks + self.lab_marks) * self.exam.term_total_conversion / 100
+        self.total_marks = self.class_test_marks + self.term_test_total_marks
         self.GP = calculate_GP(self.term_test_subjective_marks, self.term_test_objective_marks, self.lab_marks, self.total_marks, self.exam)
         self.letter_grade = calculate_letter_grade(self.GP)
 
@@ -114,7 +114,7 @@ class MarkSheet(models.Model):
 
 def calculate_GP(term_test_subjective_marks, term_test_objective_marks, lab_marks, total_marks, exam):
 
-    if (term_test_subjective_marks < exam.term_subjective_pass_marks) or (term_test_objective_marks < exam.term_objective_pass_marks):
+    if (term_test_subjective_marks < exam.term_subjective_pass_marks) or (term_test_objective_marks < exam.term_objective_pass_marks)or (lab_marks < exam.lab_pass_marks):
         grade = 0.00
     elif total_marks >= 80:
         grade = 5.00

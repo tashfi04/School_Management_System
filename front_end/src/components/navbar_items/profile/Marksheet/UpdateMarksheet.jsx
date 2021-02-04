@@ -1,15 +1,18 @@
 import React, {useEffect, useState} from 'react'
 import { Table, Jumbotron, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ShowToast from './../../../ShowToast' 
 
 const axios = require("axios")
 
 function UpdateMarksheet(props) {
-    const [studentList, setStudentList] = useState({});
+    // const [studentList, setStudentList] = useState({});
     const [marksheet, setMarksheet] = useState({});
     const [result, setResult] = useState({});
     const [promise, setPromise] = useState(false);
-    const { class_pk, exam_pk, subject_pk, subjectDetails, className } = props;
+    const [errors, setErrors] = useState();
+    // const { class_pk, exam_pk, subject_pk, subjectDetails, className } = props;
+    const { exam_pk, subjectDetails, className } = props;
 
     useEffect(() => {
 
@@ -23,6 +26,7 @@ function UpdateMarksheet(props) {
                 })
                 .then((response) => {
                     setMarksheet(response.data);
+                    console.log(response.data);
                     setPromise(true);
                 })
                 .catch((error) => {
@@ -42,8 +46,8 @@ function UpdateMarksheet(props) {
                         exam: marksheet[i].exam,
                         student: marksheet[i].student,
                         // subject: marksheet[i].subject,
-                        term_test_subjective_marks: marksheet[i].subjective_marks,
-                        term_test_objective_marks: marksheet[i].objective_marks,
+                        term_test_subjective_marks: marksheet[i].term_test_subjective_marks,
+                        term_test_objective_marks: marksheet[i].term_test_objective_marks,
                         class_test_marks: marksheet[i].class_test_marks,
                         lab_marks: marksheet[i].lab_marks,
                         // total_marks: marksheet[i].total_marks,
@@ -58,7 +62,7 @@ function UpdateMarksheet(props) {
             copyMarksheet();
         }
 
-    },[promise]);
+    },[promise, errors]);
 
     let ShowTable;
     if (Object.keys(marksheet).length > 0) {
@@ -66,19 +70,16 @@ function UpdateMarksheet(props) {
             <tr key={item.id}>
                 <td>
                     <h6>
-                        <FontAwesomeIcon
-                            className="fa-icon"
-                            icon={["fas", "user"]}
-                        />{" "}
                         {item.student}
                     </h6>
                 </td>
                 
                 <td>
+
                     <input
                         type="text"
                         className="form-control"
-                        placeholder={item.subjective_marks}
+                        placeholder={item.class_test_marks}
                         onChange={(e) => {
                             setResult({
                                 ...result,
@@ -95,7 +96,7 @@ function UpdateMarksheet(props) {
                     <input
                         type="text"
                         className="form-control"
-                        placeholder={item.objective_marks}
+                        placeholder={item.term_test_subjective_marks}
                         onChange={(e) => {
                             setResult({
                                 ...result,
@@ -111,7 +112,7 @@ function UpdateMarksheet(props) {
                     <input
                         type="text"
                         className="form-control"
-                        placeholder={item.total_marks}
+                        placeholder={item.term_test_objective_marks}
                         onChange={(e) => {
                             setResult({
                                 ...result,
@@ -127,7 +128,16 @@ function UpdateMarksheet(props) {
                     <input
                         type="text"
                         className="form-control"
-                        placeholder={item.letter_grade}
+                        placeholder={item.term_test_total_marks}
+                        disabled
+                    >
+                    </input>
+                </td>
+                <td>
+                    <input
+                        type="text"
+                        className="form-control"
+                        placeholder={item.lab_marks}
                         onChange={(e) => {
                             setResult({
                                 ...result,
@@ -137,6 +147,33 @@ function UpdateMarksheet(props) {
                                 },
                             });
                         }}
+                    >
+                    </input>
+                </td>
+                <td>
+                    <input
+                        type="text"
+                        className="form-control"
+                        placeholder={item.total_marks}
+                        disabled
+                    >
+                    </input>
+                </td>
+                <td>
+                    <input
+                        type="text"
+                        className="form-control"
+                        placeholder={item.GP}
+                        disabled
+                    >
+                    </input>
+                </td>
+                <td>
+                    <input
+                        type="text"
+                        className="form-control"
+                        placeholder={item.letter_grade}
+                        disabled
                     >
                     </input>
                 </td>
@@ -159,12 +196,13 @@ function UpdateMarksheet(props) {
         console.log("json", body);
         axios
             .put(endpoint, body, config)
-            .then((response) => {
-                console.log(response.data);
+            .then(() => {
                 window.location.reload(false);
+                setErrors('Invalid Marks');
             })
-            .catch((error) => {
-                console.log(error);
+            .catch(() => {
+                setErrors('Invalid Marks');
+                console.log('Invalid Marks');
             });
     }
 
@@ -194,14 +232,18 @@ function UpdateMarksheet(props) {
                     <h5>Update the marks where needed</h5>
                     <hr />
                     <hr />
-                    <Table striped hover className="p-5" size="sm">
+                    <Table responsive className="p-5" size="sm">
                         <thead>
                             <tr>
                                 <th>Name</th>
                                 <th>MT Marks</th>
                                 <th>Term Subjective Marks</th>
                                 <th>Term Objective Marks</th>
+                                <th>Term Test Total</th>
                                 <th>Lab Marks</th>
+                                <th>Total Marks</th>
+                                <th>GP</th>
+                                <th>Letter Grade</th>
                             </tr>
                         </thead>
                         <tbody>{ShowTable}</tbody>
@@ -215,6 +257,15 @@ function UpdateMarksheet(props) {
                     >
                         update
                     </Button>
+
+                    {
+                        errors ? (
+                            <ShowToast mssg={errors} color='red'/>
+                        ) : (
+                            <React.Fragment></React.Fragment>
+                        )
+                    }
+
                 </div>
             </Jumbotron>
         </div>
