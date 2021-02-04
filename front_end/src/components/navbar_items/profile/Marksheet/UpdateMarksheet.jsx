@@ -1,15 +1,18 @@
 import React, {useEffect, useState} from 'react'
 import { Table, Jumbotron, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ShowToast from './../../../ShowToast' 
 
 const axios = require("axios")
 
 function UpdateMarksheet(props) {
-    const [studentList, setStudentList] = useState({});
+    // const [studentList, setStudentList] = useState({});
     const [marksheet, setMarksheet] = useState({});
     const [result, setResult] = useState({});
     const [promise, setPromise] = useState(false);
-    const { class_pk, exam_pk, subject_pk, subjectDetails, className } = props;
+    const [errors, setErrors] = useState();
+    // const { class_pk, exam_pk, subject_pk, subjectDetails, className } = props;
+    const { exam_pk, subjectDetails, className } = props;
 
     useEffect(() => {
 
@@ -59,7 +62,7 @@ function UpdateMarksheet(props) {
             copyMarksheet();
         }
 
-    },[promise]);
+    },[promise, errors]);
 
     let ShowTable;
     if (Object.keys(marksheet).length > 0) {
@@ -67,10 +70,6 @@ function UpdateMarksheet(props) {
             <tr key={item.id}>
                 <td>
                     <h6>
-                        {/* <FontAwesomeIcon
-                            className="fa-icon"
-                            icon={["fas", "user"]}
-                        />{" "} */}
                         {item.student}
                     </h6>
                 </td>
@@ -197,12 +196,13 @@ function UpdateMarksheet(props) {
         console.log("json", body);
         axios
             .put(endpoint, body, config)
-            .then((response) => {
-                console.log(response.data);
+            .then(() => {
                 window.location.reload(false);
+                setErrors('Invalid Marks');
             })
-            .catch((error) => {
-                console.log(error);
+            .catch(() => {
+                setErrors('Invalid Marks');
+                console.log('Invalid Marks');
             });
     }
 
@@ -257,6 +257,15 @@ function UpdateMarksheet(props) {
                     >
                         update
                     </Button>
+
+                    {
+                        errors ? (
+                            <ShowToast mssg={errors} color='red'/>
+                        ) : (
+                            <React.Fragment></React.Fragment>
+                        )
+                    }
+
                 </div>
             </Jumbotron>
         </div>
