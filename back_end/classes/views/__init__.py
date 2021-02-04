@@ -1,18 +1,19 @@
 from .class_views import (
     ClassList,
     ClassDetails,
-    ClassStudentList
+    ClassStudentList,
+    ClassExamTypeList
 )
 
 from .subject_views import (
     SubjectList,
-    SubjectDetails
-)
-
-from .exam_views import (
-    ClassExamTypeList,
+    SubjectDetails,
     SubjectExamList
 )
+
+# from .exam_views import (
+#     ClassExamTypeList
+# )
 
 from .transfer_class_views import (
     transfer_class

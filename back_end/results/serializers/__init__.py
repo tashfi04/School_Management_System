@@ -3,5 +3,9 @@ from .marksheet_serializers import (
 )
 
 from .result_serializers import (
-    TabulationSheetSerializer
+    TabulationSheetSerializer,
+    ClassTestDetailsSerializer,
+    TermTestDetailsSerializer,
+    LabDetailsSerializer,
+    CombinedTestDetailsSerializer
 )

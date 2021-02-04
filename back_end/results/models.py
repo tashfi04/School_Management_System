@@ -1,4 +1,5 @@
 from django.db import models
+from institution.models import Institution
 from django.db.models import F
 from decimal import Decimal
 
@@ -38,17 +39,26 @@ class TabulationSheet(models.Model):
         super().save(*args, **kwargs)
 
 
+
+def get_current_session():
+
+    institution = Institution.objects.all().first()
+
+    print(institution.current_session)
+    return institution.current_session_id
+
 class MarkSheet(models.Model):
 
-    exam = models.ForeignKey('classes.exam', on_delete=models.CASCADE, null=True, blank=False)
+    exam = models.ForeignKey('classes.Exam', on_delete=models.CASCADE, null=True, blank=False)
+    session = models.ForeignKey('academic_sessions.Session', on_delete=models.CASCADE, default=get_current_session, blank=True)
     student = models.ForeignKey('students.Student', on_delete=models.CASCADE, null=True, blank=False)
     #subject = models.ForeignKey('classes.subject', on_delete=models.CASCADE, null=True, blank=False)
-    class_test_marks = models.IntegerField(null=True, blank=False)
-    term_test_subjective_marks = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=False)
-    term_test_objective_marks = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=False)
-    term_test_total_marks = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
-    lab_marks = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=False)
-    total_marks = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    class_test_marks = models.DecimalField(max_digits=5, decimal_places=2, default=0, blank=False)
+    term_test_subjective_marks = models.DecimalField(max_digits=5, decimal_places=2, default=0, blank=False)
+    term_test_objective_marks = models.DecimalField(max_digits=5, decimal_places=2, default=0, blank=False)
+    term_test_total_marks = models.DecimalField(max_digits=5, decimal_places=2, default=0, blank=True)
+    lab_marks = models.DecimalField(max_digits=5, decimal_places=2, default=0, blank=True)
+    total_marks = models.DecimalField(max_digits=5, decimal_places=2, default=0, blank=True)
     GP = models.DecimalField(max_digits=3, decimal_places=2, null=True, blank=True)
     letter_grade = models.CharField(max_length=5, null=True, blank=True)
     tabulationsheet = models.ForeignKey(TabulationSheet, on_delete=models.CASCADE, null=True, blank=True)
@@ -58,8 +68,8 @@ class MarkSheet(models.Model):
 
     def save(self, *args, **kwargs):
 
-        self.term_test_total_marks = (self.term_test_subjective_marks + self.term_test_objective_marks) * self.exam.term_total_conversion / 100
-        self.total_marks = self.class_test_marks + self.term_test_total_marks + self.lab_marks
+        self.term_test_total_marks = (self.term_test_subjective_marks + self.term_test_objective_marks + self.lab_marks) * self.exam.term_total_conversion / 100
+        self.total_marks = self.class_test_marks + self.term_test_total_marks
         self.GP = calculate_GP(self.term_test_subjective_marks, self.term_test_objective_marks, self.lab_marks, self.total_marks, self.exam)
         self.letter_grade = calculate_letter_grade(self.GP)
 
@@ -104,7 +114,7 @@ class MarkSheet(models.Model):
 
 def calculate_GP(term_test_subjective_marks, term_test_objective_marks, lab_marks, total_marks, exam):
 
-    if (term_test_subjective_marks < exam.term_subjective_pass_marks) or (term_test_objective_marks < exam.term_objective_pass_marks):
+    if (term_test_subjective_marks < exam.term_subjective_pass_marks) or (term_test_objective_marks < exam.term_objective_pass_marks)or (lab_marks < exam.lab_pass_marks):
         grade = 0.00
     elif total_marks >= 80:
         grade = 5.00

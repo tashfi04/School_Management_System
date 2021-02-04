@@ -54,7 +54,7 @@ class TeacherSubjectList(ListAPIView):
 
     def get_queryset(self):
         teacher_id = self.kwargs.get('teacher_pk', None)
-        queryset = Subject.objects.filter(teacher = teacher_id)
+        queryset = Subject.objects.filter(teacher=teacher_id, status=0)
 
         if queryset:
             return queryset

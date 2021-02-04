@@ -1,4 +1,4 @@
-from ..models import Subject
+from ..models import Subject, Exam
 from rest_framework import permissions
 
 from rest_framework.exceptions import (
@@ -9,7 +9,8 @@ from rest_framework.generics import (
 )
 
 from ..serializers import (
-    SubjectListSerializer
+    SubjectListSerializer,
+    SubjectExamListSerializer
 )
 
 class SubjectList(ListAPIView):
@@ -21,7 +22,7 @@ class SubjectList(ListAPIView):
 
         class_id = self.kwargs.get('class_pk', None)
 
-        queryset = Subject.objects.filter(related_class_id = class_id)
+        queryset = Subject.objects.filter(related_class_id=class_id, status=0)
 
         if queryset:
             return queryset
@@ -36,9 +37,25 @@ class SubjectDetails(ListAPIView):
         
         subject_id = self.kwargs.get('subject_pk', None)
 
-        queryset = Subject.objects.filter(pk = subject_id)
+        queryset = Subject.objects.filter(pk=subject_id)
 
         if queryset:
             return queryset
         else:
             raise NotFound("No subject by this primary key")
+
+class SubjectExamList(ListAPIView):
+
+    permission_classes = [permissions.AllowAny]
+    serializer_class = SubjectExamListSerializer
+
+    def get_queryset(self):
+
+        subject_pk = self.kwargs.get('subject_pk', None)
+
+        queryset = Exam.objects.filter(subject_id=subject_pk).distinct()
+
+        if queryset:
+            return queryset
+        else:
+            raise NotFound("No exam has been added to this class yet!")

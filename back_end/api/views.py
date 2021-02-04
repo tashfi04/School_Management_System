@@ -33,16 +33,20 @@ def apiOverview(request):
         'Class Details'                     : 'api/v1/classes/<str:class_pk>/details/',
         'Class Students List'               : 'api/v1/classes/<str:class_pk>/students/list/',
         'Class Exam Type List'              : 'api/v1/classes/<str:class_pk>/exam_types/list/',
+        #class transfer api (not added yet)
 
         'Subject Related API'               : '--------------------------------------------------------------------------',
         'Subject List'                      : 'api/v1/classes/<str:class_pk>/subjects/list/',
         'Subject Details'                   : 'api/v1/classes/subjects/<str:subject_pk>/details/',
         'Subject Exam List'                 : '/api/v1/classes/subjects/<str:subject_pk>/exams/list/',
 
-        'Result Related API'                : '--------------------------------------------------------------------------',
+        'Result Related API'                : '--------------------------------------------------------------------------(updated)',
         'Marksheet List Create Update'      : 'api/v1/results/marksheet/<str:exam_pk>/',
-        'Tabulationsheet List'              : 'api/v1/results/tabulationsheet/<str:class_pk>/<str:exam_type_pk>/list/',
-        'Result Card'                       : 'api/v1/results/result_card/<str:class_pk>/<str:student_pk>/details/',
+        'Tabulationsheet List'              : 'api/v1/results/tabulationsheet/<str:session_pk>/<str:class_pk>/<str:exam_type_pk>/list/',
+        'Class Test Details'                : 'api/v1/results/marksheet/class_test/<str:session_pk>/<str:subject_pk>/<str:exam_type_pk>/details/',
+        'Term Test Details'                 : 'api/v1/results/marksheet/term_test/<str:session_pk>/<str:subject_pk>/<str:exam_type_pk>/details/',
+        'Lab Test Details'                  : 'api/v1/results/marksheet/lab/<str:session_pk>/<str:subject_pk>/<str:exam_type_pk>/details/',
+        'Combined Test Details'             : 'api/v1/results/marksheet/combined_test/<str:session_pk>/<str:subject_pk>/<str:exam_type_pk>/details/',
 
         'Notice Related API'                : '--------------------------------------------------------------------------',
         'Notice List'                       : 'api/v1/notices/<str:notice_type>/list/',

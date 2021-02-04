@@ -6,7 +6,7 @@ from exams.models import ExamType
 class ClassListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Class
-        fields = ['id', 'name', 'group','class_teacher']
+        fields = ['id', 'name', 'group', 'class_teacher']
 
 class ClassDetailsSerializer(serializers.ModelSerializer):
     class Meta:
@@ -32,4 +32,4 @@ class SubjectExamListSerializer(serializers.ModelSerializer):
     exam_type = serializers.StringRelatedField()
     class Meta:
         model = Exam
-        fields = ['id', 'exam_year', 'exam_type']
+        fields = ['id', 'exam_type']
