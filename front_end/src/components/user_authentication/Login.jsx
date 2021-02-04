@@ -1,14 +1,8 @@
 import React, { Component } from "react";
-import {
-    Form,
-    Button,
-    Container,
-    Image,
-    Row,
-    Col,
-} from "react-bootstrap";
+import { Form, Button, Container, Image, Row, Col } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import "./Login.css";
+import ShowToast from "./../ShowToast";
 
 const axios = require("axios");
 
@@ -20,6 +14,7 @@ export default class Login extends Component {
             username: "",
             password: "",
             logged_in: false,
+            errors: "",
         };
     }
 
@@ -57,6 +52,9 @@ export default class Login extends Component {
             })
             .catch((err) => {
                 console.log(err);
+                this.setState({
+                    errors: "Invalid Credentials!",
+                });
             });
     };
     // backgroundColor: "#D8D7D7",
@@ -64,7 +62,7 @@ export default class Login extends Component {
         if (this.state.logged_in) return <Redirect to={{ pathname: "/" }} />;
         else {
             return (
-                <Row style={{ backgroundColor: "#D8D7D7",}}>
+                <Row style={{ backgroundColor: "#D8D7D7" }}>
                     <Col sm={8}>
                         <Image
                             src="../../assets/login.jpg"
@@ -75,10 +73,10 @@ export default class Login extends Component {
                         <div
                             style={{
                                 backgroundColor: "#D8D7D7",
-                                 height: "72vh",
+                                height: "72vh",
                                 alignContent: "center",
-                                marginTop: '30vh',
-                                marginBottom: '0vh',
+                                marginTop: "30vh",
+                                marginBottom: "0vh",
                                 alignItems: "center",
                             }}
                         >
@@ -116,6 +114,11 @@ export default class Login extends Component {
                                         Submit
                                     </Button>
                                 </Form>
+                                {this.state.errors ? (
+                                    <ShowToast mssg={this.state.errors} color="red" />
+                                ) : (
+                                    <React.Fragment></React.Fragment>
+                                )}
                             </Container>
                         </div>
                     </Col>
