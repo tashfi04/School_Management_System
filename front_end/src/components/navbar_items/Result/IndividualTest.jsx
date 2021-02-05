@@ -275,7 +275,7 @@ function IndividualTest() {
                         <Button type="submit">
                             <Link
                                 style={{ color: "white" }}
-                                to={`/result/session/${selectSessionId}/class/${selectedClassId}/exam_type/${selectedExamId}/`}
+                                to={`/result/mt/session/${selectSessionId}/subject/${selectedSubjectId}/exam_type/${selectedExamId}/`}
                             >
                                 Class Test
                             </Link>
@@ -289,7 +289,7 @@ function IndividualTest() {
                         <Button type="submit">
                             <Link
                                 style={{ color: "white" }}
-                                to={`/result/session/${selectSessionId}/class/${selectedClassId}/exam_type/${selectedExamId}/`}
+                                to={`/result/term/session/${selectSessionId}/subject/${selectedSubjectId}/exam_type/${selectedExamId}/`}
                             >
                                 Term Test
                             </Link>
@@ -303,7 +303,7 @@ function IndividualTest() {
                         <Button type="submit">
                             <Link
                                 style={{ color: "white" }}
-                                to={`/result/session/${selectSessionId}/class/${selectedClassId}/exam_type/${selectedExamId}/`}
+                                to={`/result/lab/session/${selectSessionId}/subject/${selectedSubjectId}/exam_type/${selectedExamId}/`}
                             >
                                 Lab Test
                             </Link>

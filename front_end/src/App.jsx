@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import AuthNav from "./components/navbar_items/AuthNav";
 import Home from "./components/navbar_items/Home";
 import Administration from "./components/navbar_items/Administration";
-import Tabulation from "./components/navbar_items/Result/Tabulation";
+// import Tabulation from "./components/navbar_items/Result/Tabulation";
 import SelectedCurrentTabulation from "./components/navbar_items/Result/SelectedCurrentTabulation";
 import Notice from "./components/navbar_items/Notice/Notice";
 // import CustomFooter from "./components/navbar_items/CustomFooter";
@@ -28,6 +28,9 @@ import MarksheetTeacher from "./components/navbar_items/profile/Marksheet/Marksh
 import NoticeDetails from "./components/navbar_items/Notice/NoticeDetails";
 import ResultStudent from "./components/navbar_items/profile/Marksheet/ResultStudent";
 import ResultAll from "./components/navbar_items/Result/ResultAll";
+import TermTest from "./components/navbar_items/Result/TermTest";
+import LabTest from "./components/navbar_items/Result/LabTest";
+import ClassTest from "./components/navbar_items/Result/ClassTest";
 
 library.add(far, fas, fab);
 
@@ -41,33 +44,77 @@ function App() {
                 <AuthNav />
                 <Switch>
                     <Route exact path="/" component={Home} />
-                    <Route exact path ="/event/:event_pk/" component={Event} />
+                    <Route exact path="/event/:event_pk/" component={Event} />
                     <Route path="/administration/" component={Administration} />
 
-                    <Route path="/academics/overview/" component={Overview}></Route>
-                    <Route path="/academics/classes/" component={Classes}></Route>
-                    <Route path="/academics/classdetails/:class_pk/" component={ClassDetails}></Route>
-                    <Route path="/academics/teachers/" component={Teachers}></Route>
+                    <Route
+                        path="/academics/overview/"
+                        component={Overview}
+                    ></Route>
+                    <Route
+                        path="/academics/classes/"
+                        component={Classes}
+                    ></Route>
+                    <Route
+                        path="/academics/classdetails/:class_pk/"
+                        component={ClassDetails}
+                    ></Route>
+                    <Route
+                        path="/academics/teachers/"
+                        component={Teachers}
+                    ></Route>
 
                     <Route path="/result/all" component={ResultAll}></Route>
-                    {/* <Route path="/result/tabulation/" component={Tabulation}></Route> */}
-                    <Route path="/result/session/:session_pk/class/:class_pk/exam_type/:exam_type_pk/" component={SelectedCurrentTabulation}></Route>
-                    <Route path="/result/mt/session/:session_pk/subject/:subject_pk/exam_type_pk/"></Route>
-                    <Route path="/result/term/session/:session_pk/subject/:subject_pk/exam_type_pk/"></Route>
-                    <Route path="/result/lab/session/:session_pk/subject/:subject_pk/exam_type_pk/"></Route>
+                    <Route
+                        path="/result/session/:session_pk/class/:class_pk/exam_type/:exam_type_pk/"
+                        component={SelectedCurrentTabulation}
+                    ></Route>
+                    <Route
+                        path="/result/mt/session/:session_pk/subject/:subject_pk/exam_type/:exam_type_pk/"
+                        component={ClassTest}
+                    ></Route>
+                    <Route
+                        path="/result/term/session/:session_pk/subject/:subject_pk/exam_type/:exam_type_pk/"
+                        component={TermTest}
+                    ></Route>
+                    <Route
+                        path="/result/lab/session/:session_pk/subject/:subject_pk/exam_type/:exam_type_pk/"
+                        component={LabTest}
+                    ></Route>
 
                     <Route path="/notice/" component={Notice}></Route>
-                    <Route path="/noticedetails/:notice_pk/" component={NoticeDetails}></Route>
+                    <Route
+                        path="/noticedetails/:notice_pk/"
+                        component={NoticeDetails}
+                    ></Route>
                     <Route path="/login/" component={Login}></Route>
 
-                    <Route path="/profile/dashboard/" component={Profile}></Route>
-                    <Route path="/profile/myclasses/" component={MyClasses}></Route>
-                    <Route path="/profile/class/:class_pk/subject/:subject_pk/" component={MySubject}></Route>
-                    <Route path="/profile/class/:class_pk/exam/:exam_pk/subject/:subject_pk/" component={MarksheetTeacher}></Route>
-                    <Route path="/profile/result/" component={ResultStudent}></Route>
+                    <Route
+                        path="/profile/dashboard/"
+                        component={Profile}
+                    ></Route>
+                    <Route
+                        path="/profile/myclasses/"
+                        component={MyClasses}
+                    ></Route>
+                    <Route
+                        path="/profile/class/:class_pk/subject/:subject_pk/"
+                        component={MySubject}
+                    ></Route>
+                    <Route
+                        path="/profile/class/:class_pk/exam/:exam_pk/subject/:subject_pk/"
+                        component={MarksheetTeacher}
+                    ></Route>
+                    <Route
+                        path="/profile/result/"
+                        component={ResultStudent}
+                    ></Route>
 
                     <Route path="/logout/" component={Logout}></Route>
-                    <Route path="/registration/" component={Registration}></Route>
+                    <Route
+                        path="/registration/"
+                        component={Registration}
+                    ></Route>
                 </Switch>
                 <Footer />
                 {/* <CustomFooter /> */}
