@@ -16,7 +16,7 @@ class ClassDetailsSerializer(serializers.ModelSerializer):
 class ClassStudentListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = ['name']
+        fields = ['name','username']
 
 class ClassExamTypeListSerializer(serializers.ModelSerializer):
     class Meta:

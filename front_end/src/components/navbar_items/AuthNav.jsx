@@ -23,7 +23,7 @@ function AuthNav() {
                             Administration
                         </Nav.Link>
                         <Nav.Link href="/academics/overview">Academic</Nav.Link>
-                        <Nav.Link href="/result/tabulation">Result</Nav.Link>
+                        <Nav.Link href="/result/all">Result</Nav.Link>
                         <Nav.Link href="/notice">Notice</Nav.Link>
                     </Nav>
                     {localStorage.getItem("token") ? (
