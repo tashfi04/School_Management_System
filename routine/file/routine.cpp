@@ -52,6 +52,7 @@ void generateForSingleDay(int day)
     //from 2nd class
     for(int gap=1;gap<totalClass;gap++){
         for(int _class=0;_class<number_of_class;_class++){
+            //if(routine[day][_class].size()==total_class_a_day[_class]) continue;
             availableTeacher.clear();
             int allocated=0;
             for(allocated=0;allocated<number_of_teacher;allocated++){
