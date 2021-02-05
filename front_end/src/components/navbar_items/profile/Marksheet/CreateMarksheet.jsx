@@ -14,6 +14,7 @@ function CreateMarksheet(props) {
 
     useEffect(() => {
         const loadStudentList = async () => {
+            console.log(class_pk);
             axios
                 .get(`/api/v1/classes/${class_pk}/students/list/`, {
                     headers: {
@@ -34,12 +35,13 @@ function CreateMarksheet(props) {
             let tempResult = {};
             for (let i = 0; i < Object.keys(studentList).length; i++) {
                 let name = studentList[i].name;
+                let username = studentList[i].username;
                 tempResult = {
                     ...tempResult,
-                    [name]: {
-                        ...tempResult[name],
+                    [username]: {
+                        ...tempResult[username],
                         exam: parseInt(exam_pk),
-                        student: name,
+                        student: username,
                         // subject: parseInt(subject_pk),
                         term_test_objective_marks: "0.00",
                         term_test_subjective_marks: "0.00",
@@ -61,14 +63,14 @@ function CreateMarksheet(props) {
     let ShowTable;
     if (Object.keys(studentList).length > 0) {
         ShowTable = studentList.map((item) => (
-            <tr key={item.name}>
+            <tr key={item.username}>
                 <td>
                     <h6>
                         <FontAwesomeIcon
                             className="fa-icon"
                             icon={["fas", "user"]}
                         />{" "}
-                        {item.name}
+                        {item.username}
                     </h6>
                 </td>
                 <td>
@@ -79,8 +81,8 @@ function CreateMarksheet(props) {
                         onChange={(e) => {
                             setResult({
                                 ...result,
-                                [item.name]: {
-                                    ...result[item.name],
+                                [item.username]: {
+                                    ...result[item.username],
                                     class_test_marks: e.target.value,
                                 },
                             });
@@ -95,8 +97,8 @@ function CreateMarksheet(props) {
                         onChange={(e) => {
                             setResult({
                                 ...result,
-                                [item.name]: {
-                                    ...result[item.name],
+                                [item.username]: {
+                                    ...result[item.username],
                                     term_test_subjective_marks: e.target.value,
                                 },
                             });
@@ -111,8 +113,8 @@ function CreateMarksheet(props) {
                         onChange={(e) => {
                             setResult({
                                 ...result,
-                                [item.name]: {
-                                    ...result[item.name],
+                                [item.username]: {
+                                    ...result[item.username],
                                     term_test_objective_marks: e.target.value,
                                 },
                             });
@@ -127,8 +129,8 @@ function CreateMarksheet(props) {
                         onChange={(e) => {
                             setResult({
                                 ...result,
-                                [item.name]: {
-                                    ...result[item.name],
+                                [item.username]: {
+                                    ...result[item.username],
                                     lab_marks: e.target.value,
                                 },
                             });

@@ -27,6 +27,7 @@ import Event from "./components/navbar_items/Event";
 import MarksheetTeacher from "./components/navbar_items/profile/Marksheet/MarksheetTeacher";
 import NoticeDetails from "./components/navbar_items/Notice/NoticeDetails";
 import ResultStudent from "./components/navbar_items/profile/Marksheet/ResultStudent";
+import ResultAll from "./components/navbar_items/Result/ResultAll";
 
 library.add(far, fas, fab);
 
@@ -48,8 +49,12 @@ function App() {
                     <Route path="/academics/classdetails/:class_pk/" component={ClassDetails}></Route>
                     <Route path="/academics/teachers/" component={Teachers}></Route>
 
-                    <Route path="/result/tabulation/" component={Tabulation}></Route>
-                    <Route path="/result/class/:class_pk/exam_type/:exam_type_pk/" component={SelectedCurrentTabulation}></Route>
+                    <Route path="/result/all" component={ResultAll}></Route>
+                    {/* <Route path="/result/tabulation/" component={Tabulation}></Route> */}
+                    <Route path="/result/session/:session_pk/class/:class_pk/exam_type/:exam_type_pk/" component={SelectedCurrentTabulation}></Route>
+                    <Route path="/result/mt/session/:session_pk/subject/:subject_pk/exam_type_pk/"></Route>
+                    <Route path="/result/term/session/:session_pk/subject/:subject_pk/exam_type_pk/"></Route>
+                    <Route path="/result/lab/session/:session_pk/subject/:subject_pk/exam_type_pk/"></Route>
 
                     <Route path="/notice/" component={Notice}></Route>
                     <Route path="/noticedetails/:notice_pk/" component={NoticeDetails}></Route>
