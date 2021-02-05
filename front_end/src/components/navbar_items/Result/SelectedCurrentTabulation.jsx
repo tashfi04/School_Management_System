@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Table, Button } from "react-bootstrap";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import Tabulation from "./Tabulation";
 
 const axios = require("axios");
 
@@ -14,12 +15,13 @@ function SelectedCurrentTabulation() {
     const [classDetails, setClassDetails] = useState({});
     const class_pk = useParams().class_pk;
     const exam_type_pk = useParams().exam_type_pk;
+    const session_pk = useParams().session_pk;
 
     useEffect(() => {
         const loadTabulation = async () => {
             axios
                 .get(
-                    `/api/v1/results/tabulationsheet/${class_pk}/${exam_type_pk}/list/`
+                    `/api/v1/results/tabulationsheet/${session_pk}/${class_pk}/${exam_type_pk}/list/`
                 )
                 .then((response) => {
                     setTabulation(response.data);
@@ -76,38 +78,9 @@ function SelectedCurrentTabulation() {
                 });
         };
 
-        // const loadSubjectListName = async () => {
-        //     axios
-        //         .get(`/api/v1/classes/${class_pk}/subjects/list/`)
-        //         .then((response) => {
-        //             setSubjectListName(response.data);
-        //             setPromiseSubject(true);
-        //         })
-        //         .catch((error) => {
-        //             console.log(error);
-        //         });
-        // };
-
         loadClassDetails();
-        // loadSubjectListName();
+    }, [promise, session_pk, class_pk, exam_type_pk]);
 
-        // const formalizeSubjectList = async () => {
-        //     let tempSubjectList = {};
-        //     for (let i = 0; i < Object.keys(subjectListName).length; i++) {
-        //         tempSubjectList = {
-        //             ...tempSubjectList,
-        //             [subjectListName[i].pk]: subjectListName[i].name,
-        //         };
-        //     }
-        //     setPkToSubject(tempSubjectList);
-        // };
-
-        // if (promiseSubject) {
-        //     formalizeSubjectList();
-        // }
-    }, [promise]);
-
-    console.log(modTabulation);
 
     let ShowTableCol;
     if (modTabulation[0]) {
@@ -171,7 +144,8 @@ function SelectedCurrentTabulation() {
 
     return (
         <div className="pb-5">
-            <div id='divToPrint' className="mt-5 pt-5 ml-1 mr-1">
+            <Tabulation></Tabulation>
+            <div id='divToPrint' className="ml-1 mr-1">
                 <div style={{ textAlign: "center" }}>
                     <h3 style={{ color: "CaptionText" }}>
                         <FontAwesomeIcon

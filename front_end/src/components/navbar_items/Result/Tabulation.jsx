@@ -13,24 +13,38 @@ function Tabulation() {
     const [selectedClassName, setSelectedClassName] = useState();
     const [selectedExamId, setSelectedExamId] = useState();
     const [promiseExam, setPromiseExam] = useState(false);
+    const [promiseSession, setPromiseSession] = useState(false);
     const [selectedExamName, setSelectedExamName] = useState();
+    const [selectSessionId, setSelectSessionId] = useState();
+    const [selectSessionName, setSelectSessionName] = useState();
+    const [sessionList, setSessionList] = useState({});
 
     useEffect(() => {
+        const loadSessionList = async () => {
+            axios
+                .get("/api/v1/results/search_options/sessions/list/")
+                .then((response) => {
+                    setSessionList(response.data);
+                })
+                .catch((error) => {
+                    console.log(error.detail)
+                });
+        };
+
         const loadClassList = async () => {
             axios
-                .get("/api/v1/classes/list/")
+                .get(`/api/v1/results/search_options/classes/${selectSessionId}/list/`)
                 .then((response) => {
                     setClassList(response.data);
                 })
                 .catch((error) => {
-                    console.log(error);
+                    console.log(error.detail);
                 });
         };
-        loadClassList();
 
         const loadExamTypeList = async () => {
             axios
-                .get(`/api/v1/classes/${selectedClassId}/exam_types/list/`)
+                .get(`/api/v1/results/search_options/exam_types/${selectSessionId}/${selectedClassId}/list/`)
                 .then((response) => {
                     setExamTypeList(response.data);
                 })
@@ -38,17 +52,34 @@ function Tabulation() {
                     console.log(error);
                 });
         };
+
+        loadSessionList();
+        if (promiseSession) {
+            loadClassList();
+        }
         if (promiseClass) {
             loadExamTypeList();
         }
-    }, [promiseClass]);
+    }, [promiseClass, promiseSession]);
+
+    let ShowDropdownSessionMenu;
+    if (Object.keys(sessionList).length > 0) {
+        ShowDropdownSessionMenu = sessionList.map((item) => (
+            <Dropdown.Item
+                key={item.id}
+                eventKey={JSON.stringify({ id: item.id, session: item.session })}
+            >
+                {item.session}
+            </Dropdown.Item>
+        ))
+    }
 
     let ShowDropdownClassMenu;
     if (Object.keys(classList).length > 0) {
         ShowDropdownClassMenu = classList.map((item) => (
             <Dropdown.Item
                 key={item.id}
-                eventKey={JSON.stringify({ id: item.id, name: item.name })}
+                eventKey={JSON.stringify({ id: item.id, name: item.name, group: item.group })}
             >
                 {item.name}
             </Dropdown.Item>
@@ -70,11 +101,27 @@ function Tabulation() {
         ));
     }
 
+    const handleSessionSelect = (e) => {
+        let value = JSON.parse(e);
+        setSelectSessionId(value.id);
+        setSelectSessionName(value.session);
+        setPromiseSession(true);
+        setPromiseClass(false);
+        setSelectedClassId();
+        setSelectedClassName();
+        setPromiseExam(false);
+        setSelectedExamId();
+        setSelectedExamName();
+    }
+
     const handleClassSelect = (e) => {
         let value = JSON.parse(e);
         setSelectedClassId(value.id);
         setSelectedClassName(value.name);
         setPromiseClass(true);
+        setPromiseExam(false);
+        setSelectedExamId();
+        setSelectedExamName();
     };
 
     const handleExamSelect = (e) => {
@@ -84,24 +131,45 @@ function Tabulation() {
         setPromiseExam(true);
     };
 
+
     return (
         <div className="p-5 m-5" style={{ textAlign: "center" }}>
             <p style={{ fontSize: "20px" }}>
                 {" "}
-                Select Class and Exam to see the tabulation sheet{" "}
+                Select Session, Class and Exam to see the tabulation sheet{" "}
             </p>
-            <hr />
+            <hr style={{border: 'solid', borderWidth:'1px'}}/>
             <Row>
-                <Col md={4}></Col>
-                <Col md={4} className="pt-3 mt-3">
-                    <Dropdown onSelect={handleClassSelect} className="mb-3">
+                <Col md={3} sm={3} xl={3} className="pt-3 mt-3 pb-3">
+                    <Dropdown onSelect={handleSessionSelect} className="mb-3">
                         <Dropdown.Toggle className="border-info" variant="">
-                            Select Class
+                            Select Session
                         </Dropdown.Toggle>
-                        <DropdownMenu>{ShowDropdownClassMenu}</DropdownMenu>
+                        <DropdownMenu>{ShowDropdownSessionMenu}</DropdownMenu>
                     </Dropdown>
+                </Col>
+                <Col md={3} sm={3} xl={3} className="pt-3 mt-3 pb-3">
+                    {!promiseSession ? (
+                        <Dropdown>
+                            <Dropdown.Toggle
+                                className="border-info"
+                                variant=""
+                                disabled
+                            >
+                                Select Class
+                            </Dropdown.Toggle>
+                        </Dropdown>
+                    ) : (
+                        <Dropdown onSelect={handleClassSelect} className="mb-3">
+                            <Dropdown.Toggle className="border-info" variant="">
+                                Select Class
+                            </Dropdown.Toggle>
+                            <DropdownMenu>{ShowDropdownClassMenu}</DropdownMenu>
+                        </Dropdown>
+                    )}
+                </Col>
+                <Col md={3} sm={3} xl={3} className="pt-3 mt-3 pb-3">
                     {!promiseClass ? (
-                        <div className="mb-3">
                             <Dropdown>
                                 <Dropdown.Toggle
                                     className="border-info"
@@ -111,9 +179,7 @@ function Tabulation() {
                                     Select Exam
                                 </Dropdown.Toggle>
                             </Dropdown>
-                        </div>
                     ) : (
-                        <div className="mb-3">
                             <Dropdown onSelect={handleExamSelect}>
                                 <Dropdown.Toggle
                                     className="border-info"
@@ -125,37 +191,37 @@ function Tabulation() {
                                     {ShowDropDownExamMenu}
                                 </DropdownMenu>
                             </Dropdown>
-                        </div>
                     )}
-                    {selectedClassName ? (
-                        <h5>class: {selectedClassName}</h5>
-                    ) : (
-                        <div></div>
-                    )}
-                    {selectedExamName ? (
-                        <h5>Exam: {selectedExamName}</h5>
-                    ) : (
-                        <div></div>
-                    )}
+                </Col>
+                <Col md={3} sm={3} xl={3} className="pt-3 mt-3 pb-3">
                     {promiseExam ? (
-                        <Button
-                            className="mt-3"
-                            type="submit"
-                        >
+                        <Button type="submit">
                             <Link
                                 style={{ color: "white" }}
-                                to={`/result/class/${selectedClassId}/exam_type/${selectedExamId}/`}
+                                to={`/result/session/${selectSessionId}/class/${selectedClassId}/exam_type/${selectedExamId}/`}
                             >
                                 Search
                             </Link>
                         </Button>
                     ) : (
-                        <Button className="mt-3" disabled>
-                            Search
-                        </Button>
+                        <Button disabled>Search</Button>
                     )}
                 </Col>
-                <Col md={4}></Col>
+                    {selectSessionName ? (
+                        <h5 className='pl-5'>Session: {selectSessionName} </h5>
+                    ) : (
+                        <div></div>
+                    )}
+                    {selectedClassName ? (
+                        <h5>, Class: {selectedClassName}</h5>
+                    ) : (
+                        <div></div>
+                    )}
+                    {selectedExamName ? (
+                        <h5>, Exam: {selectedExamName}</h5>
+                    ) : (
+                        <div></div>
+                    )}
             </Row>
         </div>
     );

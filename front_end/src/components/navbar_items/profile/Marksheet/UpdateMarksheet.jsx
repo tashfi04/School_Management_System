@@ -198,7 +198,7 @@ function UpdateMarksheet(props) {
             .put(endpoint, body, config)
             .then(() => {
                 window.location.reload(false);
-                setErrors('Invalid Marks');
+                setErrors('Successful');
             })
             .catch(() => {
                 setErrors('Invalid Marks');
