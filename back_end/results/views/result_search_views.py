@@ -58,16 +58,3 @@ class SessionClassBasedExamTypeList(ListAPIView):
         class_id = self.kwargs.get('class_pk', None)
 
         return ExamType.objects.filter(exam__marksheet__session_id=session_id, exam__related_class_id=class_id).distinct()
-
-# class SessionClassSubjectListBasedSubjectList(ListAPIView):
-
-#     permission_classes = [permissions.AllowAny]
-#     serializer_class = 
-
-#     def get_queryset(self):
-
-#         session_id = self.kwargs.get('session_pk', None)
-#         class_id = self.kwargs.get('class_pk', None)
-#         exam_type_id = self.kwargs.get('exam_type_pk', None)
-
-#         return Subject.objects.filter(exam__marksheet__session_id=session_id, related_class_id=class_id)
