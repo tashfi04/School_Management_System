@@ -38,10 +38,10 @@ def apiOverview(request):
         'Subject Related API'                       : '--------------------------------------------------------------------------',
         'Subject List'                              : 'api/v1/classes/<str:class_pk>/subjects/list/',
         'Subject Details'                           : 'api/v1/classes/subjects/<str:subject_pk>/details/',
-        'Subject Exam List'                         : '/api/v1/classes/subjects/<str:subject_pk>/exams/list/',
+        'Subject Exam List'                         : 'api/v1/classes/subjects/<str:subject_pk>/exams/list/',
 
         'Exam Type Related API'                     : '--------------------------------------------------------------------------',
-        'Exam Type Details'                         : 'api/v1/exam_types/<str:exam_type_pk>/details/'
+        'Exam Type Details'                         : 'api/v1/exam_types/<str:exam_type_pk>/details/',
 
         'Result Related API'                        : '--------------------------------------------------------------------------(updated)',
         'Marksheet List Create Update'              : 'api/v1/results/marksheet/<str:exam_pk>/',

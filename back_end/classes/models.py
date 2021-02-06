@@ -73,16 +73,6 @@ class Exam(models.Model):
 
     def save(self, *args, **kwargs):
 
-        # if (0 <= self.subjective_pass_marks):
-        #     self.subjective_pass_marks = self.subjective_marks * self.subjective_pass_marks / 100
-        # if (0 <= self.objective_pass_marks):
-        #     self.objective_pass_marks = self.objective_marks * self.objective_pass_marks / 100
-        # if (0 <= self.total_pass_marks):
-        #     self.total_pass_marks = self.total_marks * self.total_pass_marks / 100
-        # self.subjective_pass_marks = self.subjective_marks * self.subjective_pass_marks / 100
-        # self.objective_pass_marks = self.objective_marks * self.objective_pass_marks / 100
-        # self.total_pass_marks = self.total_marks * self.total_pass_marks / 100
-
         super().save(*args, **kwargs)
 
     def __str__(self):
