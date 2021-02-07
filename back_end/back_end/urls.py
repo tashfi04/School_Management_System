@@ -24,5 +24,9 @@ urlpatterns = [
     path('token-auth/', obtain_jwt_token),
 ]
 
+admin.site.site_header = "School Admin"
+admin.site.site_title = "School Admin Portal"
+admin.site.index_title = "Welcome School Admin Portal"
+
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -33,3 +33,8 @@ class SubjectExamListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Exam
         fields = ['id', 'exam_type']
+
+class NextClassListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Class
+        fields = ['id', 'name', 'group']

@@ -16,5 +16,7 @@ from .subject_views import (
 # )
 
 from .transfer_class_views import (
-    transfer_class
+    transfer_class,
+    transfer_class_with_selection,
+    NextClassList
 )

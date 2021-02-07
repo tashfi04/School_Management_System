@@ -10,7 +10,9 @@ from .views import (
     ClassExamTypeList,
     SubjectExamList,
 
-    transfer_class
+    transfer_class,
+    transfer_class_with_selection,
+    NextClassList
 )
 
 urlpatterns = [
@@ -25,5 +27,7 @@ urlpatterns = [
     path('subjects/<str:subject_pk>/exams/list/', SubjectExamList.as_view(), name="subject-exam-list"),
     #path('marksheets/<str:subject_pk>/<str:exam_pk>/', MarkSheetListCreateUpdate.as_view(), name="marksheet-list-create-update")
 
-    path('transfer_class/<str:class_pk>/', transfer_class, name="transfer-class")
+    path('next_class_list/<str:class_pk>/', NextClassList.as_view(), name="next-class-list"),
+    path('transfer_class/<str:class_pk>/', transfer_class, name="transfer-class"),
+    path('transfer_class_with_selection/<str:class_pk>/', transfer_class_with_selection, name="transfer-class-with-selection")
 ]
