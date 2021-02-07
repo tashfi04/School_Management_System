@@ -41,7 +41,19 @@ class RoutineGenerator():
 
                             count_class[a][i] += 1
                             
-                            self.routine[day][a].push_back({_class.subject_set.all()[i].id, _class.subject_set.all()[i].teacher_id})
+                            #self.routine[day][a].push_back({_class.subject_set.all()[i].id, _class.subject_set.all()[i].teacher_id})
+							
+							
+							self.routine_row.related_class_id=_class.subject_set.all([i].id
+							self.routine_row.period=gap
+							
+							if(day==0) self.routine_row.sunday=1
+							elif(day==1) self.routine_row.monday=1
+							elif(day==2) self.routine_row.tuesday=1
+							elif(day==3) self.routine_row.wednesday=1
+							elif(day==4) self.routine_row.thursday=1
+							
+							routine_list.push_back(routine_row)
                             
                             self.teacher_queue[a].appnd(i)
                             canGenerate = True
