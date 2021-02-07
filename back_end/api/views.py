@@ -34,6 +34,9 @@ def apiOverview(request):
         'Class Students List'                       : 'api/v1/classes/<str:class_pk>/students/list/',
         'Class Exam Type List'                      : 'api/v1/classes/<str:class_pk>/exam_types/list/',
         #class transfer api (not added yet)
+        'Check Next Class'                          : 'api/v1/classes/next_class_list/<str:class_pk>/',
+        'Transfer Class'                            : 'api/v1/classes/transfer_class/<str:class_pk>/',
+        'Transfer Class Based on Selection'         : 'api/v1/classes/transfer_class_with_selection/<str:class_pk>/',
 
         'Subject Related API'                       : '--------------------------------------------------------------------------',
         'Subject List'                              : 'api/v1/classes/<str:class_pk>/subjects/list/',

@@ -1,6 +1,9 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
+# from teachers.models import Teacher
+# from .routine import RoutineGenerator
+
 class Class(models.Model):
 
     GROUP_CHOICES = [
@@ -13,6 +16,7 @@ class Class(models.Model):
     class_order = models.IntegerField(null=True, blank=False)
     group = models.CharField(choices=GROUP_CHOICES, max_length=30, null=True, blank=True)
     class_teacher = models.OneToOneField('teachers.Teacher', on_delete=models.CASCADE, null=True, blank=True)
+    total_class_in_a_day = models.IntegerField(null=True, blank=False)
 
     syllebus = models.FileField(upload_to='uploads/syllebus/%Y/%m/%d', max_length=200, null=True, blank=True)
 
@@ -44,6 +48,7 @@ class Subject(models.Model):
     name = models.CharField(max_length=50)
     subject_type = models.IntegerField(choices=SUBJECT_TYPE_CHOICES, null=True, blank=False)
     teacher = models.ForeignKey('teachers.Teacher', on_delete=models.CASCADE, null=True, blank=True)
+    total_class_in_a_week = models.IntegerField(null=True, blank=False)
     status = models.IntegerField(choices=STATUS_CHOICES, default=active, blank=False)
 
     def __str__(self):
@@ -71,9 +76,30 @@ class Exam(models.Model):
     class Meta:
         ordering = ['subject',]
 
-    def save(self, *args, **kwargs):
-
-        super().save(*args, **kwargs)
-
     def __str__(self):
         return '%s (%s)' % (str(self.subject), str(self.exam_type))
+
+
+class Routine(models.Model):
+
+    related_class = models.ForeignKey(Class, on_delete=models.CASCADE)
+    period = models.IntegerField(null=True, blank=False)
+    sunday = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='sunday')
+    monday = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='monday')
+    tuesday = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='tuesday')
+    wednesay = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='wednesay')
+    thursday = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='thursday')
+
+    # def save(self, *args, **kwargs):
+
+    #     if self._state .adding:
+
+    #         class_list = Class.objects.all()
+    #         teacher_list = Teacher.objects.all()
+
+    #         max_class_a_day = 5
+
+
+    #     super().save(*args, **kwargs)
+
+

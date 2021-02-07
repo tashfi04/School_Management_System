@@ -1,19 +1,36 @@
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, AllowAny
 from rest_framework.response import Response
 from students.models import Student
 from ..models import Class, Subject, Exam
 from results.models import MarkSheet, TabulationSheet
 from exams.models import ExamType
 
-@api_view(['GET'])
-@permission_classes([IsAuthenticatedOrReadOnly])
-def check_next_class(request, class_pk):
-    
-    current_class = Class.objects.get(id=class_pk)
-    next_class_list = Class.objects.get(class_order=current_class.class_order + 1)
+from rest_framework.exceptions import (
+    NotFound
+)
+from rest_framework.generics import (
+    ListAPIView
+)
 
-    return Response(next_class_list)
+from ..serializers import NextClassListSerializer
+
+class NextClassList(ListAPIView):
+
+    permission_classes = [AllowAny]
+    serializer_class = NextClassListSerializer
+
+    def get_queryset(self):
+
+        current_class_id = self.kwargs.get('class_pk', None)
+
+        current_class = Class.objects.filter(id=current_class_id)
+
+        if current_class:
+            return Class.objects.filter(class_order=current_class[0].class_order + 1)
+        else:
+            raise NotFound("There is no next class")
+
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticatedOrReadOnly])

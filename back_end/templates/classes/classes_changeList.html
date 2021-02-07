@@ -1,0 +1,12 @@
+{% extends 'admin/change_list.html' %}
+
+{% block object-tools %}
+    <div>
+        <form action="create_routine/" method="POST">
+            {% csrf_token %}
+                <button type="submit">Create Routine</button>
+        </form>
+    </div>
+    <br />
+    {{ block.super }}
+{% endblock %}

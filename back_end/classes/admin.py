@@ -1,7 +1,11 @@
 from django.contrib import admin
-from .models import Class, Subject, Exam
-from django.urls import resolve
+from .models import Class, Subject, Exam, Routine
+from django.urls import resolve, path
 from functools import partial
+
+from teachers.models import Teacher
+from .routine import RoutineGenerator
+from django.http import HttpResponseRedirect
 
 class SubjectInline(admin.TabularInline):
     model = Subject
@@ -23,20 +27,59 @@ class ExamInline(admin.TabularInline):
             formfield.queryset = Subject.objects.filter(related_class_id=obj)
         return formfield
 
+class RoutineInline(admin.TabularInline):
+    model = Routine
+    extra = 1
+    
+    """
+    Get the parent object id(class) being edited and filter subjects with that class
+    """
+    def get_formset(self, request, obj=None, **kwargs):
+        kwargs['formfield_callback'] = partial(self.formfield_for_dbfield, request=request, obj=obj)
+        return super().get_formset(request, obj, **kwargs)
+
+    def formfield_for_dbfield(self, db_field, **kwargs):
+        obj = kwargs.pop('obj', None)
+        formfield = super().formfield_for_dbfield(db_field, **kwargs)
+        if db_field.name == "subject" and Class:
+            formfield.queryset = Subject.objects.filter(related_class_id=obj)
+        return formfield
 
 class ClassAdmin(admin.ModelAdmin):
+
+    change_list_template = 'classes/classes_changeList.html'
+
+    def get_urls(self):
+        urls = super().get_urls()
+        my_urls = [
+            path('create_routine/', self.create_routine),
+        ]
+        return my_urls + urls
+
+    def create_routine(self, request):
+        class_list = Class.objects.all()
+        teacher_list = Teacher.objects.all()
+        max_class_a_day = 5
+        routine_generator = RoutineGenerator()
+        routine_generator.generateRoutine(class_list, teacher_list, max_class_a_day)
+        print (routine_generator.routine)
+
+        self.message_user(request, "Routines created")
+
+        return HttpResponseRedirect("../")
+
 
     list_display = ('name', 'group', 'class_teacher')
     list_per_page = 20
 
     fieldsets = (
         ('Class Information', {
-            'fields': (('name', 'group', 'class_order'), 'class_teacher', 'syllebus')
+            'fields': (('name', 'group', 'class_order'), 'class_teacher', 'syllebus', 'total_class_in_a_day')
         }),
     )
 
     inlines = [
-        SubjectInline, ExamInline
+        SubjectInline, ExamInline, RoutineInline
     ]
 
 admin.site.register(Class, ClassAdmin)
