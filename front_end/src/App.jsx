@@ -31,6 +31,7 @@ import ResultAll from "./components/navbar_items/Result/ResultAll";
 import TermTest from "./components/navbar_items/Result/TermTest";
 import LabTest from "./components/navbar_items/Result/LabTest";
 import ClassTest from "./components/navbar_items/Result/ClassTest";
+import PageNotFound from "./components/PageNotFound/PageNotFound";
 
 library.add(far, fas, fab);
 
@@ -115,6 +116,7 @@ function App() {
                         path="/registration/"
                         component={Registration}
                     ></Route>
+                    <Route component={PageNotFound}></Route>
                 </Switch>
                 <Footer />
                 {/* <CustomFooter /> */}
