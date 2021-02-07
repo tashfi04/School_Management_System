@@ -23,7 +23,7 @@ function ClassTest() {
                     setResult(response.data);
                 })
                 .catch((errors) => {
-                    setErrors('Result does not exist!');
+                    setErrors("Result does not exist!");
                 });
         };
         loadResult();
@@ -47,9 +47,15 @@ function ClassTest() {
             {!errors ? (
                 <React.Fragment>
                     <h3>Class Test Marks</h3>
-                    <h4>Session: </h4>
-                    <h4>Class:</h4>
-                    <h4>Subject: </h4>
+                    {result[0] ? (
+                        <React.Fragment>
+                            <h4>Session: {String(result[0].session)}</h4>
+                            <h4>Class: {String(result[0].exam.related_class)}</h4>
+                            <h4>Subject: {String(result[0].exam.subject)}</h4>
+                        </React.Fragment>
+                    ) : (
+                        <React.Fragment></React.Fragment>
+                    )}
                     <Container style={{ margin: "auto" }}>
                         <Table
                             striped
