@@ -58,13 +58,15 @@ class ClassAdmin(admin.ModelAdmin):
 
     def create_routine(self, request):
         class_list = Class.objects.all()
-        teacher_list = Teacher.objects.all()
         max_class_a_day = 5
         routine_generator = RoutineGenerator()
-        routine_generator.generateRoutine(class_list, teacher_list, max_class_a_day)
-        print (routine_generator.routine)
-
-        self.message_user(request, "Routines created")
+        routine_generator.generateRoutine(class_list, max_class_a_day)
+        
+        if routine_generator.can_generate_routine:
+            Routine.objects.bulk_create([Routine(**q) for q in routine_generator.routine_list])
+            self.message_user(request, "Routines created")
+        else:
+           self.message_user(request, "Can not generate routine, no teacher available for class {}, period {}!".format(routine_generator.routine_generate_fail_output['class'], routine_generator.routine_generate_fail_output['period']))
 
         return HttpResponseRedirect("../")
 

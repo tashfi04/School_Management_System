@@ -14,7 +14,7 @@ class MarksSerializer(serializers.ModelSerializer):
     session = serializers.StringRelatedField()
     class Meta:
         model = MarkSheet
-        fields = ['exam', 'session', 'student', 'class_test_marks', 'term_test_total_marks', 'total_marks', 'GP', 'letter_grade']
+        fields = ['exam', 'session', 'student', 'roll_no', 'class_test_marks', 'term_test_total_marks', 'total_marks', 'GP', 'letter_grade']
 
 class TabulationSheetSerializer(serializers.ModelSerializer):
 
@@ -28,27 +28,26 @@ class ClassTestDetailsSerializer(serializers.ModelSerializer):
     session = serializers.StringRelatedField()
     class Meta:
         model = MarkSheet
-        fields = ['exam', 'session', 'student', 'class_test_marks']
+        fields = ['exam', 'session', 'student', 'roll_no', 'class_test_marks']
 
 class TermTestDetailsSerializer(serializers.ModelSerializer):
     exam = ExamSerializer(read_only=True)
     session = serializers.StringRelatedField()
     class Meta:
         model = MarkSheet
-        fields = ['exam', 'session', 'student', 'term_test_subjective_marks', 'term_test_objective_marks', 'term_test_total_marks']
+        fields = ['exam', 'session', 'student', 'roll_no', 'term_test_subjective_marks', 'term_test_objective_marks', 'term_test_total_marks']
 
 class LabDetailsSerializer(serializers.ModelSerializer):
     exam = ExamSerializer(read_only=True)
     session = serializers.StringRelatedField()
     class Meta:
         model = MarkSheet
-        fields = ['exam', 'session', 'student', 'lab_marks']
+        fields = ['exam', 'session', 'student', 'roll_no', 'lab_marks']
 
 class CombinedTestDetailsSerializer(serializers.ModelSerializer):
     exam = ExamSerializer(read_only=True)
     session = serializers.StringRelatedField()
     class Meta:
         model = MarkSheet
-        fields = ['exam', 'session', 'student', 'total_marks', 'GP', 'letter_grade']
-
+        fields = ['exam', 'session', 'student', 'roll_no', 'total_marks', 'GP', 'letter_grade']
 

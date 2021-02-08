@@ -12,7 +12,9 @@ from .views import (
 
     transfer_class,
     transfer_class_with_selection,
-    NextClassList
+    NextClassList,
+
+    RoutineDetails
 )
 
 urlpatterns = [
@@ -29,5 +31,7 @@ urlpatterns = [
 
     path('next_class_list/<str:class_pk>/', NextClassList.as_view(), name="next-class-list"),
     path('transfer_class/<str:class_pk>/', transfer_class, name="transfer-class"),
-    path('transfer_class_with_selection/<str:class_pk>/', transfer_class_with_selection, name="transfer-class-with-selection")
+    path('transfer_class_with_selection/<str:class_pk>/', transfer_class_with_selection, name="transfer-class-with-selection"),
+
+    path('routines/<str:class_pk>/details/', RoutineDetails.as_view(), name="routine-details")
 ]

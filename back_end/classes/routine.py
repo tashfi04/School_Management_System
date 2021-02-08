@@ -23,26 +23,17 @@ class RoutineGenerator():
                 
                 if count_class_in_a_day[a] != _class.total_class_in_a_day:
 
-                    # availableTeacher = {}
-
                     canGenerate = False
-                    # print("00000000000000000000")
 
                     for i in range(len(subject_list)):
                         
-                        # print('<>--<>--<>')
-                        # print(availableTeacher.get(subject_list[i].teacher_id, None))
-                        # print(subject_list[i].total_class_in_a_week, self.count_class[a][i], _class.id, subject_list[i].name)
-                        # print(done_class[a][i])
-                        #print(self.count_class)
                         if done_class[a][i] == 1:
                             continue    
 
                         if (not (availableTeacher.get(subject_list[i].teacher_id, False)) and (subject_list[i].total_class_in_a_week > self.count_class[a][i])):
                             availableTeacher[subject_list[i].teacher_id] = True
                             self.count_class[a][i] += 1
-                            # print(a, i)
-                            #print(self.count_class)
+                            
                             count_class_in_a_day[a] += 1
                             done_class[a][i] = 1
                             routine_row = {

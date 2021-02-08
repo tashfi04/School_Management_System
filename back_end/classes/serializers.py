@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Class, Subject, Exam
+from .models import Class, Subject, Exam, Routine
 from students.models import Student
 from exams.models import ExamType
 
@@ -38,3 +38,8 @@ class NextClassListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Class
         fields = ['id', 'name', 'group']
+
+class RoutineDetailsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Routine
+        fields = '__all__'

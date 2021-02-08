@@ -84,11 +84,12 @@ class Routine(models.Model):
 
     related_class = models.ForeignKey(Class, on_delete=models.CASCADE)
     period = models.IntegerField(null=True, blank=False)
-    sunday = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='sunday')
-    monday = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='monday')
-    tuesday = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='tuesday')
-    wednesay = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='wednesay')
-    thursday = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='thursday')
+    saturday = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='saturday', null=True, blank=True)
+    sunday = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='sunday', null=True, blank=True)
+    monday = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='monday', null=True, blank=True)
+    tuesday = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='tuesday', null=True, blank=True)
+    wednesday = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='wednesday', null=True, blank=True)
+    thursday = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='thursday', null=True, blank=True)
 
     # def save(self, *args, **kwargs):
 

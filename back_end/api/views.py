@@ -43,6 +43,9 @@ def apiOverview(request):
         'Subject Details'                           : 'api/v1/classes/subjects/<str:subject_pk>/details/',
         'Subject Exam List'                         : 'api/v1/classes/subjects/<str:subject_pk>/exams/list/',
 
+        'Routine Related API'                       : '--------------------------------------------------------------------------',
+        'Routine Details'                           : 'api/v1/classes/routines/<str:class_pk>/details/',
+
         'Exam Type Related API'                     : '--------------------------------------------------------------------------',
         'Exam Type Details'                         : 'api/v1/exam_types/<str:exam_type_pk>/details/',
 

@@ -52,6 +52,7 @@ class MarkSheet(models.Model):
     exam = models.ForeignKey('classes.Exam', on_delete=models.CASCADE, null=True, blank=False)
     session = models.ForeignKey('academic_sessions.Session', on_delete=models.CASCADE, default=get_current_session, blank=True)
     student = models.ForeignKey('students.Student', on_delete=models.CASCADE, null=True, blank=False)
+    roll_no = models.IntegerField(null=True, blank=True)
     #subject = models.ForeignKey('classes.subject', on_delete=models.CASCADE, null=True, blank=False)
     class_test_marks = models.DecimalField(max_digits=5, decimal_places=2, default=0, blank=False)
     term_test_subjective_marks = models.DecimalField(max_digits=5, decimal_places=2, default=0, blank=False)
@@ -82,7 +83,7 @@ class MarkSheet(models.Model):
 
         if self._state.adding:
 
-            #tabulationsheet = TabulationSheet.objects.filter(marksheet__student=self.student, marksheet__exam=self.exam).values_list('id', flat=True).distinct()
+            self.roll_no = self.student.roll_no
             
             if(tabulationsheet):
                 self.tabulationsheet = tabulationsheet[0]
@@ -91,15 +92,9 @@ class MarkSheet(models.Model):
                 tabulationsheet.update(previous_CGPA=previous_CGPA[0])
 
             else:
-                # previous_CGPA = TabulationSheet.objects.filter(marksheet__exam__exam_type__exam_order=self.exam.exam_type.exam_order - 1).values_list('current_CGPA', flat=True)
-                # if not previous_CGPA:
-                #     previous_CGPA = [0]
                 self.tabulationsheet = TabulationSheet.objects.create(total_marks=self.total_marks, total_GP=GP_to_add, GPA=GP_to_add, previous_CGPA=previous_CGPA[0], letter_grade=None, position=None)
 
         else:
-            # previous_marks = MarkSheet.objects.filter(student=self.student, exam=self.exam).values_list('total_marks', flat=True)
-            # tabulationsheet.update(total_marks=F('total_marks') - previous_marks[0] + self.total_marks)
-            # tabulationsheet.update(total_GP=F('total_GP') - previous_GP + GP_to_add)
             previous_marksheet = MarkSheet.objects.get(id=self.id)
             GP_to_substract = calculate_optional_subject_GP(previous_marksheet.GP, previous_marksheet.exam.subject.subject_type)
             print(">>>>>>>>>>>>>>________________________<<<<<<<<<<<<<<<<<<")
