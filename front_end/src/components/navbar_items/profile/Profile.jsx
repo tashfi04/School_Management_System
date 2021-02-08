@@ -47,8 +47,10 @@ function Profile() {
                     </Col>
                 </Row>
             </Container>
-            ) : (
+            ) : isExpired ? (
                 <PageNotFound />
+            ) : (
+                <></>
             )}
         </React.Fragment>
     );

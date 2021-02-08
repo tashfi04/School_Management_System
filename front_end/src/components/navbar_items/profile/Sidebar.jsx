@@ -5,7 +5,7 @@ import "./Profile.scss";
 
 function Sidebar() {
     return (
-        <div className='pb-5'>
+        <div className="pb-5">
             {localStorage.getItem("role") === "4" ? (
                 // For students sidebar
                 <div>
@@ -15,11 +15,14 @@ function Sidebar() {
                             icon={["fas", "chart-line"]}
                         />{" "}
                         {"    "}
-                        <Link to="/profile/dashboard/" style={{ color: "black" }}>
+                        <Link
+                            to="/profile/dashboard/"
+                            style={{ color: "black" }}
+                        >
                             Dashboard
                         </Link>
                     </h5>
-                    <hr style={{border:'solid', borderWidth:'1px'}}/>
+                    <hr style={{ border: "solid", borderWidth: "1px" }} />
                     <h5>
                         <FontAwesomeIcon
                             className="fa-icon"
@@ -30,7 +33,7 @@ function Sidebar() {
                             Marksheet
                         </Link>
                     </h5>
-                    <hr style={{border:'solid', borderWidth:'1px'}}/>
+                    <hr style={{ border: "solid", borderWidth: "1px" }} />
                     <h5>
                         <FontAwesomeIcon
                             className="fa-icon"
@@ -41,7 +44,7 @@ function Sidebar() {
                             Routine
                         </Link>
                     </h5>
-                    <hr style={{border:'solid', borderWidth:'1px'}}/>
+                    <hr style={{ border: "solid", borderWidth: "1px" }} />
                     <h5>
                         <FontAwesomeIcon
                             className="fa-icon"
@@ -69,7 +72,7 @@ function Sidebar() {
                             Dashboard
                         </Link>
                     </h5>
-                    <hr style={{border:'solid', borderWidth:'1px'}}/>
+                    <hr style={{ border: "solid", borderWidth: "1px" }} />
                     <h5>
                         <Link
                             to="/profile/myclasses"
@@ -83,8 +86,33 @@ function Sidebar() {
                             My Classes
                         </Link>
                     </h5>
-                    <hr style={{border:'solid', borderWidth:'1px'}}/>
+                    <hr style={{ border: "solid", borderWidth: "1px" }} />
                     <h5>
+                        {localStorage.getItem("role") === "3" ? (
+                            <React.Fragment>
+                                <h5>
+                                    <Link
+                                        to="/profile/approval"
+                                        style={{ color: "black" }}
+                                    >
+                                        {/* <FontAwesomeIcon
+                                className="fa-icon"
+                                icon={["fas", "chalkboard"]}
+                            />{" "}
+                            {"    "} */}
+                                        Approval
+                                    </Link>
+                                </h5>
+                                <hr
+                                    style={{
+                                        border: "solid",
+                                        borderWidth: "1px",
+                                    }}
+                                />
+                            </React.Fragment>
+                        ) : (
+                            <React.Fragment></React.Fragment>
+                        )}
                         {/* <FontAwesomeIcon
                             className="fa-icon"
                             icon={["fas", "info-circle"]}

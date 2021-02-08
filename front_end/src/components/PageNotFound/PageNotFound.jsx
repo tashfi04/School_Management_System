@@ -10,9 +10,9 @@ function PageNotFound() {
         <div  id="bodyy">
         <Container id="bodyy" style={{margin:'auto', backgroundColor:'#141019',}}>
             <Link to="/">
-                <div class="container" style={{margin:'auto'}}>
-                    <div class="row">
-                        <div class="col-sm-12 col-md-12 mt-5 mb-5">
+                <div className="container" style={{margin:'auto'}}>
+                    <div className="row">
+                        <div className="col-sm-12 col-md-12 mt-5 mb-5">
                             <svg
                                 width="100%"
                                 height="auto"

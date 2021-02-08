@@ -157,7 +157,7 @@ function MySubject() {
             {decodedToken && !isExpired ? (
                 <Container style={{ margin: "auto" }}>
                     <Row>
-                        <Col sm={3} md={3} className="pt-5">
+                        <Col sm={3} md={3} xl={3} className="pt-5">
                             <Container
                                 style={{
                                     border: "solid",
@@ -167,7 +167,7 @@ function MySubject() {
                                 <Sidebar />
                             </Container>
                         </Col>
-                        <Col sm={9}>
+                        <Col sm={9} md={9} xl={9}>
                             <Container
                                 className="pl-5"
                                 style={{

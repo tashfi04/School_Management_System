@@ -4,10 +4,8 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import AuthNav from "./components/navbar_items/AuthNav";
 import Home from "./components/navbar_items/Home";
 import Administration from "./components/navbar_items/Administration";
-// import Tabulation from "./components/navbar_items/Result/Tabulation";
 import SelectedCurrentTabulation from "./components/navbar_items/Result/SelectedCurrentTabulation";
 import Notice from "./components/navbar_items/Notice/Notice";
-// import CustomFooter from "./components/navbar_items/CustomFooter";
 import Login from "./components/user_authentication/Login";
 import Registration from "./components/user_authentication/Registration";
 import Logout from "./components/user_authentication/Logout";
@@ -32,16 +30,15 @@ import TermTest from "./components/navbar_items/Result/TermTest";
 import LabTest from "./components/navbar_items/Result/LabTest";
 import ClassTest from "./components/navbar_items/Result/ClassTest";
 import PageNotFound from "./components/PageNotFound/PageNotFound";
+import Approval from "./components/navbar_items/profile/Approval";
 
 library.add(far, fas, fab);
 
-// const axios = require("axios");
 
 function App() {
     return (
         <Router>
             <div>
-                {/* <CustomNavbar username={username} /> */}
                 <AuthNav />
                 <Switch>
                     <Route exact path="/" component={Home} />
@@ -99,6 +96,10 @@ function App() {
                         component={MyClasses}
                     ></Route>
                     <Route
+                        path="/profile/approval/"
+                        component={Approval}
+                    ></Route>
+                    <Route
                         path="/profile/class/:class_pk/subject/:subject_pk/"
                         component={MySubject}
                     ></Route>
@@ -119,7 +120,6 @@ function App() {
                     <Route component={PageNotFound}></Route>
                 </Switch>
                 <Footer />
-                {/* <CustomFooter /> */}
             </div>
         </Router>
     );
