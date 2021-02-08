@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, Jumbotron, Container, Table } from "react-bootstrap";
+import { Row, Col, Container, Table } from "react-bootstrap";
 import SidebarAcademic from "./SidebarAcademic";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 

@@ -14,7 +14,6 @@ function ResultStudent() {
     const regExp = /\(([^)]+)\)/;
 
     useEffect(() => {
-        let tempresult, tempsubject;
         const loadResult = async () => {
             axios
                 .get(

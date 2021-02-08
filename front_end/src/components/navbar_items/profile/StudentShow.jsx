@@ -19,14 +19,17 @@ function StudentShow() {
                 })
                 .then((response) => {
                     setStudentDetails(response.data[0]);
-                    localStorage.setItem("current_class",response.data[0].current_class);
+                    localStorage.setItem(
+                        "current_class",
+                        response.data[0].current_class
+                    );
                 })
                 .catch((error) => {
                     console.log(error);
                 });
         };
         loadStudentDetails();
-    },[]);
+    }, []);
 
     return (
         <Container fluid>
@@ -312,9 +315,7 @@ function StudentShow() {
                             <Col>
                                 <Form.Control
                                     type="text"
-                                    placeholder={
-                                      studentDetails.present_address
-                                    }
+                                    placeholder={studentDetails.present_address}
                                     readOnly
                                 />
                             </Col>
@@ -334,7 +335,7 @@ function StudentShow() {
                                 <Form.Control
                                     type="text"
                                     placeholder={
-                                      studentDetails.permanent_address
+                                        studentDetails.permanent_address
                                     }
                                     readOnly
                                 />
