@@ -130,13 +130,13 @@ function SelectedCurrentTabulation() {
         const input = document.getElementById("divToPrint");
         html2canvas(input).then((canvas) => {
             var imgWidth = 200;  
-            var pageHeight = 490;  
+            // var pageHeight = 490;  
             var imgHeight = canvas.height * imgWidth / canvas.width;  
-            var heightLeft = imgHeight;  
+            // var heightLeft = imgHeight;  
             const imgData = canvas.toDataURL('image/png');  
             const pdf = new jsPDF('p', 'mm', 'a4')  
             var position = 0;  
-            var heightLeft = imgHeight;  
+            // var heightLeft = imgHeight;  
             pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight/1);  
             pdf.save("download.pdf")
         });

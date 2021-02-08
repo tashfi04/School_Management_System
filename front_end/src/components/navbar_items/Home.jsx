@@ -156,7 +156,7 @@ function Home() {
     }
 
     return (
-        <div style={{ fontFamily: "verdana" }}>
+        <div style={{ fontFamily: "verdana", backgroundColor:'white' }}>
             <Row>
                 <Col md={9}>
                     <Carousel

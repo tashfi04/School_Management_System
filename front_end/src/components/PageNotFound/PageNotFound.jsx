@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 import './PageNotFound.css';
 import { Container } from 'react-bootstrap'
 
@@ -6,11 +7,9 @@ import { Container } from 'react-bootstrap'
 function PageNotFound() {
 
     return (
-        <Container>
-            <a
-                href="/"
-                target="_blank"
-            >
+        <div  id="bodyy">
+        <Container id="bodyy" style={{margin:'auto', backgroundColor:'#141019',}}>
+            <Link to="/">
                 <div class="container" style={{margin:'auto'}}>
                     <div class="row">
                         <div class="col-sm-12 col-md-12 mt-5 mb-5">
@@ -1204,8 +1203,9 @@ function PageNotFound() {
                         </div>
                     </div>
                 </div>
-            </a>
+            </Link>
         </Container>
+        </div>
     );
 }
 export default PageNotFound;

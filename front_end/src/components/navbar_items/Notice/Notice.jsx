@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Jumbotron, Table, Row, Col } from "react-bootstrap";
+import { Table, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom"
 
 const axios = require("axios");
