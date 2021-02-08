@@ -10,6 +10,7 @@ from rest_framework.generics import (
 
 from ..serializers import (
     TabulationSheetSerializer,
+    ResultCardSerializer,
     ClassTestDetailsSerializer,
     TermTestDetailsSerializer,
     LabDetailsSerializer,
@@ -37,7 +38,7 @@ class TabulationSheetList(ListAPIView):
 class ResultCardDetails(ListAPIView):
 
     permission_classes = [permissions.AllowAny]
-    serializer_class = TabulationSheetSerializer
+    serializer_class = ResultCardSerializer
 
     def get_queryset(self):
 

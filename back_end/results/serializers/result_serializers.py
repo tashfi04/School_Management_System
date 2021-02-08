@@ -5,9 +5,10 @@ from classes.models import Exam
 class ExamSerializer(serializers.ModelSerializer):
     related_class = serializers.StringRelatedField()
     subject = serializers.StringRelatedField()
+    exam_type = serializers.StringRelatedField()
     class Meta:
         model = Exam
-        fields = ['related_class', 'subject']
+        fields = ['related_class', 'subject', 'exam_type']
 
 class MarksSerializer(serializers.ModelSerializer):
     exam = ExamSerializer(read_only=True)
@@ -22,6 +23,22 @@ class TabulationSheetSerializer(serializers.ModelSerializer):
     class Meta:
         model = TabulationSheet
         fields = ['marksheet_set', 'total_marks', 'total_GP', 'GPA', 'previous_CGPA', 'current_CGPA', 'letter_grade', 'position']
+
+class ResultCardMarksSerializer(serializers.ModelSerializer):
+    exam = ExamSerializer(read_only=True)
+    session = serializers.StringRelatedField()
+    class Meta:
+        model = MarkSheet
+        fields = ['exam', 'session', 'student', 'roll_no', 'class_test_marks', 'term_test_subjective_marks', 'term_test_objective_marks', 'term_test_total_marks', 'total_marks', 'GP', 'letter_grade']
+
+
+class ResultCardSerializer(serializers.ModelSerializer):
+
+    marksheet_set = ResultCardMarksSerializer(many=True, read_only=True)
+    class Meta:
+        model = TabulationSheet
+        fields = ['marksheet_set', 'total_marks', 'total_GP', 'GPA', 'previous_CGPA', 'current_CGPA', 'letter_grade', 'position']
+
 
 class ClassTestDetailsSerializer(serializers.ModelSerializer):
     exam = ExamSerializer(read_only=True)
