@@ -1,98 +1,103 @@
 class RoutineGenerator():
 
-    teacher_queue = [[0, 0], [0, 0]]
-
     routine_list = []
-
-    routine_row = {
-        'related_class_id': None,
-        'period': None,
-        'sunday': None,
-        'monday': None,
-        'tuesday': None,
-        'wednesday': None,
-        'thursday': None
+    count_class = []
+    can_generate_routine = True
+    routine_generate_fail_output = {
+        'class': None,
+        'gap': None
     }
 
+    def generateForSingleDay(self, day, class_description, max_class_a_day):
 
-    def generateForSingleDay(self, day, class_description, teacher_list, max_class_a_day):
-
-        count_class = [[0] * 40] * 10000
-        count_class_in_a_day = [0] * 10000
+        count_class_in_a_day = [0 for i in range(40)]
+        done_class = [[0 for i in range(40)] for j in range(40)]
 
         for gap in range(max_class_a_day):
             
+            availableTeacher = {}
+            availableTeacher.clear()
             for a, _class in enumerate(class_description):
+
+                subject_list = _class.subject_set.all().order_by('-total_class_in_a_week')
                 
                 if count_class_in_a_day[a] != _class.total_class_in_a_day:
 
-                    availableTeacher = [0] * 10000
+                    # availableTeacher = {}
+
                     canGenerate = False
+                    # print("00000000000000000000")
 
-                    for teacher in teacher_list:
+                    for i in range(len(subject_list)):
                         
-                        i = self.teacher_queue[a].pop(0)
+                        # print('<>--<>--<>')
+                        # print(availableTeacher.get(subject_list[i].teacher_id, None))
+                        # print(subject_list[i].total_class_in_a_week, self.count_class[a][i], _class.id, subject_list[i].name)
+                        # print(done_class[a][i])
+                        #print(self.count_class)
+                        if done_class[a][i] == 1:
+                            continue    
 
-                        print(">>>>>>>>>>>>>>>>>_______________<<<<<<<<<<<<<<<<<<<<<")
-                        print(_class.id, _class.subject_set)
-                        print(_class.subject_set.all()[i]['teacher_id'])
-                        if (not (availableTeacher[_class.subject_set.all()[i]['teacher_id']])) and (_class.subject_set.all()[i]['total_class_a_week'] > count_class[a][i]):
-                            
-                            availableTeacher[_class.subject_set.all()[i]['teacher_id']] = True
-                            """
-                            fix the code below
-                            """
-
-                            count_class[a][i] += 1
+                        if (not (availableTeacher.get(subject_list[i].teacher_id, False)) and (subject_list[i].total_class_in_a_week > self.count_class[a][i])):
+                            availableTeacher[subject_list[i].teacher_id] = True
+                            self.count_class[a][i] += 1
+                            # print(a, i)
+                            #print(self.count_class)
                             count_class_in_a_day[a] += 1
-
-						    #if (day == 0):
+                            done_class[a][i] = 1
+                            routine_row = {
+                                'related_class_id': None,
+                                'period': None,
+                                'saturday': None,
+                                'sunday': None,
+                                'monday': None,
+                                'tuesday': None,
+                                'wednesday': None,
+                                'thursday': None
+                            }
                             if day == 0:
-                                self.routine_row['related_class_id'] = _class.id
-                                self.routine_row['period'] = gap
-                                self.routine_row['sunday'] = _class.subject_set.all()[i].id
-                                self.routine_list.append(self.routine_row)
+                                routine_row['related_class_id'] = _class.id
+                                routine_row['period'] = gap + 1
+                                routine_row['saturday'] = subject_list[i]
+                                self.routine_list.append(routine_row)
                             else:
-                                next((j for j, item in enumerate(self.routine_list) if item['related_class_id'] == _class.id and item['period'] == gap), None)
-                                print(">>>>>>>>>>_______________<<<<<<<<<<<<<<<<<<<<<")
-                                print(j)
+                                p = next((j for j, item in enumerate(self.routine_list) if item['related_class_id'] == _class.id and item['period'] == gap + 1), None)
 
                                 if day == 1:
-                                    self.routine_list[j]['monday'] = _class.subject_set.all()[i].id
+                                    self.routine_list[p]['sunday'] = subject_list[i]
                                 elif day == 2:
-                                    self.routine_list[j]['tuesday'] = _class.subject_set.all()[i].id
+                                    self.routine_list[p]['monday'] = subject_list[i]
                                 elif day == 3:
-                                    self.routine_list[j]['wednesday'] = _class.subject_set.all()[i].id
+                                    self.routine_list[p]['tuesday'] = subject_list[i]
                                 elif day == 4:
-                                    self.routine_list[j]['thursday'] = _class.subject_set.all()[i].id
+                                    self.routine_list[p]['wednesday'] = subject_list[i]
+                                elif day == 5:
+                                    self.routine_list[p]['thursday'] = subject_list[i]
 
-                            self.teacher_queue[a].appnd(i)
                             canGenerate = True
                             break
-                        
-                        self.teacher_queue[a].appnd(i)
-                        
+
                     if not canGenerate:
-                        print("Can't generate routine!!!")
-                        
+                        print(a, gap)
+                        self.can_generate_routine = False
+                        self.routine_generate_fail_output['class'] = _class.name
+                        self.routine_generate_fail_output['period'] = gap + 1
                         return None
 
-
-    def generateTeacherQueue(self, class_description, teacher_list, max_class_a_day):
+    def generateWeek(self, class_description, max_class_a_day):
         
-        for index, classes in enumerate(class_description):
+        for day in range(6):
+            self.generateForSingleDay(day, class_description, max_class_a_day)
+            if not self.can_generate_routine:
+                break
+
+    def generateRoutine(self, class_description, max_class_a_day):
+        
+        self.routine_list.clear()
+        self.count_class.clear()
+        
+        self.count_class = [[0 for i in range(40)] for j in range(40)]
+        self.can_generate_routine = True
+
+        self.generateWeek(class_description, max_class_a_day)
             
-            for j, subjects in enumerate (classes.subject_set.all()):
-                self.teacher_queue[index].append(j)
-
-    def generateWeek(self, class_description, teacher_list, max_class_a_day):
-        
-        for day in range(5):
-            self.generateTeacherQueue(class_description, teacher_list, max_class_a_day)
-            self.generateForSingleDay(day, class_description, teacher_list, max_class_a_day)
-
-    def generateRoutine(self, class_description, teacher_list, max_class_a_day):
-        
-        self.generateWeek(class_description, teacher_list, max_class_a_day)
-            
-        
