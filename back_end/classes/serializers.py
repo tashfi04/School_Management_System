@@ -16,7 +16,7 @@ class ClassDetailsSerializer(serializers.ModelSerializer):
 class ClassStudentListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = ['name','username']
+        fields = ['name','username','roll_no']
 
 class ClassExamTypeListSerializer(serializers.ModelSerializer):
     class Meta:
@@ -40,6 +40,13 @@ class NextClassListSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'group']
 
 class RoutineDetailsSerializer(serializers.ModelSerializer):
+    saturday = serializers.StringRelatedField()
+    sunday = serializers.StringRelatedField()
+    monday = serializers.StringRelatedField()
+    tuesday = serializers.StringRelatedField()
+    wednesday = serializers.StringRelatedField()
+    thursday = serializers.StringRelatedField()
+    related_class = serializers.StringRelatedField()
     class Meta:
         model = Routine
         fields = '__all__'

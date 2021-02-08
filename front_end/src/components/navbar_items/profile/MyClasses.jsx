@@ -134,8 +134,10 @@ function MyClasses() {
                         </Col>
                     </Row>
                 </Container>
-            ) : (
+            ) : isExpired ? (
                 <PageNotFound />
+            ) : (
+                <></>
             )}
         </React.Fragment>
     );

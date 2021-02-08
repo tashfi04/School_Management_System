@@ -71,6 +71,9 @@ function UpdateMarksheet(props) {
         ShowTable = marksheet.map((item) => (
             <tr key={item.id}>
                 <td>
+                    <h6>{item.roll_no}</h6>
+                </td>
+                <td>
                     <h6>{item.student}</h6>
                 </td>
 
@@ -228,6 +231,7 @@ function UpdateMarksheet(props) {
                         <Table responsive className="p-5" size="sm">
                             <thead>
                                 <tr>
+                                    <th>Roll</th>
                                     <th>Name</th>
                                     <th>MT Marks</th>
                                     <th>Term Subjective Marks</th>

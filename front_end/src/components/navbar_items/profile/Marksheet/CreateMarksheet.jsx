@@ -14,10 +14,10 @@ function CreateMarksheet(props) {
     const [result, setResult] = useState({});
     const [promise, setPromise] = useState(false);
     const [errors, setErrors] = useState();
+    const [nameToRoll, setNameToRoll]  = useState({});
 
     useEffect(() => {
         const loadStudentList = async () => {
-            console.log(class_pk);
             axios
                 .get(`/api/v1/classes/${class_pk}/students/list/`, {
                     headers: {
@@ -36,6 +36,7 @@ function CreateMarksheet(props) {
 
         const initialResult = async () => {
             let tempResult = {};
+            let tempName = {};
             for (let i = 0; i < Object.keys(studentList).length; i++) {
                 // let name = studentList[i].name;
                 let username = studentList[i].username;
@@ -54,25 +55,35 @@ function CreateMarksheet(props) {
                         // letter_grade: "0.00",
                     },
                 };
+                tempName = {
+                    ...tempName,
+                    [username]: studentList[i].roll_no
+                }
             }
             setResult(tempResult);
+            setNameToRoll(tempName);
         };
+
 
         if (promise) {
             initialResult();
         }
     }, [promise]);
 
+
     let ShowTable;
     if (Object.keys(studentList).length > 0) {
         ShowTable = studentList.map((item) => (
             <tr key={item.username}>
                 <td>
+                    {nameToRoll[item.username]}
+                </td>
+                <td>
                     <h6>
-                        <FontAwesomeIcon
+                        {/* <FontAwesomeIcon
                             className="fa-icon"
                             icon={["fas", "user"]}
-                        />{" "}
+                        />{" "} */}
                         {item.username}
                     </h6>
                 </td>
@@ -199,6 +210,7 @@ function CreateMarksheet(props) {
                         <Table responsive className="p-5">
                             <thead>
                                 <tr>
+                                    <th>Roll</th>
                                     <th>Name</th>
                                     <th>MT Marks</th>
                                     <th>Term Subjective Marks</th>
