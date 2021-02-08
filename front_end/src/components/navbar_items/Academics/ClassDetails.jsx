@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, useParams } from "react-router-dom";
 import { Row, Col, Container, Image, Table } from "react-bootstrap";
 import SidebarAcademic from "./SidebarAcademic";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Routines from "./Routines";
 
 const axios = require("axios");
 
@@ -95,14 +96,14 @@ function ClassDetails() {
                         </h5>
                         <br />
                         <br />
-                        <h4>
+                        <h5>
                             <FontAwesomeIcon
                                 className="fa-icon"
                                 icon={["fas", "book"]}
                             />{" "}
                             {"    "}
                             Subjects:
-                        </h4>
+                        </h5>
                         <br />
                         <Table striped bordered hover size="sm">
                             <thead>
@@ -114,6 +115,18 @@ function ClassDetails() {
                             <tbody>{subjectsTable}</tbody>
                         </Table>
 
+                        <br />
+                        <br />
+                        <h5>
+                            <FontAwesomeIcon
+                                className="fa-icon"
+                                icon={["fas", "calendar-alt"]}
+                            />{" "}
+                            {"    "}
+                            Routine:
+                        </h5>
+                        <br />
+                        <Routines class_pk={class_pk}/>
                         <br />
                         <br />
                         <h5>
