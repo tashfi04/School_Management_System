@@ -43,6 +43,9 @@ def apiOverview(request):
         'Subject Details'                           : 'api/v1/classes/subjects/<str:subject_pk>/details/',
         'Subject Exam List'                         : 'api/v1/classes/subjects/<str:subject_pk>/exams/list/',
 
+        'Routine Related API'                       : '--------------------------------------------------------------------------',
+        'Routine Details'                           : 'api/v1/classes/routines/<str:class_pk>/details/',
+
         'Exam Type Related API'                     : '--------------------------------------------------------------------------',
         'Exam Type Details'                         : 'api/v1/exam_types/<str:exam_type_pk>/details/',
 
@@ -54,6 +57,7 @@ def apiOverview(request):
         'Session and Class Based Subject List'      : 'api/v1/results/search_options/subjects/<str:session_pk>/<str:class_pk>/list/', 
         'Session and Class Based Exam Type List'    : 'api/v1/results/search_options/exam_types/<str:session_pk>/<str:class_pk>/list/',
         
+        'Result Card Details'                       : 'api/v1/results/result_card/<str:class_pk>/<str:student_pk>/details/',
         'Tabulationsheet List'                      : 'api/v1/results/tabulationsheet/<str:session_pk>/<str:class_pk>/<str:exam_type_pk>/list/',
         'Class Test Details'                        : 'api/v1/results/marksheet/class_test/<str:session_pk>/<str:subject_pk>/<str:exam_type_pk>/details/',
         'Term Test Details'                         : 'api/v1/results/marksheet/term_test/<str:session_pk>/<str:subject_pk>/<str:exam_type_pk>/details/',

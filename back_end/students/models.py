@@ -5,6 +5,10 @@ from django.conf import settings
 from django.db.models import F
 from django.core.validators import MaxValueValidator, MinValueValidator
 
+
+def get_roll():
+    return Student.objects.count() + 1
+
 class Student(models.Model):
     GENDER_CHOICES = [
         ('M', 'Male'),
@@ -34,7 +38,7 @@ class Student(models.Model):
     previous_class = models.IntegerField()
     previous_school = models.CharField(max_length=40)
     current_class = models.ForeignKey('classes.Class', on_delete=models.CASCADE)
-    roll_no = models.PositiveIntegerField(null=True, blank=False)
+    roll_no = models.PositiveIntegerField(default=get_roll, blank=False)
 
     tc_number = models.CharField("T.C no.", max_length=50)
     date = models.DateField()
@@ -60,7 +64,6 @@ class Student(models.Model):
             first_name = self.name.split(' ', 1)[0]
             duplicate_name_count = None
 
-            #if Student.objects.filter(username=first_name).exists():
             if get_user_model().objects.filter(username=first_name).exists():
                 existing_user = get_user_model().objects.get(username=first_name)
                 username = first_name + str(existing_user.duplicate_name_count)
@@ -74,7 +77,6 @@ class Student(models.Model):
             self.password = get_user_model().objects.make_random_password(
             length=10, allowed_chars='abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789')
 
-            #experimental
             user = get_user_model().objects.create_user(self.username, self.email, self.password, role=4, duplicate_name_count=duplicate_name_count)
             self.user = user
         

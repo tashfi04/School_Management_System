@@ -20,3 +20,7 @@ from .transfer_class_views import (
     transfer_class_with_selection,
     NextClassList
 )
+
+from .routine_views import (
+    RoutineDetails
+)
