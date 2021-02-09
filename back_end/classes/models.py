@@ -20,6 +20,8 @@ class Class(models.Model):
 
     syllebus = models.FileField(upload_to='uploads/syllebus/%Y/%m/%d', max_length=200, null=True, blank=True)
 
+    board_exam_evaluation = models.BooleanField(default=False, blank=False)
+
     def __str__(self):
         return self.name
 
