@@ -44,7 +44,6 @@ class NextClassList(ListAPIView):
         else:
             raise NotFound("The given class does not exist!")
 
-
 @api_view(['GET'])
 @permission_classes([IsAuthenticatedOrReadOnly])
 def transfer_class_with_selection(request, class_pk):
