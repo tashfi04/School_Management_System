@@ -62,27 +62,27 @@ function Routines(props) {
                     </tr>
                 <tr>
                     <td>Saturday</td>
-                        {showRow('saturday')}
+                    {showRow('saturday')}
                 </tr>
                 <tr>
                     <td>Sunday</td>
-                        {showRow('sunday')}
+                    {showRow('sunday')}
                 </tr>
                 <tr>
                     <td>Monday</td>
-                        {showRow('monday')}
+                    {showRow('monday')}
                 </tr>
                 <tr>
                     <td>Tuesday</td>
-                        {showRow('tuesday')}
+                    {showRow('tuesday')}
                 </tr>
                 <tr>
                     <td>Wednesday</td>
-                        {showRow('wednesday')}
+                    {showRow('wednesday')}
                 </tr>
                 <tr>
                     <td>Thursday</td>
-                        {showRow('thursday')}
+                    {showRow('thursday')}
                 </tr>
                 </tbody>
             </Table>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Jumbotron, Row, Col } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import NoticeMarquee from "./NoticeMarquee";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -26,9 +26,7 @@ function NoticeDetails() {
     }, [notice_pk]);
 
     return (
-        <div>
-            <Jumbotron>
-                <div>
+            <Container style={{margin:'auto'}}>
                     <Row>
                         <Col md={9}>
                             <div
@@ -47,7 +45,7 @@ function NoticeDetails() {
                                 {/* <div className="pl-5 pr-5"></div> */}
                                 <img
                                     src={String(noticeDetails.attachment)}
-                                    style={{ height: "70vh", width: "68vw" }}
+                                    style={{ height: "70vh", width: "50vw" }}
                                     alt="event photo"
                                 />
                                 <h3
@@ -80,9 +78,7 @@ function NoticeDetails() {
                             <NoticeMarquee />
                         </Col>
                     </Row>
-                </div>
-            </Jumbotron>
-        </div>
+            </Container>
     );
 }
 export default NoticeDetails;
