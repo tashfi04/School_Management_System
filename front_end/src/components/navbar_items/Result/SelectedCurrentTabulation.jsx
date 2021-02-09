@@ -88,7 +88,7 @@ function SelectedCurrentTabulation() {
             ShowTableCol = modTabulation[0].marksheet_set.map((item) => (
                 <th colSpan="4" key={item.exam}>
                     {/* {pkToSubject[item.subject]} */}
-                    {item.exam.split(" ")[0]}
+                    {item.exam.subject}
                 </th>
             ));
         }
@@ -109,6 +109,7 @@ function SelectedCurrentTabulation() {
     if (Object.keys(modTabulation).length) {
         showTabulationsheet = modTabulation.map((item) => (
             <tr key={item.position}>
+                <td>{item.marksheet_set[0].roll_no}</td>
                 <td>{item.marksheet_set[0].student}</td>
                 {item.marksheet_set.map((iitem) => (
                     <React.Fragment key={++KEY}>
@@ -130,13 +131,13 @@ function SelectedCurrentTabulation() {
         const input = document.getElementById("divToPrint");
         html2canvas(input).then((canvas) => {
             var imgWidth = 200;  
-            var pageHeight = 490;  
+            // var pageHeight = 490;  
             var imgHeight = canvas.height * imgWidth / canvas.width;  
-            var heightLeft = imgHeight;  
+            // var heightLeft = imgHeight;  
             const imgData = canvas.toDataURL('image/png');  
             const pdf = new jsPDF('p', 'mm', 'a4')  
             var position = 0;  
-            var heightLeft = imgHeight;  
+            // var heightLeft = imgHeight;  
             pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight/1);  
             pdf.save("download.pdf")
         });
@@ -179,6 +180,7 @@ function SelectedCurrentTabulation() {
                         <Table size="sm" striped bordered hover>
                             <thead>
                                 <tr>
+                                    <th rowSpan="2">Roll</th>
                                     <th rowSpan="2">Name</th>
                                     {ShowTableCol}
                                     <th>Total Marks</th>

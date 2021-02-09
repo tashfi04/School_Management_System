@@ -1,9 +1,11 @@
 import React from "react";
 import { Navbar, Nav, DropdownButton, Dropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useJwt } from "react-jwt"
 import "./AuthNav.css";
 
 function AuthNav() {
+    const { decodedToken, isExpired } = useJwt(localStorage.getItem("token"));
     return (
         <div>
             <Navbar
@@ -26,7 +28,7 @@ function AuthNav() {
                         <Nav.Link href="/result/all">Result</Nav.Link>
                         <Nav.Link href="/notice">Notice</Nav.Link>
                     </Nav>
-                    {localStorage.getItem("token") ? (
+                    {decodedToken && !isExpired ? (
                         <DropdownButton
                             title={
                                     <FontAwesomeIcon

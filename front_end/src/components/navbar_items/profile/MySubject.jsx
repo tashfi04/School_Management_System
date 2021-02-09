@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, Jumbotron, Row, Col, Table } from "react-bootstrap";
+import { Container, Row, Col, Table } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     Link,
@@ -8,10 +8,13 @@ import {
     useParams,
 } from "react-router-dom";
 import Sidebar from "./Sidebar";
+import { useJwt } from "react-jwt";
+import PageNotFound from "./../../PageNotFound/PageNotFound";
 
 const axios = require("axios");
 
 function MySubject() {
+    const { decodedToken, isExpired } = useJwt(localStorage.getItem("token"));
     let class_pk = useParams().class_pk;
     let subject_pk = useParams().subject_pk;
     const [studentList, setStudentList] = useState({});
@@ -96,9 +99,7 @@ function MySubject() {
                     <tr key={j}>
                         <td>
                             {studentList[j] ? (
-                                <div>
-                                    {String(studentList[j].name)}
-                                </div>
+                                <div>{String(studentList[j].name)}</div>
                             ) : (
                                 <div></div>
                             )}
@@ -152,68 +153,83 @@ function MySubject() {
     }
 
     return (
-        <Container style={{ margin: "auto" }}>
-            <Row>
-                <Col sm={3} md={3} className="pt-5">
-                    <Container
-                        style={{ border: "solid", borderColor: "#ebebeb" }}
-                    >
-                        <Sidebar />
-                    </Container>
-                </Col>
-                <Col sm={9}>
-                    <Container className="pl-5" style={{textAlign:'center',backgroundColor: "#ebebeb"}}>
-                        <div>
-                            <br />
-                            <br />
-                            <h3 style={{ color: "CaptionText" }}>
-                                <FontAwesomeIcon
-                                    className="fa-icon"
-                                    icon={["fas", "chalkboard"]}
-                                />{" "}
-                                Class {Name}
-                            </h3>
-                            <h5>
-                                <FontAwesomeIcon
-                                    className="fa-icon"
-                                    icon={["fas", "book"]}
-                                />{" "}
-                                {SubjectName}
-                            </h5>
-                        </div>
-                        <br />
-                        <p style={{ fontSize: "20px" }}>
-                            Student List of this class:
-                        </p>
-                        <hr />
-                        <hr />
-                        <Table striped hover size="sm">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Name</th>
-                                    <th>Name</th>
-                                </tr>
-                            </thead>
-                            <tbody>{StudentShow()}</tbody>
-                        </Table>
-                        <br />
-                        <hr />
-                        <h5> Exam List </h5>
-                        <hr />
-                        <hr />
-                        <Table striped hover variant="dark" size="sm">
-                            <thead>
-                                <tr>
-                                    <th>Exam</th>
-                                </tr>
-                            </thead>
-                            <tbody>{showExamList}</tbody>
-                        </Table>
-                    </Container>
-                </Col>
-            </Row>
-        </Container>
+        <div>
+            {decodedToken && !isExpired ? (
+                <Container style={{ margin: "auto" }}>
+                    <Row>
+                        <Col sm={3} md={3} xl={3} className="pt-5">
+                            <Container
+                                style={{
+                                    border: "solid",
+                                    borderColor: "#ebebeb",
+                                }}
+                            >
+                                <Sidebar />
+                            </Container>
+                        </Col>
+                        <Col sm={9} md={9} xl={9}>
+                            <Container
+                                className="pl-5"
+                                style={{
+                                    textAlign: "center",
+                                    backgroundColor: "#ebebeb",
+                                }}
+                            >
+                                <div>
+                                    <br />
+                                    <br />
+                                    <h3 style={{ color: "CaptionText" }}>
+                                        <FontAwesomeIcon
+                                            className="fa-icon"
+                                            icon={["fas", "chalkboard"]}
+                                        />{" "}
+                                        Class {Name}
+                                    </h3>
+                                    <h5>
+                                        <FontAwesomeIcon
+                                            className="fa-icon"
+                                            icon={["fas", "book"]}
+                                        />{" "}
+                                        {SubjectName}
+                                    </h5>
+                                </div>
+                                <br />
+                                <p style={{ fontSize: "20px" }}>
+                                    Student List of this class:
+                                </p>
+                                <hr />
+                                <hr />
+                                <Table striped hover size="sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Name</th>
+                                            <th>Name</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>{StudentShow()}</tbody>
+                                </Table>
+                                <br />
+                                <hr />
+                                <h5> Exam List </h5>
+                                <hr />
+                                <hr />
+                                <Table striped hover variant="dark" size="sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Exam</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>{showExamList}</tbody>
+                                </Table>
+                            </Container>
+                        </Col>
+                    </Row>
+                </Container>
+            ) : (
+                <PageNotFound />
+            )}
+        </div>
     );
 }
 

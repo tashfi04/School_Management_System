@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Container, Jumbotron, Row, Col, Table } from "react-bootstrap";
+import { Container, Row, Col, Table } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import Sidebar from "./Sidebar";
+import { useJwt } from "react-jwt";
+import PageNotFound from "./../../PageNotFound/PageNotFound";
 
 const axios = require("axios");
 
 function MyClasses() {
+    const { decodedToken, isExpired } = useJwt(localStorage.getItem("token"));
     const [classes, setClasses] = useState({});
     const [className, setClassName] = useState({});
     const [wait, setWait] = useState(false);
@@ -39,7 +42,6 @@ function MyClasses() {
         loadClasses();
 
         const loadClassName = async () => {
-            // for(let i=0; i<Object.keys(classes).length ; i++) {
             axios
                 .get(`/api/v1/classes/list/`, {
                     headers: {
@@ -98,33 +100,46 @@ function MyClasses() {
     }
 
     return (
-        <Container style={{ margin: "auto" }}>
-            <Row>
-                <Col sm={3} md={3} className="pt-5">
-                    <Container
-                        style={{ border: "solid", borderColor: "#ebebeb" }}
-                    >
-                        <Sidebar />
-                    </Container>
-                </Col>
-                <Col sm={9} md={9}>
-                    <Container style={{ backgroundColor: "#ebebeb" }}>
-                        <h3 style={{ color: "CaptionText" }}>My classes:</h3>
-                        <hr />
-                        <hr />
-                        <Table striped hover className='pb-5'>
-                            <tbody>
-                                <tr>
-                                    <th>Class</th>
-                                    <th>Subject</th>
-                                </tr>
-                                {subjectList}
-                            </tbody>
-                        </Table>
-                    </Container>
-                </Col>
-            </Row>
-        </Container>
+        <React.Fragment>
+            {decodedToken && !isExpired ? (
+                <Container style={{ margin: "auto" }}>
+                    <Row>
+                        <Col sm={3} md={3} className="pt-5">
+                            <Container
+                                style={{
+                                    border: "solid",
+                                    borderColor: "#ebebeb",
+                                }}
+                            >
+                                <Sidebar />
+                            </Container>
+                        </Col>
+                        <Col sm={9} md={9}>
+                            <Container style={{ backgroundColor: "#ebebeb" }}>
+                                <h3 style={{ color: "CaptionText" }}>
+                                    My classes:
+                                </h3>
+                                <hr />
+                                <hr />
+                                <Table striped hover className="pb-5">
+                                    <tbody>
+                                        <tr>
+                                            <th>Class</th>
+                                            <th>Subject</th>
+                                        </tr>
+                                        {subjectList}
+                                    </tbody>
+                                </Table>
+                            </Container>
+                        </Col>
+                    </Row>
+                </Container>
+            ) : isExpired ? (
+                <PageNotFound />
+            ) : (
+                <></>
+            )}
+        </React.Fragment>
     );
 }
 

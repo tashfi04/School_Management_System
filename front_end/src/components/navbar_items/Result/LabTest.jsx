@@ -35,6 +35,7 @@ function LabTest() {
     if (Object.keys(result).length > 0) {
         showResult = result.map((item) => (
             <tr key={item.student}>
+                <td>{item.roll_no}</td>
                 <td>{item.student}</td>
                 <td>{item.lab_marks}</td>
             </tr>
@@ -66,6 +67,7 @@ function LabTest() {
                         >
                             <thead>
                                 <tr>
+                                    <th>Roll</th>
                                     <th>Name</th>
                                     <th>Marks</th>
                                 </tr>

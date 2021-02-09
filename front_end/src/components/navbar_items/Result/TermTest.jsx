@@ -34,6 +34,7 @@ function TermTest() {
     if(Object.keys(result).length > 0){
         showResult = result.map((item) => (
             <tr key={item.student}>
+                <td>{item.roll_no}</td>
                 <td>{item.student}</td>
                 <td>{item.term_test_subjective_marks}</td>
                 <td>{item.term_test_objective_marks}</td>
@@ -61,6 +62,7 @@ function TermTest() {
                     <Table striped bordered hover size = 'sm' className="pl-5 pr-5">
                         <thead>
                             <tr>
+                                <th>Roll</th>
                                 <th>Name</th>
                                 <th>Subjective Marks</th>
                                 <th>Objective Marks</th>

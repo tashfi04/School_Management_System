@@ -8,7 +8,7 @@ export default class Overview extends Component {
     render() {
         return (
             // style={{backgroundColor:"#B8B8B8"}}
-            <Container style={{ margin: "auto" }}>
+            <Container style={{ margin: "auto",backgroundColor:'white' }}>
                 <Row>
                     <Col sm={4} md={4} className='pt-5'>
                         <Container  style={{border:'solid', borderColor:'#ebebeb'}}>

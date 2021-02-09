@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { Button, Jumbotron, Table } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ShowToast from './../../../ShowToast' 
+import ShowToast from "./../../../ShowToast";
+import { useJwt } from "react-jwt";
+import PageNotFound from "./../../../PageNotFound/PageNotFound";
 
 const axios = require("axios");
 
 function CreateMarksheet(props) {
+    const { decodedToken, isExpired } = useJwt(localStorage.getItem("token"));
     const [studentList, setStudentList] = useState({});
     const { class_pk, exam_pk, subjectDetails, className } = props;
     const [result, setResult] = useState({});
     const [promise, setPromise] = useState(false);
     const [errors, setErrors] = useState();
+    const [nameToRoll, setNameToRoll]  = useState({});
 
     useEffect(() => {
         const loadStudentList = async () => {
-            console.log(class_pk);
             axios
                 .get(`/api/v1/classes/${class_pk}/students/list/`, {
                     headers: {
@@ -33,8 +36,9 @@ function CreateMarksheet(props) {
 
         const initialResult = async () => {
             let tempResult = {};
+            let tempName = {};
             for (let i = 0; i < Object.keys(studentList).length; i++) {
-                let name = studentList[i].name;
+                // let name = studentList[i].name;
                 let username = studentList[i].username;
                 tempResult = {
                     ...tempResult,
@@ -51,25 +55,35 @@ function CreateMarksheet(props) {
                         // letter_grade: "0.00",
                     },
                 };
+                tempName = {
+                    ...tempName,
+                    [username]: studentList[i].roll_no
+                }
             }
             setResult(tempResult);
+            setNameToRoll(tempName);
         };
+
 
         if (promise) {
             initialResult();
         }
     }, [promise]);
 
+
     let ShowTable;
     if (Object.keys(studentList).length > 0) {
         ShowTable = studentList.map((item) => (
             <tr key={item.username}>
                 <td>
+                    {nameToRoll[item.username]}
+                </td>
+                <td>
                     <h6>
-                        <FontAwesomeIcon
+                        {/* <FontAwesomeIcon
                             className="fa-icon"
                             icon={["fas", "user"]}
-                        />{" "}
+                        />{" "} */}
                         {item.username}
                     </h6>
                 </td>
@@ -135,8 +149,7 @@ function CreateMarksheet(props) {
                                 },
                             });
                         }}
-                    >
-                    </input>
+                    ></input>
                 </td>
             </tr>
         ));
@@ -163,68 +176,71 @@ function CreateMarksheet(props) {
             })
             .catch(() => {
                 // console.log(error);
-                setErrors('Invalid Marks');
+                setErrors("Invalid Marks");
             });
     };
 
     return (
         <div>
-            <Jumbotron className="p-5" style={{ textAlign: "center" }}>
-                <div className="p-5" style={{ margin: "auto" }}>
-                    <div>
+            {decodedToken && !isExpired ? (
+                <Jumbotron className="p-5" style={{ textAlign: "center" }}>
+                    <div className="p-5" style={{ margin: "auto" }}>
+                        <div>
+                            <br />
+                            <br />
+                            <h3 style={{ color: "CaptionText" }}>
+                                <FontAwesomeIcon
+                                    className="fa-icon"
+                                    icon={["fas", "chalkboard"]}
+                                />{" "}
+                                Class {String(className.name)}
+                            </h3>
+                            <h5>
+                                <FontAwesomeIcon
+                                    className="fa-icon"
+                                    icon={["fas", "book"]}
+                                />{" "}
+                                {subjectDetails.name}
+                            </h5>
+                        </div>
                         <br />
+                        <h5>Please fill the data to create marksheet</h5>
+                        <hr />
+                        <hr />
+                        <Table responsive className="p-5">
+                            <thead>
+                                <tr>
+                                    <th>Roll</th>
+                                    <th>Name</th>
+                                    <th>MT Marks</th>
+                                    <th>Term Subjective Marks</th>
+                                    <th>Term Objective Marks</th>
+                                    <th>Lab Marks</th>
+                                </tr>
+                            </thead>
+                            <tbody>{ShowTable}</tbody>
+                        </Table>
                         <br />
-                        <h3 style={{ color: "CaptionText" }}>
-                            <FontAwesomeIcon
-                                className="fa-icon"
-                                icon={["fas", "chalkboard"]}
-                            />{" "}
-                            Class {String(className.name)}
-                        </h3>
-                        <h5>
-                            <FontAwesomeIcon
-                                className="fa-icon"
-                                icon={["fas", "book"]}
-                            />{" "}
-                            {subjectDetails.name}
-                        </h5>
-                    </div>
-                    <br />
-                    <h5>Please fill the data to create marksheet</h5>
-                    <hr />
-                    <hr />
-                    <Table responsive className="p-5">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>MT Marks</th>
-                                <th>Term Subjective Marks</th>
-                                <th>Term Objective Marks</th>
-                                <th>Lab Marks</th>
-                            </tr>
-                        </thead>
-                        <tbody>{ShowTable}</tbody>
-                    </Table>
-                    <br />
-                    <Button
-                        type="submit"
-                        className="m-auto"
-                        variant="success"
-                        style={{ margin: "auto" }}
-                        onClick={createMarksheet}
-                    >
-                        Create
-                    </Button>
+                        <Button
+                            type="submit"
+                            className="m-auto"
+                            variant="success"
+                            style={{ margin: "auto" }}
+                            onClick={createMarksheet}
+                        >
+                            Create
+                        </Button>
 
-                    {
-                        errors ? (
-                            <ShowToast mssg={errors} color='red'/>
+                        {errors ? (
+                            <ShowToast mssg={errors} color="red" />
                         ) : (
                             <React.Fragment></React.Fragment>
-                        )
-                    }
-                </div>
-            </Jumbotron>
+                        )}
+                    </div>
+                </Jumbotron>
+            ) : (
+                <PageNotFound />
+            )}
         </div>
     );
 }
