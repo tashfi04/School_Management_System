@@ -55,34 +55,34 @@ function Routines(props) {
                         <td>1st Period</td>
                         <td>2nd Period</td>
                         <td>3rd Period</td>
-                        <td rowSpan="6" style={{writingMode:'vertical-rl'}}>Break</td>
+                        <td rowSpan="7" style={{writingMode:'vertical-rl'}}>Break</td>
                         <td>4th Period</td>
                         <td>5th Period</td>
                         <td>6th Period</td>
                     </tr>
                 <tr>
                     <td>Saturday</td>
-                        {showRow('saturday')}
+                    {showRow('saturday')}
                 </tr>
                 <tr>
                     <td>Sunday</td>
-                        {showRow('sunday')}
+                    {showRow('sunday')}
                 </tr>
                 <tr>
                     <td>Monday</td>
-                        {showRow('monday')}
+                    {showRow('monday')}
                 </tr>
                 <tr>
                     <td>Tuesday</td>
-                        {showRow('tuesday')}
+                    {showRow('tuesday')}
                 </tr>
                 <tr>
                     <td>Wednesday</td>
-                        {showRow('wednesday')}
+                    {showRow('wednesday')}
                 </tr>
                 <tr>
                     <td>Thursday</td>
-                        {showRow('thursday')}
+                    {showRow('thursday')}
                 </tr>
                 </tbody>
             </Table>

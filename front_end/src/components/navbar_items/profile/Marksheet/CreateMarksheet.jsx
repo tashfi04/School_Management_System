@@ -232,7 +232,7 @@ function CreateMarksheet(props) {
                         </Button>
 
                         {errors ? (
-                            <ShowToast mssg={errors} color="red" />
+                            <ShowToast mssg={errors} color="red" setErrors={setErrors}/>
                         ) : (
                             <React.Fragment></React.Fragment>
                         )}

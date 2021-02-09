@@ -28,7 +28,6 @@ function UpdateMarksheet(props) {
                 })
                 .then((response) => {
                     setMarksheet(response.data);
-                    console.log(response.data);
                     setPromise(true);
                 })
                 .catch((error) => {
@@ -47,7 +46,6 @@ function UpdateMarksheet(props) {
                         id: marksheet[i].id,
                         exam: marksheet[i].exam,
                         student: marksheet[i].student,
-                        // subject: marksheet[i].subject,
                         term_test_subjective_marks:
                             marksheet[i].term_test_subjective_marks,
                         term_test_objective_marks:
@@ -193,11 +191,9 @@ function UpdateMarksheet(props) {
             .put(endpoint, body, config)
             .then(() => {
                 window.location.reload(false);
-                setErrors("Successful");
             })
-            .catch(() => {
-                setErrors("Invalid Marks");
-                console.log("Invalid Marks");
+            .catch((error) => {
+                setErrors("A valid number is required");
             });
     };
 
@@ -256,7 +252,7 @@ function UpdateMarksheet(props) {
                         </Button>
 
                         {errors ? (
-                            <ShowToast mssg={errors} color="red" />
+                            <ShowToast mssg={errors} color="red" setErrors={setErrors}/>
                         ) : (
                             <React.Fragment></React.Fragment>
                         )}

@@ -5,7 +5,6 @@ import StudentShow from "./StudentShow";
 import TeacherShow from "./TeacherShow";
 import { useJwt } from "react-jwt"
 import PageNotFound from "./../../PageNotFound/PageNotFound";
-// const axios = require('axios')
 
 function Profile() {
     const { decodedToken, isExpired } = useJwt(localStorage.getItem("token"));

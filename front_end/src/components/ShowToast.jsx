@@ -3,8 +3,13 @@ import { Toast } from "react-bootstrap";
 
 function ShowToast(props) {
     const [toast, setToast] = useState(true);
+    const msg = props.mssg;
 
-    const showToast = () => setToast(!toast);
+    const showToast = () => {
+        setToast(!toast);
+        props.setErrors('');
+    }
+
     return (
         <div className="m-auto">
             <Toast
@@ -20,13 +25,13 @@ function ShowToast(props) {
                 autohide
                 className="m-auto"
             >
-                <Toast.Header>
+                <Toast.Header style={{backgroundColor:'#e7e7e7'}}>
                     <strong className="mr-auto">Message</strong>
                 </Toast.Header>
-                <Toast.Body>
-                    <p style={{ color: String(props.color) }}>
-                        {String(props.mssg)}
-                    </p>
+                <Toast.Body style={{backgroundColor:props.color}}>
+                    <b style={{ color: 'white' }}>
+                        {String(msg)}
+                    </b>
                 </Toast.Body>
             </Toast>
         </div>
