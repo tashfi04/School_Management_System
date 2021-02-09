@@ -55,7 +55,7 @@ function Routines(props) {
                         <td>1st Period</td>
                         <td>2nd Period</td>
                         <td>3rd Period</td>
-                        <td rowSpan="6" style={{writingMode:'vertical-rl'}}>Break</td>
+                        <td rowSpan="7" style={{writingMode:'vertical-rl'}}>Break</td>
                         <td>4th Period</td>
                         <td>5th Period</td>
                         <td>6th Period</td>
