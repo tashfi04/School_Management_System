@@ -18,6 +18,12 @@ export default class Login extends Component {
         };
     }
 
+    setErrors = () => {
+        this.setState({
+            errors:''
+        });
+    }
+
     handle_change = (e) => {
         const name = e.target.name;
         const value = e.target.value;
@@ -51,7 +57,7 @@ export default class Login extends Component {
                 window.location.reload(false);
             })
             .catch((err) => {
-                console.log(err);
+                console.table(err);
                 this.setState({
                     errors: "Invalid Credentials!",
                 });
@@ -63,17 +69,16 @@ export default class Login extends Component {
         else {
             return (
                 <Row style={{ backgroundColor: "#D8D7D7" }}>
-                    <Col sm={8}>
+                    <Col sm={8} md={8} lg={8}>
                         <Image
                             src="../../assets/login.jpg"
-                            style={{ height: "100vh" }}
+                            style={{width:'100%', height:'100%'}}
                         ></Image>
                     </Col>
-                    <Col sm={4}>
+                    <Col sm={4} md={4} lg={4}>
                         <div
                             style={{
                                 backgroundColor: "#D8D7D7",
-                                height: "72vh",
                                 alignContent: "center",
                                 marginTop: "30vh",
                                 marginBottom: "0vh",
@@ -115,7 +120,7 @@ export default class Login extends Component {
                                     </Button>
                                 </Form>
                                 {this.state.errors ? (
-                                    <ShowToast mssg={this.state.errors} color="red" />
+                                    <ShowToast mssg={this.state.errors} color="red" setErrors={this.setErrors}/>
                                 ) : (
                                     <React.Fragment></React.Fragment>
                                 )}
