@@ -1,7 +1,52 @@
 from django.contrib import admin
 from .models import Student
+from django.contrib.admin.widgets import AdminFileWidget
+from django.db import models
+from django.utils.safestring import mark_safe
+
+from pdf_print.pdf_printer import render_to_pdf
+from django.http import HttpResponseRedirect, HttpResponse
+from django.urls import resolve, path
+
+class AdminImageWidget(AdminFileWidget):
+
+    def render(self, name, value, attrs=None, renderer=None):
+        output = []
+
+        if value and getattr(value, "url", None):
+            image_url = value.url
+            file_name = str(value)
+
+            output.append(
+                f' <a href="{image_url}" target="_blank">'
+                f'  <img src="{image_url}" alt="{file_name}" width="150" height="150" '
+                f'style="object-fit: cover;"/> </a>')
+
+        output.append(super(AdminFileWidget, self).render(name, value, attrs, renderer))
+        return mark_safe(u''.join(output))
+
 
 class StudentAdmin(admin.ModelAdmin):
+
+    change_form_template = 'students/student_changeform.html'
+    formfield_overrides = {models.ImageField: {'widget': AdminImageWidget}}
+
+    def get_urls(self):
+        urls = super().get_urls()
+        my_urls = [
+            path('print/', self.print_pdf),
+        ]
+        return my_urls + urls
+
+    def print_pdf(self, request):
+        data = {
+            'today': 343,
+            'amount': 39.99,
+            'customer_name': 'Cooper Mann',
+            'order_id': 1233434,
+        }
+        pdf = render_to_pdf('students/student_changeform.html', data)
+        return HttpResponse(pdf, content_type='application/pdf')
 
     list_display = ('name',)
     #list_filter = ('designation',)

@@ -7,7 +7,8 @@ from results.models import MarkSheet, TabulationSheet
 from exams.models import ExamType
 
 from rest_framework.exceptions import (
-    NotFound
+    NotFound,
+    NotAcceptable
 )
 from rest_framework.generics import (
     ListAPIView
@@ -24,12 +25,24 @@ class NextClassList(ListAPIView):
 
         current_class_id = self.kwargs.get('class_pk', None)
 
+        total_exams = Exam.objects.filter(related_class_id=current_class_id).count()
+        total_marksheets = MarkSheet.objects.filter(exam__related_class_id=current_class_id).count()
+
+        student_list_count = Student.objects.filter(current_class=current_class_id).count()
+
+        if total_marksheets != (total_exams * student_list_count):
+            raise NotAcceptable("All exam results has not been submitted yet!")
+
         current_class = Class.objects.filter(id=current_class_id)
 
         if current_class:
-            return Class.objects.filter(class_order=current_class[0].class_order + 1)
+            next_class = Class.objects.filter(class_order=current_class[0].class_order + 1, group=current_class[0].group)
+            if not next_class:
+                next_class = Class.objects.filter(class_order=current_class[0].class_order + 1)
+            
+            return next_class
         else:
-            raise NotFound("There is no next class")
+            raise NotFound("The given class does not exist!")
 
 
 @api_view(['GET'])
@@ -49,6 +62,9 @@ def transfer_class_with_selection(request, class_pk):
     final_exam = ExamType.objects.filter(exam__related_class_id=class_pk).distinct().order_by('-exam_order').first()
 
     current_class = Class.objects.get(id=class_pk)
+
+    if Class.objects.filter(class_order=current_class[0].class_order + 1).student_set.count() != 0:
+        return Response("The next class is not empty!")
     #next_class = Class.objects.get(class_order=current_class.class_order + 1)
     
     if current_class.class_order == 1:
@@ -93,7 +109,10 @@ def transfer_class(request, class_pk):
     #final_exam_tabulation_list = TabulationSheet.objects.filter(marksheet__exam__exam_type_id=final_exam.id).sort_by
 
     current_class = Class.objects.get(id=class_pk)
-    next_class = Class.objects.get(class_order=current_class.class_order + 1)
+    next_class = Class.objects.get(class_order=current_class.class_order + 1, group=current_class.group)
+
+    if next_class.student_set.count() != 0:
+        return Response("The next class is not empty!")
     #print(next_class)
     #print(current_class.class_order)
     if current_class.class_order == 1:

@@ -41,7 +41,17 @@ class RoutineInline(admin.TabularInline):
     def formfield_for_dbfield(self, db_field, **kwargs):
         obj = kwargs.pop('obj', None)
         formfield = super().formfield_for_dbfield(db_field, **kwargs)
-        if db_field.name == "subject" and Class:
+        if db_field.name == "saturday" and Class:
+            formfield.queryset = Subject.objects.filter(related_class_id=obj)
+        elif db_field.name == "sunday" and Class:
+            formfield.queryset = Subject.objects.filter(related_class_id=obj)
+        elif db_field.name == "monday" and Class:
+            formfield.queryset = Subject.objects.filter(related_class_id=obj)
+        elif db_field.name == "tuesday" and Class:
+            formfield.queryset = Subject.objects.filter(related_class_id=obj)
+        elif db_field.name == "wednesday" and Class:
+            formfield.queryset = Subject.objects.filter(related_class_id=obj)
+        elif db_field.name == "thursday" and Class:
             formfield.queryset = Subject.objects.filter(related_class_id=obj)
         return formfield
 
@@ -53,6 +63,7 @@ class ClassAdmin(admin.ModelAdmin):
         urls = super().get_urls()
         my_urls = [
             path('create_routine/', self.create_routine),
+            path('delete_routine/', self.delete_routine),
         ]
         return my_urls + urls
 
@@ -67,6 +78,12 @@ class ClassAdmin(admin.ModelAdmin):
             self.message_user(request, "Routines created")
         else:
            self.message_user(request, "Can not generate routine, no teacher available for class {}, period {}!".format(routine_generator.routine_generate_fail_output['class'], routine_generator.routine_generate_fail_output['period']))
+
+        return HttpResponseRedirect("../")
+
+    def delete_routine(self, request):
+        Routine.objects.all().delete()
+        self.message_user(request, "All routines have been deleted!")
 
         return HttpResponseRedirect("../")
 

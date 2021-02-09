@@ -16,7 +16,7 @@ class ClassDetailsSerializer(serializers.ModelSerializer):
 class ClassStudentListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = ['name','username','roll_no']
+        fields = ['name', 'username', 'roll_no']
 
 class ClassExamTypeListSerializer(serializers.ModelSerializer):
     class Meta:
@@ -37,7 +37,7 @@ class SubjectExamListSerializer(serializers.ModelSerializer):
 class NextClassListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Class
-        fields = ['id', 'name', 'group']
+        fields = ['id', 'name', 'group', 'board_exam_evaluation']
 
 class RoutineDetailsSerializer(serializers.ModelSerializer):
     saturday = serializers.StringRelatedField()

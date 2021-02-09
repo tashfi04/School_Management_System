@@ -6,6 +6,10 @@
             {% csrf_token %}
                 <button type="submit">Create Routine</button>
         </form>
+        <form action="delete_routine/" method="POST">
+            {% csrf_token %}
+                <button type="submit">Delete Existing Routines</button>
+        </form>
     </div>
     <br />
     {{ block.super }}

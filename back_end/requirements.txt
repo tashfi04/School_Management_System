@@ -20,6 +20,7 @@ pylint==2.4.3
 pylint-django==2.0.11
 pylint-plugin-utils==0.6
 pytz==2019.3
+reportlab==3.5.59
 six==1.12.0
 sqlparse==0.3.1
 stevedore==1.31.0

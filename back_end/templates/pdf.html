@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>Title</title>
+        <style type="text/css">
+            body {
+                font-weight: 200;
+                font-size: 14px;
+            }
+            .header {
+                font-size: 20px;
+                font-weight: 100;
+                text-align: center;
+                color: #007cae;
+            }
+            .title {
+                font-size: 22px;
+                font-weight: 100;
+               /* text-align: right;*/
+               padding: 10px 20px 0px 20px;  
+            }
+            .title span {
+                color: #007cae;
+            }
+            .details {
+                padding: 10px 20px 0px 20px;
+                text-align: left !important;
+                /*margin-left: 40%;*/
+            }
+            .hrItem {
+                border: none;
+                height: 1px;
+                /* Set the hr color */
+                color: #333; /* old IE */
+                background-color: #fff; /* Modern Browsers */
+            }
+        </style>
+    </head>
+    <body>
+        <div class='wrapper'>
+            <div class='header'>
+                <p class='title'>Invoice # </p>
+            </div>
+        <div>
+        <div class='details'>
+            Username: {{ username }} <br/>
+            Password: {{ password }} <br/>
+            Gender: {{ gender }} <br/>
+            Date of birth: {{ date_of_birth }} <br/>
+            Place of birth: {{ place_of_birth }} <br/>
+            Mother's name: {{ mother_name }} <br/>
+            Father's name: {{ father_name }} <br/>
+            Guardian's name(applicaple if different from parents): {{ guardian_name }} <br/>
+            Present address: {{ present_address }} <br/>
+            Permanent address: {{ permanent_address }} <br/>
+            Email: {{ email }} <br/>
+            Telephone no.: {{ telephone }} <br/>
+            Emergency telephone No.: {{ emergency_telephone }} <br/>
+            Religion: {{ religion }} <br/>
+            Nationality: {{ nationality }} <br/>
+            Previous school: {{ previous_school }} <br/>
+            Current class: {{ current_class }} <br/>
+            Roll no: {{ roll_no }} <br/>
+            Photo: <img src={{ photo }} alt="" width="50" height="60"/> <br/>
+            Student's signature: {{ student_signature }} <br/>
+            Student's signature: {{ guardian_signature }} <br/>
+            Student's signature: {{ headmaster_signature }} <br/>
+            <img src="media/photos/2021/01/07/Screenshot_from_2020-10-28_17-10-23.png" alt=""/>
+
+            <hr class='hrItem' />
+        </div>
+    </div>
+    </body>
+</html>
