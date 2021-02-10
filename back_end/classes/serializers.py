@@ -6,7 +6,7 @@ from exams.models import ExamType
 class ClassListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Class
-        fields = ['id', 'name', 'group', 'class_teacher']
+        fields = ['id', 'name', 'group', 'class_teacher', 'board_exam_evaluation']
 
 class ClassDetailsSerializer(serializers.ModelSerializer):
     class Meta:
