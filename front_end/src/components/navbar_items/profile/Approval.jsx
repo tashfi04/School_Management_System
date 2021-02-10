@@ -63,6 +63,18 @@ function Approval() {
             })
             .then((response) => {
                 setStudentList(response.data);
+                let tempstudent = {};
+                for(let i=0;i<Object.keys(response.data).length;i++)
+                {
+                    tempstudent = {
+                        ...tempstudent,
+                        [response.data[i].username] : {
+                            ...tempstudent[response.data[i].username],
+                            student_id: response.data[i].username
+                        }
+                    }
+                }
+                setStudentPublish(tempstudent);
             })
             .catch((error) => {
                 setErrors("Something went wrong!");
@@ -110,7 +122,14 @@ function Approval() {
     };
 
     const handlePublish = () => {
+
         let data = Object.values(studentpublish);
+        for(let i=0;i<Object.keys(data).length;i++){
+            if(!data[i].next_class)
+                data[i].next_class = -1;
+            if(!data[i].position)
+                data[i].position = -1;
+        }
         let body = JSON.stringify(data);
 
         console.log(body);
@@ -128,6 +147,7 @@ function Approval() {
             .then(() => {
                 setErrors("Successful!");
                 setGreen(true);
+                showModel();
             })
             .catch(() => {
                 setErrors("Datas are not selected perfectly!");
