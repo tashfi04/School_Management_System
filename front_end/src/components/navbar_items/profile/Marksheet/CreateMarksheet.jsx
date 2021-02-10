@@ -80,10 +80,6 @@ function CreateMarksheet(props) {
                 </td>
                 <td>
                     <h6>
-                        {/* <FontAwesomeIcon
-                            className="fa-icon"
-                            icon={["fas", "user"]}
-                        />{" "} */}
                         {item.username}
                     </h6>
                 </td>
@@ -160,14 +156,12 @@ function CreateMarksheet(props) {
         let endpoint = `/api/v1/results/marksheet/${exam_pk}/`;
         let data = Object.values(result);
         let body = JSON.stringify(data);
-        console.log(body);
         let config = {
             headers: {
                 Authorization: `JWT ${localStorage.getItem("token")}`,
                 "Content-Type": "application/json",
             },
         };
-        console.log("json", body);
         axios
             .post(endpoint, body, config)
             .then(() => {
