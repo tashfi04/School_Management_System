@@ -12,15 +12,13 @@ class User(AbstractUser):
 
     Administrator = 0
     Teacher = 1
-    Classteacher = 2
-    Headmaster = 3
-    Student = 4
+    Headmaster = 2
+    Student = 3
     
 
     ROLE_CHOICES = [
         (Administrator, 'Administrator'),
         (Teacher, 'Teacher'),
-        (Classteacher, 'Class teacher'),
         (Headmaster, 'Headmaster'),
         (Student, 'Student')
     ]

@@ -177,3 +177,5 @@ EMAIL_PORT = 587
 #EMAIL_HOST_PASSWORD = os.environ.get('APP_EMAIL_PASS')
 EMAIL_HOST_USER = "whyblankistaken@gmail.com"
 EMAIL_HOST_PASSWORD = "llrnecuoqscezmua"
+
+OLD_PASSWORD_FIELD_ENABLED = True
