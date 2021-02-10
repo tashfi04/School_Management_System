@@ -26,6 +26,7 @@ function Approval() {
     const [studentpublish, setStudentPublish] = useState({});
     const [nextClassList, setNextClassList] = useState({});
     const [modalCurrentClass, setModalCurrentClass] = useState();
+    const [isBoardClass, setIsBoardClass] = useState({});
 
     useEffect(() => {
         const loadClass = async () => {
@@ -33,6 +34,7 @@ function Approval() {
                 .get("/api/v1/classes/list/")
                 .then((response) => {
                     setClassList(response.data);
+                    classToBoard(response.data);
                 })
                 .catch((error) => {
                     console.log(error);
@@ -40,6 +42,17 @@ function Approval() {
         };
         loadClass();
     }, [errors, studentList]);
+
+    const classToBoard = (response) => {
+        let tempdict;
+        for(let i=0;i<Object.keys(response).length;i++){
+            tempdict = {
+                ...tempdict,
+                [response[i].id]:response[i].board_exam_evaluation
+            }
+        }
+        setIsBoardClass(tempdict);
+    } 
 
     const loadStudent = (class_pk) => {
         axios
@@ -64,7 +77,7 @@ function Approval() {
         axios
             .get(`/api/v1/classes/next_class_list/${class_pk}/`)
             .then((response) => {
-                if (Object.keys(response.data).length < 2) {
+                if (Object.keys(response.data).length < 2 && !isBoardClass[class_pk]) {
                     // publish for single next class
                     axios
                         .get(`/api/v1/classes/transfer_class/${class_pk}/`)
