@@ -84,7 +84,7 @@ def transfer_class_with_selection(request, class_pk):
         student = Student.objects.get(pk=item['student_id'])
         
         #if current_tabulation_sheet[0].letter_grade != 'F':
-        if item['next_class']:
+        if item['next_class'] != -1:
             student.current_class = Class.objects.get(pk=item['next_class'])
             student.roll_no = item['position']
 
@@ -103,12 +103,16 @@ def transfer_class(request, class_pk):
     total_exams = Exam.objects.filter(related_class_id=class_pk).count()
     total_marksheets = MarkSheet.objects.filter(exam__related_class_id=class_pk).count()
 
+    if total_exams == 0:
+        return Response("The next class has no exam!")
+
     student_list = Student.objects.filter(current_class=class_pk)
 
     if total_marksheets != (total_exams * len(student_list)):
         return Response("All exam results has not been submitted yet!")
 
     final_exam = ExamType.objects.filter(exam__related_class_id=class_pk).distinct().order_by('-exam_order').first()
+
     #final_exam_tabulation_list = TabulationSheet.objects.filter(marksheet__exam__exam_type_id=final_exam.id).sort_by
 
     current_class = Class.objects.get(id=class_pk)
