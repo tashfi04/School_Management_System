@@ -1,11 +1,12 @@
 {% extends 'admin/change_form.html' %}
+{% load custom_submit_row %}
+
+{% if save_on_top %}
+    {% block submit_buttons_top %}
+        {% custom_submit_row %}
+    {% endblock %}
+{% endif %}
 
 {% block submit_buttons_bottom %}
-    {{ block.super }}
-    <div class="submit-row">
-        <form action="print/" method="POST">
-            {% csrf_token %}
-                <button type="submit">Print</button>
-        </form>
-    </div>
+    {% custom_submit_row %}
 {% endblock %}

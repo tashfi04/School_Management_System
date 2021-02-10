@@ -5,6 +5,8 @@ urlpatterns = [
 
     path('', apiOverview, name="api-overview"),
 
+    #path('accounts/', include('accounts.urls')),
+
     path('authentication/', include('authentication.urls')),
 
     path('institution/', include('institution.urls')),

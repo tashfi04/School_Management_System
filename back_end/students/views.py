@@ -40,7 +40,8 @@ from students.models import Student
 class GeneratePdf(View):
     def get(self, request, *args, **kwargs):
 
-        student_data = Student.objects.filter(username='S1')
+        student_id = kwargs.get('student_pk', None)
+        student_data = Student.objects.filter(username=student_id)
 
         data = {
            'username': 'S1',
@@ -63,14 +64,10 @@ class GeneratePdf(View):
            'current_class': student_data[0].current_class,
            'roll_no': student_data[0].roll_no,
            'photo': student_data[0].photo.url[1:],
-           'student_signature': student_data[0].student_signature.url,
-           'guardian_signature': student_data[0].guardian_signature.url,
-           'headmaster_signature': student_data[0].headmaster_signature.url
+           'student_signature': student_data[0].student_signature.url[1:],
+           'guardian_signature': student_data[0].guardian_signature.url[1:],
+           'headmaster_signature': student_data[0].headmaster_signature.url[1:]
         }
-
-        # results = Student.objects.filter(username='S1').values()
-        # data = {
-        #     'mylist': results,
-        # }
+        
         pdf = render_to_pdf('pdf.html', data)
         return HttpResponse(pdf, content_type='application/pdf')
