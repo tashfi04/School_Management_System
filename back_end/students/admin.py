@@ -1,12 +1,11 @@
 from django.contrib import admin
-from .models import Student
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from django.contrib.admin.templatetags.admin_urls import add_preserved_filters
 from django.contrib.admin.widgets import AdminFileWidget
 from django.db import models
 from django.utils.safestring import mark_safe
-
-from pdf_print.pdf_printer import render_to_pdf
-from django.http import HttpResponseRedirect, HttpResponse
-from django.urls import resolve, path
+from .models import Student
 
 class AdminImageWidget(AdminFileWidget):
 
@@ -31,23 +30,21 @@ class StudentAdmin(admin.ModelAdmin):
     change_form_template = 'students/student_changeform.html'
     formfield_overrides = {models.ImageField: {'widget': AdminImageWidget}}
 
-    def get_urls(self):
-        urls = super().get_urls()
-        my_urls = [
-            path('print/', self.print_pdf),
-        ]
-        return my_urls + urls
+    def response_change(self, request, obj):
+        opts = self.model._meta
+        pk_value = obj._get_pk_val()
+        preserved_filters = self.get_preserved_filters(request)
 
-    def print_pdf(self, request):
-        data = {
-            'today': 343,
-            'amount': 39.99,
-            'customer_name': 'Cooper Mann',
-            'order_id': 1233434,
-        }
-        pdf = render_to_pdf('students/student_changeform.html', data)
-        return HttpResponse(pdf, content_type='application/pdf')
-
+        if "_customaction" in request.POST:
+            # handle the action on your obj
+            redirect_url = reverse('generate-pdf',
+                               args=(pk_value,),
+                               current_app=self.admin_site.name)
+            redirect_url = add_preserved_filters({'preserved_filters': preserved_filters, 'opts': opts}, redirect_url)
+            return HttpResponseRedirect(redirect_url)
+        else:
+            return super(StudentAdmin, self).response_change(request, obj)
+  
     list_display = ('name',)
     #list_filter = ('designation',)
     #search_fields = ('name', 'NID_no', 'office_telephone', 'home_telephone', 'office_mobile', 'personal_mobile', 'fax', 'email')

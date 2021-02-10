@@ -4,10 +4,7 @@ from students.models import Student
 from rest_framework import permissions
 
 from rest_framework.exceptions import (
-    NotFound,
-    APIException,
-    NotAcceptable,
-    PermissionDenied,
+    NotFound
 )
 from rest_framework.generics import (
     ListAPIView,
@@ -20,11 +17,6 @@ from ..serializers import (
     ClassStudentListSerializer,
     ClassExamTypeListSerializer
 )
-
-class Conflict(APIException):
-    status_code = 409
-    default_code = 'conflit'
-    default_detail = 'Item already exist.'
 
 class ClassList(ListAPIView):
 

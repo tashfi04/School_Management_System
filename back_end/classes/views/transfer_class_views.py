@@ -44,9 +44,9 @@ class NextClassList(ListAPIView):
         else:
             raise NotFound("The given class does not exist!")
 
-
-@api_view(['GET'])
-@permission_classes([IsAuthenticatedOrReadOnly])
+@api_view(['POST'])
+#@permission_classes([IsAuthenticatedOrReadOnly])
+@permission_classes([AllowAny])
 def transfer_class_with_selection(request, class_pk):
 
     class_selection_list = request.data
@@ -62,13 +62,16 @@ def transfer_class_with_selection(request, class_pk):
     final_exam = ExamType.objects.filter(exam__related_class_id=class_pk).distinct().order_by('-exam_order').first()
 
     current_class = Class.objects.get(id=class_pk)
+    next_classes = Class.objects.filter(class_order=current_class.class_order + 1)
 
-    if Class.objects.filter(class_order=current_class[0].class_order + 1).student_set.count() != 0:
-        return Response("The next class is not empty!")
+    for next_class in next_classes:
+        if next_class.student_set.count() != 0:
+            return Response("The next classes are not empty!")
     #next_class = Class.objects.get(class_order=current_class.class_order + 1)
     
     if current_class.class_order == 1:
         previous_class = 0
+        previous_class_passed_student_count = current_class.total_students
     else:
         previous_class = Class.objects.get(id=current_class.class_order - 1)
         previous_class_final_exam = ExamType.objects.filter(exam__related_class_id=previous_class.id).distinct().order_by('-exam_order').first()
@@ -77,13 +80,13 @@ def transfer_class_with_selection(request, class_pk):
 
     for item in class_selection_list:
 
-        current_tabulation_sheet = TabulationSheet.objects.filter(marksheet__exam__exam_type_id=final_exam.id, marksheet__student_id=item['student_id']).distinct()
+        #current_tabulation_sheet = TabulationSheet.objects.filter(marksheet__exam__exam_type_id=final_exam.id, marksheet__student_id=item['student_id']).distinct()
         student = Student.objects.get(pk=item['student_id'])
         
-        if current_tabulation_sheet[0].letter_grade != 'F':
-
-            student.current_class = item['next_class']
-            student.roll_no = current_tabulation_sheet[0].position
+        #if current_tabulation_sheet[0].letter_grade != 'F':
+        if item['next_class']:
+            student.current_class = Class.objects.get(pk=item['next_class'])
+            student.roll_no = item['position']
 
         else:
             previous_class_passed_student_count += 1

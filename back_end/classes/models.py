@@ -16,6 +16,7 @@ class Class(models.Model):
     class_order = models.IntegerField(null=True, blank=False)
     group = models.CharField(choices=GROUP_CHOICES, max_length=30, null=True, blank=True)
     class_teacher = models.OneToOneField('teachers.Teacher', on_delete=models.CASCADE, null=True, blank=True)
+    total_students = models.IntegerField(null=True, blank=False)
     total_class_in_a_day = models.IntegerField(null=True, blank=False)
 
     syllebus = models.FileField(upload_to='uploads/syllebus/%Y/%m/%d', max_length=200, null=True, blank=True)

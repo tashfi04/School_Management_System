@@ -1,11 +1,11 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
-        <title>Title</title>
+        <title>Profile Information</title>
         <style type="text/css">
             body {
                 font-weight: 200;
-                font-size: 14px;
+                font-size: 12px;
             }
             .header {
                 font-size: 20px;
@@ -39,34 +39,122 @@
     <body>
         <div class='wrapper'>
             <div class='header'>
-                <p class='title'>Invoice # </p>
+                <p class='title'>Profile</p>
             </div>
         <div>
         <div class='details'>
-            Username: {{ username }} <br/>
-            Password: {{ password }} <br/>
-            Gender: {{ gender }} <br/>
-            Date of birth: {{ date_of_birth }} <br/>
-            Place of birth: {{ place_of_birth }} <br/>
-            Mother's name: {{ mother_name }} <br/>
-            Father's name: {{ father_name }} <br/>
-            Guardian's name(applicaple if different from parents): {{ guardian_name }} <br/>
-            Present address: {{ present_address }} <br/>
-            Permanent address: {{ permanent_address }} <br/>
-            Email: {{ email }} <br/>
-            Telephone no.: {{ telephone }} <br/>
-            Emergency telephone No.: {{ emergency_telephone }} <br/>
-            Religion: {{ religion }} <br/>
-            Nationality: {{ nationality }} <br/>
-            Previous school: {{ previous_school }} <br/>
-            Current class: {{ current_class }} <br/>
-            Roll no: {{ roll_no }} <br/>
-            Photo: <img src={{ photo }} alt="" width="50" height="60"/> <br/>
-            Student's signature: {{ student_signature }} <br/>
-            Student's signature: {{ guardian_signature }} <br/>
-            Student's signature: {{ headmaster_signature }} <br/>
-            <img src="media/photos/2021/01/07/Screenshot_from_2020-10-28_17-10-23.png" alt=""/>
-
+            <table>
+                <tr>
+                    <td style="vertical-align: bottom;">
+                        Username: {{ username }} <br/>
+                        Password: {{ password }}
+                    </td>
+                    <td style="text-align: right;">
+                        <img src={{ photo }} alt="" width="160" height="160"/>
+                    </td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td>
+                        Name: {{ name }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Gender: {{ gender }}
+                    </td>
+                    <td>
+                        Date of birth: {{ date_of_birth }}
+                    </td>
+                    <td>
+                        Place of birth: {{ place_of_birth }}
+                    </td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td>
+                        Mother's name: {{ mother_name }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Father's name: {{ father_name }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Guardian's name(applicaple if different from parents): {{ guardian_name }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Present address: {{ present_address }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Permanent address: {{ permanent_address }}
+                    </td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td> 
+                        Email: {{ email }}
+                    </td>
+                    <td>
+                        Telephone no.: {{ telephone }} <br/>
+                        Emergency telephone No.: {{ emergency_telephone }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Religion: {{ religion }}
+                    </td>
+                    <td>
+                        Nationality: {{ nationality }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Previous school: {{ previous_school }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Current class: {{ current_class }}
+                    </td>
+                    <td>
+                        Roll no: {{ roll_no }}
+                    </td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                  <td>
+                    <img src={{ student_signature }} alt="" width="600" height="200"/>
+                  </td>
+                  <td>
+                    <img src={{ guardian_signature }} alt="" width="600" height="200"/>
+                  </td>
+                  <td>
+                    <img src={{ headmaster_signature }} alt="" width="600" height="200"/>
+                  </td>
+                </tr>
+                <tr>
+                    <td>
+                        Student's signature
+                    </td>
+                    <td>
+                        Guardian's signature
+                    </td>
+                    <td>
+                        Headmaster's signature
+                    </td>
+                  </tr>
+            </table>
             <hr class='hrItem' />
         </div>
     </div>
