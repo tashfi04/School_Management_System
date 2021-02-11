@@ -5,6 +5,7 @@ import StudentShow from "./StudentShow";
 import TeacherShow from "./TeacherShow";
 import { useJwt } from "react-jwt"
 import PageNotFound from "./../../PageNotFound/PageNotFound";
+import ChangePassword from './ChangePassword'
 
 function Profile() {
     const { decodedToken, isExpired } = useJwt(localStorage.getItem("token"));
@@ -38,10 +39,14 @@ function Profile() {
                             </h1>{" "}
                             <br></br>
                             {localStorage.getItem("role") === "4" ? (
-                                <StudentShow />
+                                    <StudentShow />
                             ) : (
                                 <TeacherShow />
                             )}
+                            <hr ></hr>
+                            <ChangePassword/>
+                            <br />
+                            <br />
                         </Container>
                     </Col>
                 </Row>

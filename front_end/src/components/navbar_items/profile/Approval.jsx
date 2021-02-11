@@ -82,6 +82,7 @@ function Approval() {
             });
     };
 
+
     const handleClassUpdate = (class_pk) => {
         // loadStudent(class_pk);
 
@@ -93,15 +94,15 @@ function Approval() {
                     // publish for single next class
                     axios
                         .get(`/api/v1/classes/transfer_class/${class_pk}/`)
-                        .then(() => {
-                            setErrors("Successful!");
-                            setGreen(true);
+                        .then((res) => {
+                            setErrors(res.data);
+                            showModel();
                         })
                         .catch((errors) => {
                             setErrors(
                                 "Result is not yet published for next class."
                             );
-                            setGreen(false);
+                            showModel();
                         });
                 } else {
                     // publish for multiple next class
@@ -114,6 +115,7 @@ function Approval() {
             .catch((error) => {
                 setErrors("All marks are not given yet for this class.");
                 setGreen(false);
+                showModel();
             });
     };
 
@@ -152,6 +154,7 @@ function Approval() {
             .catch(() => {
                 setErrors("Datas are not selected perfectly!");
                 setGreen(false);
+                showModel();
             })
                 
     }
@@ -311,13 +314,13 @@ function Approval() {
                             {green ? (
                                 <ShowToast
                                     mssg={errors}
-                                    color="green"
+                                    color="blue"
                                     setErrors={setErrors}
                                 />
                             ) : (
                                 <ShowToast
                                     mssg={errors}
-                                    color="red"
+                                    color="blue"
                                     setErrors={setErrors}
                                 />
                             )}

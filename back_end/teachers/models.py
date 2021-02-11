@@ -8,12 +8,10 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 class Teacher(models.Model):
 
     Teacher = 1
-    Classteacher = 2
     Headmaster = 3
 
     ROLE_CHOICES = [
         (Teacher, 'Teacher'),
-        (Classteacher, 'Class teacher'),
         (Headmaster, 'Headmaster')
     ]
 
@@ -83,6 +81,9 @@ class Teacher(models.Model):
         else:
             if (self.password) != self.originalPassword:
                 get_user_model().objects.filter(pk=self.user_id).update(password=self.password)
+            
+            self.user.role = self.role
+            self.user.save()
 
         super().save(*args, **kwargs)
 

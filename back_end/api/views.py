@@ -20,6 +20,11 @@ def apiOverview(request):
         'Event List'                                : 'api/v1/institution/events/list/',
         'Event Details'                             : 'api/v1/institution/events/<str:event_pk>/details/',
 
+        'Account Related API'                       : '--------------------------------------------------------------------------',
+        'Password Change'                           : 'api/v1/accounts/password/change/',
+        'Password Reset'                            : 'api/v1/accounts/password/reset/',
+        'Password Change'                           : 'api/v1/accounts/password/reset/confirm/',
+
         'Teacher Related API'                       : '--------------------------------------------------------------------------',
         'Teacher List'                              : 'api/v1/teachers/list/',
         'Teacher Details'                           : 'api/v1/teachers/details/',

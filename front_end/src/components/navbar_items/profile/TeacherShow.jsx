@@ -17,7 +17,6 @@ function TeacherShow() {
                     },
                 })
                 .then((response) => {
-                  console.log(response.data[0])
                     setTeacherDetails(response.data[0]);
                 })
                 .catch((error) => {
