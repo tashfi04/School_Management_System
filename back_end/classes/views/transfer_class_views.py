@@ -2,6 +2,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, AllowAny
 from rest_framework.response import Response
 from students.models import Student
+from institution.models import Institution
 from ..models import Class, Subject, Exam
 from results.models import MarkSheet, TabulationSheet
 from exams.models import ExamType
@@ -16,6 +17,14 @@ from rest_framework.generics import (
 
 from ..serializers import NextClassListSerializer
 
+def get_current_session():
+
+    institution = Institution.objects.all().first()
+
+    print(institution.current_session)
+    return institution.current_session_id
+
+
 class NextClassList(ListAPIView):
 
     permission_classes = [AllowAny]
@@ -25,8 +34,8 @@ class NextClassList(ListAPIView):
 
         current_class_id = self.kwargs.get('class_pk', None)
 
-        total_exams = Exam.objects.filter(related_class_id=current_class_id).count()
-        total_marksheets = MarkSheet.objects.filter(exam__related_class_id=current_class_id).count()
+        total_exams = Exam.objects.filter(related_class_id=current_class_id, subject__status=0).count()
+        total_marksheets = MarkSheet.objects.filter(exam__related_class_id=current_class_id, session_id=get_current_session()).count()
 
         student_list_count = Student.objects.filter(current_class=current_class_id).count()
 
@@ -51,15 +60,18 @@ def transfer_class_with_selection(request, class_pk):
 
     class_selection_list = request.data
 
-    total_exams = Exam.objects.filter(related_class_id=class_pk).count()
-    total_marksheets = MarkSheet.objects.filter(exam__related_class_id=class_pk).count()
+    total_exams = Exam.objects.filter(related_class_id=class_pk, subject__status=0).count()
+    total_marksheets = MarkSheet.objects.filter(exam__related_class_id=class_pk, session_id=get_current_session()).count()
+
+    if total_exams == 0:
+        return Response("The class has no exam!")
 
     student_list_count = Student.objects.filter(current_class=class_pk).count()
 
     if total_marksheets != (total_exams * student_list_count):
         return Response("All exam results has not been submitted yet!")
 
-    final_exam = ExamType.objects.filter(exam__related_class_id=class_pk).distinct().order_by('-exam_order').first()
+    #final_exam = ExamType.objects.filter(exam__related_class_id=class_pk).distinct().order_by('-exam_order').first()
 
     current_class = Class.objects.get(id=class_pk)
     next_classes = Class.objects.filter(class_order=current_class.class_order + 1)
@@ -75,7 +87,7 @@ def transfer_class_with_selection(request, class_pk):
     else:
         previous_class = Class.objects.get(id=current_class.class_order - 1)
         previous_class_final_exam = ExamType.objects.filter(exam__related_class_id=previous_class.id).distinct().order_by('-exam_order').first()
-        previous_class_passed_student_count = TabulationSheet.objects.filter(marksheet__exam__exam_type_id=previous_class_final_exam.id).exclude(letter_grade='F').count()
+        previous_class_passed_student_count = TabulationSheet.objects.filter(marksheet__exam__exam_type_id=previous_class_final_exam.id, marksheet__session_id=get_current_session()).exclude(letter_grade='F').count()
         
 
     for item in class_selection_list:
@@ -100,11 +112,11 @@ def transfer_class_with_selection(request, class_pk):
 @permission_classes([IsAuthenticatedOrReadOnly])
 def transfer_class(request, class_pk):
 
-    total_exams = Exam.objects.filter(related_class_id=class_pk).count()
-    total_marksheets = MarkSheet.objects.filter(exam__related_class_id=class_pk).count()
+    total_exams = Exam.objects.filter(related_class_id=class_pk, subject__status=0).count()
+    total_marksheets = MarkSheet.objects.filter(exam__related_class_id=class_pk, session_id=get_current_session()).count()
 
     if total_exams == 0:
-        return Response("The next class has no exam!")
+        return Response("The class has no exam!")
 
     student_list = Student.objects.filter(current_class=class_pk)
 
@@ -127,12 +139,12 @@ def transfer_class(request, class_pk):
     else:
         previous_class = Class.objects.get(id=current_class.class_order - 1)
         previous_class_final_exam = ExamType.objects.filter(exam__related_class_id=previous_class.id).distinct().order_by('-exam_order').first()
-        previous_class_passed_student_count = TabulationSheet.objects.filter(marksheet__exam__exam_type_id=previous_class_final_exam.id).exclude(letter_grade='F').count()
+        previous_class_passed_student_count = TabulationSheet.objects.filter(marksheet__exam__exam_type_id=previous_class_final_exam.id, marksheet__session_id=get_current_session()).exclude(letter_grade='F').count()
         
 
     for student in student_list:
 
-        current_tabulation_sheet = TabulationSheet.objects.filter(marksheet__exam__exam_type_id=final_exam.id, marksheet__student_id=student.username).distinct()
+        current_tabulation_sheet = TabulationSheet.objects.filter(marksheet__exam__exam_type_id=final_exam.id, marksheet__student_id=student.username, marksheet__session_id=get_current_session()).distinct()
         
         if current_tabulation_sheet[0].letter_grade != 'F':
 

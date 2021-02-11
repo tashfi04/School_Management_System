@@ -32,11 +32,11 @@ class Teacher(models.Model):
     designation = models.CharField(max_length=100, null=True, blank=False)
     present_address = models.TextField(null=True, blank=False)
     office_telephone = models.CharField("Telephone no.(Office)", max_length=13, null=True, blank=False)
-    home_telephone = models.CharField("Telephone no.(Home)",max_length=13, null=True, blank=False)
-    office_mobile = models.CharField("Mobilephone no.(Office)",max_length=11, null=True, blank=False)
-    personal_mobile = models.CharField("Mobilephone no.(Personal)",max_length=11, null=True, blank=False)
+    home_telephone = models.CharField("Telephone no.(Home)", max_length=13, null=True, blank=False)
+    office_mobile = models.CharField("Mobilephone no.(Office)", max_length=11, null=True, blank=False)
+    personal_mobile = models.CharField("Mobilephone no.(Personal)", max_length=11, null=True, blank=False)
     fax = models.CharField(max_length=70, null=True, blank=False)
-    email = models.EmailField(max_length=50, null=True, blank=False)
+    email = models.EmailField(max_length=50, null=True, blank=False)#3, unique=True)
     date_of_join = models.DateField(null=True, blank=False)
     date_of_birth = models.DateField(null=True, blank=False)
     marital_status = models.CharField(max_length=2, choices=MARITAL_STATUS_CHOICES, null=True, blank=False)
@@ -83,12 +83,16 @@ class Teacher(models.Model):
                 get_user_model().objects.filter(pk=self.user_id).update(password=self.password)
             
             self.user.role = self.role
+            self.user.email = self.email
             self.user.save()
 
         super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        ordering = ['name']
 
 class Qualifications(models.Model):
     id_name = models.ForeignKey(Teacher, on_delete=models.CASCADE)
