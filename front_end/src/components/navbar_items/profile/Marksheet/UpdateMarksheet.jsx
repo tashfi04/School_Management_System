@@ -14,13 +14,11 @@ function UpdateMarksheet(props) {
     const [result, setResult] = useState({});
     const [promise, setPromise] = useState(false);
     const [errors, setErrors] = useState();
-    // const { class_pk, exam_pk, subject_pk, subjectDetails, className } = props;
     const { exam_pk, subjectDetails, className } = props;
 
     useEffect(() => {
         const loadMarksheet = async () => {
             axios
-                //.get(`/api/v1/results/marksheet/${subject_pk}/${exam_pk}/`, {
                 .get(`/api/v1/results/marksheet/${exam_pk}/`, {
                     headers: {
                         Authorization: `JWT ${localStorage.getItem("token")}`,
@@ -52,8 +50,6 @@ function UpdateMarksheet(props) {
                             marksheet[i].term_test_objective_marks,
                         class_test_marks: marksheet[i].class_test_marks,
                         lab_marks: marksheet[i].lab_marks,
-                        // total_marks: marksheet[i].total_marks,
-                        // letter_grade: marksheet[i].letter_grade,
                     },
                 };
             }
@@ -72,7 +68,7 @@ function UpdateMarksheet(props) {
                     <h6>{item.roll_no}</h6>
                 </td>
                 <td>
-                    <h6>{item.student}</h6>
+                    <h6>{item.student.substr(0,item.student.length-item.student.match(/\d+/)[0].length)}</h6>
                 </td>
 
                 <td>

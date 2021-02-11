@@ -34,7 +34,7 @@ function Routines(props) {
                     ) : day === 'tuesday' ? (
                         <td>{item.tuesday}</td>
                     ) : day === 'wednesday' ? (
-                        <td>{item.saturday}</td>
+                        <td>{item.wednesday}</td>
                     ) : day === 'thursday' ? (
                         <td>{item.thursday}</td>
                     ) : (
@@ -47,8 +47,8 @@ function Routines(props) {
     }
 
     return(
-        <div style={{ overflowX: "auto" }}>
-            <Table striped bordered hover>
+        <div style={{ overflowX: "auto", margin:'auto' }} className='m-auto'>
+            <Table striped bordered hover className='m-auto'>
                 <tbody>
                     <tr>
                         <td>Day</td>

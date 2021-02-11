@@ -58,8 +58,16 @@ function ClassDetails() {
                         <SidebarAcademic />
                     </Container>
                 </Col>
-                <Col sm={8} md={8} style={{backgroundColor:'#ebebeb'}}>
-                    <Container >
+                <Col sm={8} md={8} style={{backgroundColor:'#ebebeb'}} className='pt-5'>
+                    <div
+                    style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        flexWrap: "wrap",
+                        justifyContent: "center",
+                        textAlign:'align'
+                    }}
+                    >
                         <h3>
                             <FontAwesomeIcon
                                 className="fa-icon"
@@ -143,7 +151,7 @@ function ClassDetails() {
                             className="d-block w-100 mb-5"
                             src={detail.syllebus}
                         />
-                    </Container>
+                    </div>
                 </Col>
             </Row>
         </Container>

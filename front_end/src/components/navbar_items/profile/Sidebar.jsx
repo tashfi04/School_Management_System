@@ -88,7 +88,7 @@ function Sidebar() {
                     </h5>
                     <hr style={{ border: "solid", borderWidth: "1px" }} />
                     <h5>
-                        {localStorage.getItem("role") === "3" ? (
+                        {localStorage.getItem("role") === "2" ? (
                             <React.Fragment>
                                     <Link
                                         to="/profile/approval"

@@ -44,8 +44,8 @@ class GeneratePdf(View):
         student_data = Student.objects.filter(username=student_id)
 
         data = {
-           'username': 'S1',
-           'password': 2323,
+           'username': student_data[0].username,
+           'password': student_data[0].password,
            'name' : student_data[0].name,
            'gender': student_data[0].gender,
            'date_of_birth': student_data[0].date_of_birth,
