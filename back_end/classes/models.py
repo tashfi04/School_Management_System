@@ -28,6 +28,7 @@ class Class(models.Model):
 
     class Meta:
         verbose_name_plural = "Classes"
+        ordering = ['class_order']
 
 class Subject(models.Model):
 

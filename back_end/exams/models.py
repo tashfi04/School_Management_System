@@ -8,3 +8,5 @@ class ExamType(models.Model):
     def __str__(self):
         return self.exam_type
 
+    class Meta:
+        ordering = ['exam_order']

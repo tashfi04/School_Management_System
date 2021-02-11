@@ -90,4 +90,4 @@ class Student(models.Model):
         return self.name
 
     class Meta:
-        ordering = ['roll_no']
+        ordering = ['roll_no', 'current_class']

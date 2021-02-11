@@ -13,6 +13,7 @@ class TabulationSheet(models.Model):
     current_CGPA = models.DecimalField(max_digits=3, decimal_places=2, null=True, blank=True)
     letter_grade = models.CharField(max_length=5, null=True, blank=True)
     position = models.PositiveIntegerField(null=True, blank=True)
+    #result_published = models.BooleanField(default=False, blank=True)
 
     def save(self, *args, **kwargs):
 

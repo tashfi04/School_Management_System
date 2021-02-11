@@ -28,7 +28,7 @@ class TeacherAdmin(admin.ModelAdmin):
 
     formfield_overrides = {models.ImageField: {'widget': AdminImageWidget}}
 
-    list_display = ('name', 'designation')
+    list_display = ('name', 'designation', 'email')
     list_filter = ('designation',)
     search_fields = ('name', 'NID_no', 'office_telephone', 'home_telephone', 'office_mobile', 'personal_mobile', 'fax', 'email')
     list_per_page = 20
