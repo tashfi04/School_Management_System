@@ -8,7 +8,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 class Teacher(models.Model):
 
     Teacher = 1
-    Headmaster = 3
+    Headmaster = 2
 
     ROLE_CHOICES = [
         (Teacher, 'Teacher'),
