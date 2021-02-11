@@ -21,9 +21,9 @@ function AuthNav() {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
-                        <Nav.Link href="/administration">
+                        {/* <Nav.Link href="/administration">
                             Administration
-                        </Nav.Link>
+                        </Nav.Link> */}
                         <Nav.Link href="/academics/overview">Academic</Nav.Link>
                         <Nav.Link href="/result/all">Result</Nav.Link>
                         <Nav.Link href="/notice">Notice</Nav.Link>
@@ -47,8 +47,8 @@ function AuthNav() {
                                 {"  "}
                                 {localStorage.getItem("username")}
                             </Dropdown.Item>
-                            <Dropdown.Item href="#">Actions 2</Dropdown.Item>
-                            <Dropdown.Item href="#">Actions 3</Dropdown.Item>
+                            {/* <Dropdown.Item href="#">Actions 2</Dropdown.Item>
+                            <Dropdown.Item href="#">Actions 3</Dropdown.Item> */}
                             <Dropdown.Divider />
                             <Dropdown.Item href="/logout">
                                 <FontAwesomeIcon

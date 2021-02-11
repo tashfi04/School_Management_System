@@ -84,7 +84,6 @@ function Approval() {
 
 
     const handleClassUpdate = (class_pk) => {
-        // loadStudent(class_pk);
 
         // for load next classes
         axios
@@ -96,13 +95,13 @@ function Approval() {
                         .get(`/api/v1/classes/transfer_class/${class_pk}/`)
                         .then((res) => {
                             setErrors(res.data);
-                            showModel();
+                            // showModel();
                         })
                         .catch((errors) => {
                             setErrors(
                                 "Result is not yet published for next class."
                             );
-                            showModel();
+                            // showModel();
                         });
                 } else {
                     // publish for multiple next class
@@ -115,7 +114,7 @@ function Approval() {
             .catch((error) => {
                 setErrors("All marks are not given yet for this class.");
                 setGreen(false);
-                showModel();
+                // showModel();
             });
     };
 
@@ -133,8 +132,6 @@ function Approval() {
                 data[i].position = -1;
         }
         let body = JSON.stringify(data);
-
-        console.log(body);
         
         let endpoint = `/api/v1/classes/transfer_class_with_selection/${modalCurrentClass}/`
         let config = {
@@ -238,7 +235,7 @@ function Approval() {
         <div>
             {decodedToken &&
             !isExpired &&
-            localStorage.getItem("role") === "3" ? (
+            localStorage.getItem("role") === "2" ? (
                 <Container style={{ margin: "auto" }}>
                     <div style={{overflowX:'auto'}}>
                         <Modal show={show} onHide={showModel}>

@@ -38,7 +38,7 @@ function Profile() {
                                 Account Information
                             </h1>{" "}
                             <br></br>
-                            {localStorage.getItem("role") === "4" ? (
+                            {localStorage.getItem("role") === "3" ? (
                                     <StudentShow />
                             ) : (
                                 <TeacherShow />

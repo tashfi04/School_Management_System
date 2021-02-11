@@ -107,7 +107,7 @@ function ResetPassword() {
                                 Change Password
                             </Button>
                         ) : (
-                            <Link to='/'>
+                            <Link to='/login/'>
                                 <Button
                                     variant="success"
                                     style={{ float: "right" }}

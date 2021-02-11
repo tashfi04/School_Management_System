@@ -80,7 +80,7 @@ function CreateMarksheet(props) {
                 </td>
                 <td>
                     <h6>
-                        {item.username}
+                        {item.username.substr(0,item.username.length-item.username.match(/\d+/)[0].length)}
                     </h6>
                 </td>
                 <td>

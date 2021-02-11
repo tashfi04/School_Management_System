@@ -45,7 +45,7 @@ function NoticeDetails() {
                                 {/* <div className="pl-5 pr-5"></div> */}
                                 <img
                                     src={String(noticeDetails.attachment)}
-                                    style={{ height: "70vh", width: "50vw" }}
+                                    style={{ height: "70vh", width: "40vw" }}
                                     alt="event photo"
                                 />
                                 <h3
