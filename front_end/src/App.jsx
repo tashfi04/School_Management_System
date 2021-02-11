@@ -31,9 +31,9 @@ import LabTest from "./components/navbar_items/Result/LabTest";
 import ClassTest from "./components/navbar_items/Result/ClassTest";
 import PageNotFound from "./components/PageNotFound/PageNotFound";
 import Approval from "./components/navbar_items/profile/Approval";
+import ResetPassword from "./components/user_authentication/ResetPassword";
 
 library.add(far, fas, fab);
-
 
 function App() {
     return (
@@ -86,7 +86,10 @@ function App() {
                         component={NoticeDetails}
                     ></Route>
                     <Route path="/login/" component={Login}></Route>
-
+                    <Route
+                        path="/accounts/password/reset/confirm/:uid/:token/"
+                        component={ResetPassword}
+                    ></Route>
                     <Route
                         path="/profile/dashboard/"
                         component={Profile}
