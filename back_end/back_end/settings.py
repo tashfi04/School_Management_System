@@ -175,7 +175,7 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 #EMAIL_HOST_USER = os.environ.get('APP_EMAIL_USER')
 #EMAIL_HOST_PASSWORD = os.environ.get('APP_EMAIL_PASS')
-EMAIL_HOST_USER = "whyblankistaken@gmail.com"
-EMAIL_HOST_PASSWORD = "llrnecuoqscezmua"
+EMAIL_HOST_USER = "sust.school.test@gmail.com"
+EMAIL_HOST_PASSWORD = "fortesting"
 
 OLD_PASSWORD_FIELD_ENABLED = True

@@ -3,6 +3,7 @@ import { Form, Button, Container, Image, Row, Col } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import "./Login.css";
 import ShowToast from "./../ShowToast";
+import ResetEmail from './ResetEmail';
 
 const axios = require("axios");
 
@@ -15,6 +16,7 @@ export default class Login extends Component {
             password: "",
             logged_in: false,
             errors: "",
+            show: false
         };
     }
 
@@ -22,6 +24,12 @@ export default class Login extends Component {
         this.setState({
             errors:''
         });
+    }
+
+    showModal = () => {
+        this.setState({
+            show: !this.show,
+        })
     }
 
     handle_change = (e) => {
@@ -63,12 +71,26 @@ export default class Login extends Component {
                 });
             });
     };
+
+    email = () => {
+        this.setState({
+            show: !this.state.show,
+        })
+    }
+
     // backgroundColor: "#D8D7D7",
     render() {
         if (this.state.logged_in) return <Redirect to={{ pathname: "/" }} />;
         else {
             return (
                 <Row style={{ backgroundColor: "#D8D7D7" }}>
+                    {
+                        this.state.show ? (
+                            <ResetEmail />
+                        ) : (
+                            <></>
+                        )
+                    }
                     <Col sm={8} md={8} lg={8}>
                         <Image
                             src="../../assets/login.jpg"
@@ -114,7 +136,6 @@ export default class Login extends Component {
                                             onChange={this.handle_change}
                                         />
                                     </Form.Group>
-                                    <br />
                                     <Button variant="primary" type="submit">
                                         Submit
                                     </Button>
@@ -124,6 +145,7 @@ export default class Login extends Component {
                                 ) : (
                                     <React.Fragment></React.Fragment>
                                 )}
+                                <a href='javascript:void(0)' onClick={this.email} style={{float:'right'}}><u>Forget Password?</u></a>
                             </Container>
                         </div>
                     </Col>
