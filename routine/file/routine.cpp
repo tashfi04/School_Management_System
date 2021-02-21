@@ -24,7 +24,7 @@ int total_class_a_day[15];
 
 
 void generateTeacherQueue()
-{
+{.
     for(int i=0;i<number_of_class;i++){
         while(!teacherQueue[i].empty()){
             teacherQueue[i].pop();

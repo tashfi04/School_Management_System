@@ -120,7 +120,7 @@ function SelectedCurrentTabulation() {
                     </React.Fragment>
                 ))}
                 <td>{item.total_marks}</td>
-                <td>{item.total_GP}</td>
+                <td>{item.letter_grade}</td>
                 <td>{item.position}</td>
             </tr>
         ));
@@ -184,7 +184,7 @@ function SelectedCurrentTabulation() {
                                     <th rowSpan="2">Name</th>
                                     {ShowTableCol}
                                     <th>Total Marks</th>
-                                    <th>GPA</th>
+                                    <th>Letter Grade</th>
                                     <th>Position</th>
                                 </tr>
                                 <tr>

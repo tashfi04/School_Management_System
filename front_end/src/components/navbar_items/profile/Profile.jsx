@@ -40,8 +40,10 @@ function Profile() {
                             <br></br>
                             {localStorage.getItem("role") === "3" ? (
                                     <StudentShow />
-                            ) : (
+                            ) : localStorage.getItem("role") === "1" || localStorage.getItem("role") === "2" ? (
                                 <TeacherShow />
+                            ) : (
+                                <></>
                             )}
                             <hr ></hr>
                             <ChangePassword/>

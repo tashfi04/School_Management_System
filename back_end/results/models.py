@@ -4,8 +4,6 @@ from django.db.models import F
 from decimal import Decimal
 
 class TabulationSheet(models.Model):
-
-    #marksheet = models.ForeignKey(MarkSheet, on_delete=models.CASCADE, null=True)
     total_marks = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
     total_GP = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     GPA = models.DecimalField(max_digits=3, decimal_places=2, null=True, blank=True)
@@ -16,21 +14,13 @@ class TabulationSheet(models.Model):
     #result_published = models.BooleanField(default=False, blank=True)
 
     def save(self, *args, **kwargs):
-        # if not self._state.adding:
-        #     if self.marksheet_set.filter(letter_grade='F'):
-        #         self.GPA = 0.00
-        #     else:
-        #         self.GPA = self.total_GP / self.marksheet_set.exclude(exam__subject__subject_type=1).count()
-        #         if self.GPA > 5.00:
-        #             self.GPA = 5.00
-            #self.GPA = self.total_GP / MarkSheet.objects.filter(id=self.pk).exclude(marksheet__exam__subject__subject_type=1).count()
-
-        if self.marksheet_set.filter(letter_grade='F'):
+        if not self._state.adding:
+            if self.marksheet_set.filter(letter_grade='F'):
                 self.GPA = 0.00
-        else:
-            self.GPA = self.total_GP / self.marksheet_set.exclude(exam__subject__subject_type=1).count()
-            if self.GPA > 5.00:
-                self.GPA = 5.00
+            else:
+                self.GPA = self.total_GP / self.marksheet_set.exclude(exam__subject__subject_type=1).count()
+                if self.GPA > 5.00:
+                    self.GPA = 5.00
 
         if self.previous_CGPA:
             if self.previous_CGPA == 0.00:
@@ -166,7 +156,7 @@ def calculate_letter_grade(GP):
 
 def update_position(exam_type, related_class):
 
-    tabulation_sheets = TabulationSheet.objects.filter(marksheet__exam__exam_type_id=exam_type, marksheet__exam__related_class_id=related_class).order_by('-total_marks').distinct()
+    tabulation_sheets = TabulationSheet.objects.filter(marksheet__exam__exam_type_id=exam_type, marksheet__exam__related_class_id=related_class).order_by('letter_grade','-total_marks').distinct()
 
     for indx, item in enumerate(tabulation_sheets):
         item.position = indx + 1
