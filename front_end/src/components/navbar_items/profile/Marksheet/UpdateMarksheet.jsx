@@ -68,7 +68,7 @@ function UpdateMarksheet(props) {
                     <h6>{item.roll_no}</h6>
                 </td>
                 <td>
-                    <h6>{item.student.substr(0,item.student.length-item.student.match(/\d+/)[0].length)}</h6>
+                    <h6>{item.student}</h6>
                 </td>
 
                 <td>
