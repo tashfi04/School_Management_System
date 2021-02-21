@@ -24,7 +24,7 @@ class TabulationSheet(models.Model):
             else:
                 self.GPA = self.total_GP / self.marksheet_set.exclude(exam__subject__subject_type=1).count()
                 if self.GPA > 5.00:
-                    self.GPA = 5.00
+                    self.GPA = 5.00 
             #self.GPA = self.total_GP / MarkSheet.objects.filter(id=self.pk).exclude(marksheet__exam__subject__subject_type=1).count()
 
         if self.previous_CGPA:
@@ -45,7 +45,7 @@ def get_current_session():
 
     institution = Institution.objects.all().first()
 
-    print(institution.current_session)
+    #print(institution.current_session)
     return institution.current_session_id
 
 class MarkSheet(models.Model):
@@ -77,8 +77,8 @@ class MarkSheet(models.Model):
 
         GP_to_add = calculate_optional_subject_GP(Decimal(self.GP), self.exam.subject.subject_type)
 
-        tabulationsheet = TabulationSheet.objects.filter(marksheet__student_id=self.student, marksheet__exam__exam_type_id=self.exam.exam_type_id, marksheet__exam__related_class_id=self.exam.related_class_id).distinct()
-        previous_CGPA = TabulationSheet.objects.filter(marksheet__exam__exam_type__exam_order=self.exam.exam_type.exam_order - 1).values_list('current_CGPA', flat=True)
+        tabulationsheet = TabulationSheet.objects.filter(marksheet__student_id=self.student, marksheet__exam__exam_type_id=self.exam.exam_type_id, marksheet__exam__related_class_id=self.exam.related_class_id, marksheet__session=get_current_session()).distinct()
+        previous_CGPA = TabulationSheet.objects.filter(marksheet__student_id=self.student, marksheet__exam__exam_type__exam_order=self.exam.exam_type.exam_order - 1, marksheet__session=get_current_session()).values_list('current_CGPA', flat=True)
         if not previous_CGPA:
             previous_CGPA = [0]
 
@@ -98,8 +98,8 @@ class MarkSheet(models.Model):
         else:
             previous_marksheet = MarkSheet.objects.get(id=self.id)
             GP_to_substract = calculate_optional_subject_GP(previous_marksheet.GP, previous_marksheet.exam.subject.subject_type)
-            print(">>>>>>>>>>>>>>________________________<<<<<<<<<<<<<<<<<<")
-            print(GP_to_add, GP_to_substract)
+            #print(">>>>>>>>>>>>>>________________________<<<<<<<<<<<<<<<<<<")
+            #print(GP_to_add, GP_to_substract)
             tabulationsheet.update(total_marks=F('total_marks') - previous_marksheet.total_marks + self.total_marks)
             tabulationsheet.update(total_GP=F('total_GP') - GP_to_substract + GP_to_add)
             tabulationsheet.update(previous_CGPA=previous_CGPA[0])
