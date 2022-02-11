@@ -18,7 +18,7 @@
     "bootstrap": "^4.4.1",
     "html2canvas": "^1.0.0-rc.7",
     "jspdf": "^2.3.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "react": "^16.13.1",
     "react-bootstrap-dropdown": "^0.3.0",
     "react-bootstrap-sidebar": "0.0.1",
